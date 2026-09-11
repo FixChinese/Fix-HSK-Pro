@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống HSK 3.0 Pro - Chuyên sâu & Linh hoạt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- SIDEBAR BÊN TRÁI -->
+    <aside id="sidebar">
+        <!-- NÚT THƯƠNG HIỆU VỀ TRANG CHỦ -->
+        <div class="sidebar-brand" id="brand-home-btn" title="Nhấn để về trang chủ giới thiệu">
+            <h1 class="brand-fix">FIX</h1>
+            <span class="sub-hsk">HSK 3.0 Pro</span>
+        </div>
+
+        <!-- QUẢN LÝ USER: FIX CHINESE -->
+        <div class="user-profile-box">
+            <span class="user-icon">👤</span>
+            <div class="user-info">
+                <span class="user-label">Học viên:</span>
+                <input type="text" id="current-username" value="Fix Chinese" title="Nhấn để đổi tên user" autocomplete="off">
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <!-- Thẻ 1: Từ Vựng -->
+            <div class="sidebar-item-wrapper" id="wrap-vocab">
+                <a href="#" class="sidebar-btn" id="btn-vocab">
+                    <span class="icon">📚</span>
+                    <span class="text">Từ Vựng</span>
+                    <span class="arrow">›</span>
+                </a>
+                <div class="mega-dropdown" id="dropdown-vocab">
+                    <div class="drop-col">
+                        <h3>SƠ CẤP</h3>
+                        <a href="#" data-cat="word" data-level="HSK 1">HSK 1</a>
+                        <a href="#" data-cat="word" data-level="HSK 2">HSK 2</a>
+                        <a href="#" data-cat="word" data-level="HSK 3">HSK 3</a>
+                    </div>
+                    <div class="drop-col">
+                        <h3>TRUNG CẤP</h3>
+                        <a href="#" data-cat="word" data-level="HSK 4">HSK 4</a>
+                        <a href="#" data-cat="word" data-level="HSK 5">HSK 5</a>
+                        <a href="#" data-cat="word" data-level="HSK 6">HSK 6</a>
+                    </div>
+                    <div class="drop-col">
+                        <h3>CAO CẤP & CHUYÊN GIA</h3>
+                        <a href="#" data-cat="word" data-level="HSK 7">HSK 7</a>
+                        <a href="#" data-cat="word" data-level="HSK 8">HSK 8</a>
+                        <a href="#" data-cat="word" data-level="HSK 9">HSK 9</a>
+                        <a href="#" data-cat="word" data-level="HSK Cao cấp" class="highlight-adv">⭐ HSK Cao Cấp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thẻ 2: Ngữ pháp & câu văn -->
+            <div class="sidebar-item-wrapper" id="wrap-grammar">
+                <a href="#" class="sidebar-btn" id="btn-grammar">
+                    <span class="icon">✍️</span>
+                    <span class="text">Ngữ pháp & câu văn</span>
+                    <span class="arrow">›</span>
+                </a>
+                <div class="mega-dropdown" id="dropdown-grammar">
+                    <div class="drop-col">
+                        <h3>SƠ CẤP</h3>
+                        <a href="#" data-cat="sentence" data-level="HSK 1">HSK 1</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 2">HSK 2</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 3">HSK 3</a>
+                    </div>
+                    <div class="drop-col">
+                        <h3>TRUNG CẤP</h3>
+                        <a href="#" data-cat="sentence" data-level="HSK 4">HSK 4</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 5">HSK 5</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 6">HSK 6</a>
+                    </div>
+                    <div class="drop-col">
+                        <h3>CAO CẤP & CHUYÊN GIA</h3>
+                        <a href="#" data-cat="sentence" data-level="HSK 7">HSK 7</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 8">HSK 8</a>
+                        <a href="#" data-cat="sentence" data-level="HSK 9">HSK 9</a>
+                        <a href="#" data-cat="sentence" data-level="HSK Cao cấp" class="highlight-adv">⭐ HSK Cao Cấp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thẻ 3: Workout -->
+            <div class="sidebar-item-wrapper">
+                <a href="#" class="sidebar-btn" data-target="view-daily" id="btn-workout">
+                    <span class="icon">🎯</span>
+                    <span class="text">Workout</span>
+                </a>
+            </div>
+
+            <!-- Thẻ 4: Thống Kê -->
+            <div class="sidebar-item-wrapper">
+                <a href="#" class="sidebar-btn" data-target="view-stats" id="btn-stats">
+                    <span class="icon">📊</span>
+                    <span class="text">Thống Kê</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- KHU VỰC NỘI DUNG CHÍNH BÊN PHẢI -->
+    <main id="main-content">
+        <!-- VIEW TRANG CHỦ -->
+        <section id="view-home" class="app-view">
+            <div class="home-hero-card">
+                <div class="home-badge">🌟 Chào mừng đến với FIX HSK 3.0 Pro</div>
+                <h2>Hệ Thống Đào Tạo Tiếng Trung Khoa Học & Chuyên Sâu</h2>
+                <p class="home-desc">
+                    Được thiết kế dựa trên tư duy ngữ dụng học hiện đại. Hệ thống phân rã tri thức thành các tầng chuyên biệt 
+                    giúp người học không bị quá tải, ghi nhớ sâu và phản xạ tự nhiên trong mọi ngữ cảnh thực tế.
+                </p>
+
+                <!-- 3 THẺ HÀNG NGANG -->
+                <div class="home-cards-row">
+                    <div class="h-card" onclick="goToSection('vocab')">
+                        <div class="h-icon">📚</div>
+                        <h3>Từ Vựng</h3>
+                        <p>Cô lập ký tự, phân tích bộ thủ, Hán Việt và mở rộng cấp độ cận kề để xây dựng nền tảng vững chắc.</p>
+                        <span class="h-link">Khám phá ngay ➔</span>
+                    </div>
+
+                    <div class="h-card" onclick="goToSection('grammar')">
+                        <div class="h-icon">✍️</div>
+                        <h3>Ngữ pháp & Câu văn</h3>
+                        <p>Làm chủ cấu trúc câu và 'Góc Lão Sư' giải thích bản chất tư duy ngôn ngữ Việt - Trung.</p>
+                        <span class="h-link">Khám phá ngay ➔</span>
+                    </div>
+
+                    <div class="h-card" onclick="goToSection('workout')">
+                        <div class="h-icon">🎯</div>
+                        <h3>Workout Ngữ Cảnh</h3>
+                        <p>Rèn luyện phản xạ qua chuỗi hội thoại thực tế theo chủ đề với cơ chế ôn lùi thông minh.</p>
+                        <span class="h-link">Khám phá ngay ➔</span>
+                    </div>
+                </div>
+
+                <!-- TƯ VẤN SƯ PHẠM -->
+                <div class="pedagogy-consulting">
+                    <h3>💡 Phương pháp học tập tối ưu</h3>
+                    <div class="consult-grid">
+                        <div class="c-item">
+                            <h4>1. Từ Vựng Riêng Biệt</h4>
+                            <p>Cô lập hình ảnh, âm thanh và Pinyin trước khi lắp ghép vào câu.</p>
+                        </div>
+                        <div class="c-item">
+                            <h4>2. Ngữ Pháp & Câu Văn</h4>
+                            <p>Xử lý trật tự từ và các điểm khác biệt cấu trúc Việt - Trung.</p>
+                        </div>
+                        <div class="c-item">
+                            <h4>3. Workout Ngữ Cảnh</h4>
+                            <p>Thực chiến chuỗi hội thoại liên tục giúp tư duy phản xạ tự nhiên.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW HỌC CHÍNH (TỪ VỰNG & NGỮ PHÁP) -->
+        <section id="view-study" class="app-view hidden">
+            <div class="top-bar">
+                <h1 id="view-title">Học từ vựng HSK 3</h1>
+                <div class="controls-group">
+                    <span id="study-progress-counter" class="study-counter-pill">Tiến độ: 1 / 50</span>
+                    <button id="btn-config-session" class="btn-secondary">⚙️ Cài đặt số từ</button>
+                    <button id="btn-shuffle" class="btn-secondary">🔀 Trộn thẻ</button>
+                </div>
+            </div>
+
+            <!-- THANH THỐNG KÊ PHIÊN HỌC (CÓ ÔN TẬP MÀU CAM NỔI BẬT NẰM CẠNH Ô SAI) -->
+            <div class="session-stats-bar">
+                <div class="stat-pill">📈 Đã làm: <strong id="stat-total">0</strong></div>
+                <div class="stat-pill green">✅ Đúng: <strong id="stat-correct">0</strong></div>
+                <div class="stat-pill red">❌ Sai: <strong id="stat-wrong">0</strong></div>
+                <div class="stat-pill orange" id="btn-inline-review" title="Bấm để ôn tập ngay các từ chưa thuộc" style="cursor: pointer;">🔄 Ôn tập (<strong id="inline-mistake-count">0</strong>)</div>
+                <div class="stat-pill blue">🎯 Chính xác: <strong id="stat-accuracy">0%</strong></div>
+            </div>
+
+            <div class="progress-track"><div id="progress-fill" style="width: 0%;"></div></div>
+
+            <div id="flashcard-container">
+                <div class="card-front">
+                    <div class="card-top-info">
+                        <span id="level-badge" class="level-badge">HSK 3</span>
+                        <div id="question-header" class="question-header">HÃY GÕ HÁN TỰ CHO TỪ:</div>
+                    </div>
+                    <p id="meaning-display" class="meaning-text"></p>
+                    
+                    <div class="tools-wrapper">
+                        <button id="btn-hint" class="btn-tool">💡 Gợi ý Pinyin</button>
+                        <button id="btn-audio" class="btn-tool">🔊 Nghe phát âm</button>
+                        <span id="hint-display" class="hint-text hidden"></span>
+                    </div>
+
+                    <div class="input-container" id="input-section">
+                        <input type="text" id="user-input" placeholder="Nhập câu trả lời..." autocomplete="off">
+                    </div>
+                    
+                    <div id="answer-reveal-box" class="hidden">
+                        <div id="hanzi-display" class="hanzi-large"></div>
+                        <div id="pinyin-display" class="pinyin-sub"></div>
+                    </div>
+                </div>
+                
+                <div id="explanation-box" class="hidden">
+                    <div class="academic-info">
+                        <span class="info-badge">Hán Việt: <strong id="hanviet-display"></strong></span>
+                        <span class="info-badge">Bộ thủ: <strong id="radical-display"></strong></span>
+                        <span class="info-badge">Từ loại: <strong id="wordtype-display"></strong></span>
+                    </div>
+                    
+                    <div class="expansion-box" id="expansion-container">
+                        <strong>🌐 Mở rộng ý nghĩa & Cấp độ cận kề:</strong>
+                        <p id="expansion-text"></p>
+                    </div>
+
+                    <div class="explanation-grid">
+                        <div class="example-box">
+                            <strong>📖 Ví dụ:</strong>
+                            <div id="example-content"></div>
+                        </div>
+                        <div class="teacher-corner">
+                            <strong>👨‍🏫 Góc Lão Sư:</strong>
+                            <p id="grammar-display"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-footer">
+                <button id="btn-check" class="btn btn-primary">Kiểm tra Đáp án (Enter)</button>
+                <button id="btn-next" class="btn btn-primary hidden">Tiếp tục ➔ (Enter)</button>
+            </div>
+        </section>
+
+        <!-- VIEW WORKOUT -->
+        <section id="view-daily" class="app-view hidden">
+            <div class="top-bar"><h1>🎯 Mục tiêu Hằng ngày (Workout Ngữ Cảnh)</h1></div>
+            
+            <div class="panel-box" id="daily-setup-panel">
+                <h3>Tùy chỉnh phiên ôn tập chuỗi tình huống & ngữ cảnh (Ôn lùi cấp độ):</h3>
+                <div class="config-grid">
+                    <div>
+                        <label>Chọn cấp độ ôn lùi (Khóa từ từ cấp này trở về dưới):</label>
+                        <select id="daily-level" class="form-select">
+                            <option value="ALL">Toàn bộ HSK 3.0 (1-9)</option>
+                            <option value="HSK 1">HSK 1</option>
+                            <option value="HSK 2">HSK 2</option>
+                            <option value="HSK 3" selected>HSK 3</option>
+                            <option value="HSK 4">HSK 4</option>
+                            <option value="HSK 5">HSK 5</option>
+                            <option value="HSK 6">HSK 6</option>
+                            <option value="HSK 7">HSK 7</option>
+                            <option value="HSK 8">HSK 8</option>
+                            <option value="HSK 9">HSK 9</option>
+                            <option value="HSK Cao cấp">⭐ HSK Cao Cấp</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Hình thức ôn tập (Chiều dịch):</label>
+                        <select id="daily-mode" class="form-select">
+                            <option value="V2C">Việt ➔ Trung (Dịch câu/tình huống)</option>
+                            <option value="C2V">Trung ➔ Việt (Hiểu nghĩa ngữ cảnh)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Chọn Khung cảnh / Chủ đề hội thoại:</label>
+                        <select id="daily-topic" class="form-select">
+                            <option value="work">💼 Đi làm / Công sở (Thảo luận công việc, họp lớp)</option>
+                            <option value="outing">🌳 Dã ngoại / Đi chơi (Hoạt động ngoài trời, du lịch)</option>
+                            <option value="study">📚 Học tập / Trường lớp (Giảng đường, thi cử)</option>
+                            <option value="daily">☕ Đời sống hằng ngày (Mua sắm, ăn uống, gia đình)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Số lượng câu trong chuỗi câu chuyện:</label>
+                        <select id="daily-count" class="form-select">
+                            <option value="5">5 câu</option>
+                            <option value="25" selected>25 câu</option>
+                            <option value="50">50 câu</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="btn-start-daily" class="btn btn-primary" style="margin-top: 20px;">Bắt đầu Chinh phục Chuỗi Ôn Lùi ➔</button>
+            </div>
+
+            <div id="daily-quiz-panel" class="panel-box hidden">
+                <div class="quiz-progress-bar-wrap">
+                    <span id="quiz-progress-text" class="progress-counter-badge">Tiến độ: Câu 1 / 50</span>
+                </div>
+                <div class="question-card">
+                    <div id="quiz-context-banner" class="context-banner">📌 Chủ đề: Công sở & Đi làm</div>
+                    <div id="quiz-direction" class="quiz-tag">Dịch câu trong đoạn hội thoại:</div>
+                    <p id="quiz-question-text" class="quiz-prompt"></p>
+                    
+                    <div class="input-container">
+                        <input type="text" id="quiz-text-input" class="form-input" placeholder="Nhập câu trả lời bằng tiếng Trung..." autocomplete="off">
+                    </div>
+
+                    <div id="quiz-feedback" class="hidden"></div>
+
+                    <div class="quiz-footer" style="margin-top: 20px;">
+                        <button id="quiz-btn-submit" class="btn btn-primary">Nộp bài & Kiểm tra</button>
+                        <button id="quiz-btn-next" class="btn btn-primary hidden">Câu tiếp theo trong chuỗi ➔</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW THỐNG KÊ -->
+        <section id="view-stats" class="app-view hidden">
+            <div class="top-bar"><h1>📊 Thống kê cá nhân hóa</h1></div>
+            <div class="panel-box">
+                <div class="user-stats-card">
+                    <h3>👤 Hồ sơ học tập của: <span id="stats-username-display" style="color: #16a34a;">Fix Chinese</span></h3>
+                    <div class="stats-grid-box">
+                        <div class="s-box"><span>Tổng số từ đã học:</span> <strong id="user-total-learned">0</strong></div>
+                        <div class="s-box"><span>Số câu trả lời đúng:</span> <strong id="user-total-correct" style="color: #16a34a;">0</strong></div>
+                        <div class="s-box"><span>Số câu trả lời sai:</span> <strong id="user-total-wrong" style="color: #dc2626;">0</strong></div>
+                        <div class="s-box"><span>Tỷ lệ chính xác:</span> <strong id="user-total-acc">0%</strong></div>
+                    </div>
+                    <button id="btn-reset-user-stats" class="btn-secondary" style="margin-top: 20px;">🔄 Làm mới dữ liệu thống kê user này</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MASCOT VỊT HOẠT HÌNH -->
+    <div id="mascot-wrapper">
+        <div id="water-splash" class="hidden">
+            <div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div>
+        </div>
+        <div id="hearts-burst" class="hidden">
+            <span class="flying-heart">❤️</span><span class="flying-heart">💖</span><span class="flying-heart">💗</span>
+        </div>
+        <div id="duck-container" class="duck-idle">
+            <svg viewBox="0 0 140 140" width="110" height="110">
+                <ellipse cx="70" cy="95" rx="38" ry="32" fill="#ffe600" stroke="#222" stroke-width="3"/>
+                <circle cx="45" cy="92" r="10" fill="#ff99bb" opacity="0.7"/>
+                <circle cx="95" cy="92" r="10" fill="#ff99bb" opacity="0.7"/>
+                <circle cx="52" cy="80" r="4.5" fill="#222"/><circle cx="88" cy="80" r="4.5" fill="#222"/>
+                <circle cx="50" cy="78" r="1.5" fill="white"/><circle cx="86" cy="78" r="1.5" fill="white"/>
+                <path d="M 60 88 Q 70 82 80 88 Q 85 96 70 98 Q 55 96 60 88 Z" fill="#ff9900" stroke="#222" stroke-width="2.5"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- MODAL CẤU HÌNH SỐ LƯỢNG -->
+    <div id="session-config-modal" class="modal-overlay hidden">
+        <div class="modal-content" id="modal-inner-content">
+            <h2>⚙️ Cấu hình Phiên học</h2>
+            <p>Chọn số lượng muốn học trong phiên:</p>
+            <div class="batch-options-grid">
+                <button class="batch-btn" data-batch="25">25 mục</button>
+                <button class="batch-btn" data-batch="50">50 mục</button>
+                <button class="batch-btn" data-batch="75">75 mục</button>
+                <button class="batch-btn" data-batch="100">100 mục</button>
+                <button class="batch-btn" data-batch="125">125 mục</button>
+                <button class="batch-btn" data-batch="150">150 mục</button>
+                <button class="batch-btn" data-batch="175">175 mục</button>
+                <button class="batch-btn" data-batch="200">200 mục</button>
+                <button class="batch-btn" data-batch="ALL" style="grid-column: span 2;">Toàn bộ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
