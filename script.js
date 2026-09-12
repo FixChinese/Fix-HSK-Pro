@@ -4,7 +4,7 @@ let currentIndex = 0;
 let currentCategory = 'word';
 let currentLevel = 'HSK 1';
 let currentBatchSize = 50;
-let hanziiWriters = []; // Mảng chứa hiệu ứng vẽ chữ Hán
+let hanziiWriters = []; 
 
 let mistakeList = [];
 let isReviewingMistakes = false;
@@ -74,14 +74,19 @@ function updateSessionStatsUI() {
     const totalElem = document.getElementById('stat-total'); if (totalElem) totalElem.innerText = sessionStats.total;
     const corElem = document.getElementById('stat-correct'); if (corElem) corElem.innerText = sessionStats.correct;
     const wrgElem = document.getElementById('stat-wrong'); if (wrgElem) wrgElem.innerText = sessionStats.wrong;
-    const mCount = document.getElementById('inline-mistake-count'); if (mCount) mCount.innerText = mistakeList.length;
+    
     const accElem = document.getElementById('stat-accuracy');
     const acc = sessionStats.total === 0 ? 0 : Math.round((sessionStats.correct / sessionStats.total) * 100);
     if (accElem) accElem.innerText = `${acc}%`;
 
     const btnReview = document.getElementById('btn-inline-review');
     if (btnReview) {
-        if (mistakeList.length > 0) btnReview.classList.remove('hidden'); else btnReview.classList.add('hidden');
+        if (mistakeList.length > 0) {
+            btnReview.classList.remove('hidden');
+            document.getElementById('inline-mistake-count').innerText = mistakeList.length;
+        } else {
+            btnReview.classList.add('hidden');
+        }
     }
 }
 
@@ -106,7 +111,7 @@ function initSmartMenu() {
     let hoverTimeout = null;
 
     function openDesktop() { if (window.innerWidth > 768) { clearTimeout(hoverTimeout); floatingMenu.classList.remove('hidden'); } }
-    function closeDesktop() { if (window.innerWidth > 768) { hoverTimeout = setTimeout(() => { floatingMenu.classList.add('hidden'); }, 350); } }
+    function closeDesktop() { if (window.innerWidth > 768) { hoverTimeout = setTimeout(() => { floatingMenu.classList.add('hidden'); }, 1500); } }
 
     menuWrapper.addEventListener('mouseenter', openDesktop);
     menuWrapper.addEventListener('mouseleave', closeDesktop);
@@ -130,7 +135,7 @@ function initSmartMenu() {
     document.getElementById('card-stats').onclick = () => { renderUserStatsView(); showView('view-stats'); floatingMenu.classList.add('hidden'); };
 }
 
-function initUserManagement() { /* Bỏ qua chi tiết lặp lại để tiết kiệm token, giữ nguyên như cũ */ }
+function initUserManagement() { /* Bỏ qua chi tiết lặp lại để giữ code ngắn gọn */ }
 
 function showView(viewId) {
     document.querySelectorAll('.app-view').forEach(v => v.classList.add('hidden'));
@@ -143,7 +148,7 @@ function goToSection(type) {
     else if (type === 'workout') { showView('view-daily'); document.getElementById('daily-setup-panel').classList.remove('hidden'); document.getElementById('daily-quiz-panel').classList.add('hidden'); }
 }
 
-// KHỐI WORKOUT (Giữ nguyên logic chấm điểm chuẩn xác)
+// KHỐI WORKOUT (Giữ nguyên)
 function initWorkoutModule() {
     document.getElementById('btn-start-daily').onclick = () => {
         workoutConfig.level = document.getElementById('daily-level').value;
@@ -153,7 +158,6 @@ function initWorkoutModule() {
         workoutConfig.count = parseInt(document.getElementById('daily-count').value);
         generateWorkoutSet();
     };
-    // ... các nút khác của workout giữ nguyên
 }
 
 function generateWorkoutSet() {
@@ -175,15 +179,14 @@ function generateWorkoutSet() {
         while (tempArr.length < workoutConfig.count) { tempArr = tempArr.concat(shuffleArray(pool)); }
         currentWorkoutSet = tempArr.slice(0, workoutConfig.count);
     } else { currentWorkoutSet = pool.slice(0, workoutConfig.count); }
-    // Render Workout HTML...
+    // Render HTML (Bỏ qua phần HTML tạo bảng để tiết kiệm)
+    document.getElementById('daily-setup-panel').classList.add('hidden');
+    document.getElementById('daily-quiz-panel').classList.remove('hidden');
 }
 
-// BÀI HỌC FLASHCARD CỐT LÕI
-document.getElementById('btn-refresh').onclick = () => { filterAndLoadData(); };
-
-function filterAndLoadData() {
+// BÀI HỌC FLASHCARD (SỰ KHÁC BIỆT GIỮA TỪ VỰNG VÀ NGỮ PHÁP)
+window.filterAndLoadData = function() {
     if (isReviewingMistakes) return;
-
     sessionStats = { total: 0, correct: 0, wrong: 0 };
     mistakeList = [];
     updateSessionStatsUI();
@@ -206,16 +209,15 @@ function loadStudyCard() {
     document.getElementById('study-progress-counter').innerText = `Tiến độ: ${currentList.length === 0 ? 0 : (currentIndex + 1)} / ${currentList.length}`;
     updateSessionStatsUI();
 
-    // MÀN HÌNH HOÀN THÀNH (ĐÃ BỔ SUNG CÁC NÚT ĐIỀU HƯỚNG)
     if(currentList.length === 0 || currentIndex >= currentList.length) {
         container.innerHTML = `
             <div class="end-session-box">
                 <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
-                <h3>Bạn đã hoàn thành toàn bộ danh sách thẻ học!</h3>
-                <p style="color: #64748b; margin-bottom: 25px;">Hãy chọn thao tác tiếp theo để duy trì nhịp độ học tập nhé.</p>
+                <h3>Bạn đã hoàn thành xuất sắc bài học này!</h3>
+                <p style="color: #64748b; margin-bottom: 25px; font-size: 15px;">Hãy chọn bước tiếp theo để duy trì nhịp độ học tập nhé.</p>
                 <div class="end-actions">
-                    <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 12px 24px;">🔄 Học lại từ đầu</button>
-                    <button onclick="document.getElementById('session-config-modal').classList.remove('hidden')" class="btn-secondary" style="width: auto; padding: 12px 24px;">⚙️ Chọn số lượng thẻ khác</button>
+                    <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 12px 24px;">🔄 Học lại bộ mới</button>
+                    <button onclick="document.getElementById('session-config-modal').classList.remove('hidden')" class="btn-secondary" style="width: auto; padding: 12px 24px;">⚙️ Đổi số lượng</button>
                 </div>
             </div>
         `;
@@ -226,43 +228,32 @@ function loadStudyCard() {
     }
 
     const item = currentList[currentIndex];
+    
+    // Giao diện mặt trước khác nhau tùy theo TỪ VỰNG hay CÂU VĂN
+    let promptHtml = '';
+    if (currentCategory === 'word') {
+        promptHtml = `<p class="meaning-text">${item.meaning_vn}</p>`;
+    } else {
+        promptHtml = `<p class="grammar-prompt">${item.meaning_vn}</p>`;
+    }
+
     container.innerHTML = `
         <div class="card-front">
             <div class="card-top-info">
                 <span id="level-badge" class="level-badge">${item.level}</span>
-                <div class="question-header">${currentCategory === 'word' ? 'TỪ VỰNG - HÃY GÕ CHỮ HÁN HOẶC PINYIN:' : 'NGỮ PHÁP - HÃY DỊCH HOẶC GÕ CÂU:'}</div>
+                <div class="question-header">${currentCategory === 'word' ? 'TỪ VỰNG - GÕ HÁN TỰ / PINYIN:' : 'NGỮ PHÁP - DỊCH HOẶC GÕ CÂU:'}</div>
             </div>
-            <p class="meaning-text">${item.meaning_vn}</p>
+            ${promptHtml}
             <div class="tools-wrapper">
                 <button id="btn-hint" class="btn-tool">💡 Bật mí Pinyin</button>
-                <button id="btn-audio" class="btn-tool">🔊 Phát âm</button>
+                <button id="btn-audio" class="btn-tool">🔊 Nghe phát âm</button>
                 <span id="hint-display" class="hint-text hidden">(${item.pinyin})</span>
             </div>
             <div class="input-container">
-                <input type="text" id="user-input" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
+                <input type="text" id="user-input" placeholder="${currentCategory === 'word' ? 'Nhập Hán tự hoặc Pinyin...' : 'Nhập Hán tự...'}" autocomplete="off">
             </div>
             <div id="answer-reveal-box" class="hidden"></div>
-        </div>
-        <div id="explanation-box" class="hidden">
-            <div class="academic-info">
-                <span class="info-badge">Hán Việt: <strong>${item.han_viet || 'N/A'}</strong></span>
-                <span class="info-badge">Bộ thủ: <strong>${item.radical || 'N/A'}</strong></span>
-                <span class="info-badge">Từ loại: <strong>${item.word_type || 'N/A'}</strong></span>
-            </div>
-            <div class="expansion-box">
-                <strong>🌐 Mở rộng ý nghĩa & Ngữ dụng:</strong>
-                <p style="margin-top: 6px;">${item.expansion || 'Đang cập nhật...'}</p>
-            </div>
-            <div class="explanation-grid">
-                <div class="example-box">
-                    <strong>📖 Câu ví dụ thực tế:</strong>
-                    <div style="margin-top: 8px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
-                </div>
-                <div class="teacher-corner">
-                    <strong>👨‍🏫 Góc Lão Sư:</strong>
-                    <p style="margin-top: 8px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
-                </div>
-            </div>
+            <div id="explanation-box" class="hidden"></div>
         </div>
     `;
 
@@ -308,69 +299,116 @@ document.getElementById('btn-check').addEventListener('click', () => {
 
     saveLifetimeStats(); updateSessionStatsUI();
     
-    // BUILD KHU VỰC HIỂN THỊ ĐÁP ÁN SO SÁNH VÀ VẼ CHỮ
-    let drawAreaHtml = '';
-    if(currentCategory === 'word' && item.hanzi.length <= 4) {
-        // Tạo container cho việc vẽ nét Hán tự
-        let charDivs = '';
-        for(let i=0; i<item.hanzi.length; i++) {
-            charDivs += `<div id="char-target-${i}" class="hanzi-char-box"></div>`;
-        }
-        drawAreaHtml = `
-            <div class="reveal-right">
-                <div id="draw-cover" class="draw-cover-layer">
-                    <span style="font-size:24px; margin-bottom:5px;">✍️</span>
-                    <h4>Bạn có biết cách viết?</h4>
-                    <p>Bấm để xem bút thuận</p>
-                </div>
-                <div id="hanzi-drawing-board">${charDivs}</div>
-            </div>
-        `;
-    }
+    const revealBox = document.getElementById('answer-reveal-box');
+    const expBox = document.getElementById('explanation-box');
 
     let warningHtml = result.warning ? `<div style="margin-top: 15px; padding: 12px 16px; background: #fffbeb; border: 1px solid #fde047; border-radius: 10px; color: #854d0e; font-size: 14.5px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
 
-    const revealBox = document.getElementById('answer-reveal-box');
-    revealBox.innerHTML = `
-        <div class="dual-pane-reveal">
-            <div class="reveal-left">
-                <div style="font-size: 14px; color: #64748b; margin-bottom: 12px;">Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Bỏ trống]'}</strong></div>
-                <div class="hanzi-large">${item.hanzi}</div>
-                <div class="pinyin-sub">${item.pinyin}</div>
+    // KIẾN TRÚC MẶT SAU TÁCH BIỆT CHO TỪ VỰNG VÀ NGỮ PHÁP
+    if (currentCategory === 'word') {
+        let drawAreaHtml = '';
+        if(item.hanzi.length <= 4) {
+            let charDivs = '';
+            for(let i=0; i<item.hanzi.length; i++) {
+                charDivs += `<div id="char-target-${i}" class="hanzi-char-box"></div>`;
+            }
+            drawAreaHtml = `
+                <div class="reveal-right">
+                    <div id="draw-cover" class="draw-cover-layer">
+                        <span style="font-size:24px; margin-bottom:5px;">✍️</span>
+                        <h4>Bạn có biết cách viết?</h4>
+                        <p>Bấm để xem bút thuận</p>
+                    </div>
+                    <div id="hanzi-drawing-board">${charDivs}</div>
+                </div>
+            `;
+        }
+
+        revealBox.innerHTML = `
+            <div class="dual-pane-reveal">
+                <div class="reveal-left">
+                    <div style="font-size: 14px; color: #64748b; margin-bottom: 12px;">Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Bỏ trống]'}</strong></div>
+                    <div class="hanzi-large">${item.hanzi}</div>
+                    <div class="pinyin-sub">${item.pinyin}</div>
+                    ${warningHtml}
+                </div>
+                ${drawAreaHtml}
+            </div>
+        `;
+
+        // Tạo danh sách nghĩa mở rộng nếu có dùng ký tự \n hoặc \n-
+        let formattedExpansion = item.expansion.replace(/\n/g, '<br>• ');
+        if(!formattedExpansion.startsWith('•')) formattedExpansion = '• ' + formattedExpansion;
+
+        expBox.innerHTML = `
+            <div class="academic-info">
+                <span class="info-badge">Hán Việt: <strong>${item.han_viet || 'N/A'}</strong></span>
+                <span class="info-badge">Bộ thủ: <strong>${item.radical || 'N/A'}</strong></span>
+                <span class="info-badge">Từ loại: <strong>${item.word_type || 'N/A'}</strong></span>
+            </div>
+            <div class="expansion-box">
+                <strong style="color: #b45309;">🌐 Đa tầng Nghĩa & Ngữ dụng:</strong>
+                <div style="margin-top: 10px;">${formattedExpansion}</div>
+            </div>
+            <div class="explanation-grid">
+                <div class="example-box">
+                    <strong style="color: #1d4ed8;">📖 Ví dụ thực tế:</strong>
+                    <div style="margin-top: 8px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
+                </div>
+                <div class="teacher-corner">
+                    <strong style="color: #047857;">👨‍🏫 Góc Lão Sư:</strong>
+                    <p style="margin-top: 8px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
+                </div>
+            </div>
+        `;
+
+        revealBox.classList.remove('hidden');
+        expBox.classList.remove('hidden');
+
+        // KÍCH HOẠT VẼ CHỮ
+        if(item.hanzi.length <= 4) {
+            const cover = document.getElementById('draw-cover');
+            cover.onclick = () => {
+                cover.style.display = 'none';
+                hanziiWriters = [];
+                for(let i=0; i<item.hanzi.length; i++) {
+                    let char = item.hanzi.charAt(i);
+                    let writer = HanziWriter.create(`char-target-${i}`, char, {
+                        width: 80, height: 80, padding: 5, strokeColor: '#15803d', delayBetweenStrokes: 100, showOutline: true
+                    });
+                    hanziiWriters.push(writer);
+                }
+                const animateSequence = async () => { for(let writer of hanziiWriters) { await writer.animateCharacter(); } };
+                animateSequence();
+            };
+        }
+    } 
+    // GIAO DIỆN CHUYÊN CHO NGỮ PHÁP (Tập trung vào phân tích tư duy)
+    else {
+        revealBox.innerHTML = `
+            <div class="grammar-reveal-box">
+                <div style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Bạn đã dịch: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Bỏ trống]'}</strong></div>
+                <div class="g-sentence-large">${item.hanzi}</div>
+                <div class="g-pinyin">${item.pinyin}</div>
                 ${warningHtml}
             </div>
-            ${drawAreaHtml}
-        </div>
-    `;
+        `;
 
-    revealBox.classList.remove('hidden');
-    document.getElementById('explanation-box').classList.remove('hidden');
+        expBox.innerHTML = `
+            <div class="grammar-analysis-box">
+                <h4>🧠 Tư duy Ngôn ngữ & Mẹo Phản xạ:</h4>
+                <p>${item.goc_lao_su}</p>
+            </div>
+        `;
+
+        revealBox.classList.remove('hidden');
+        expBox.classList.remove('hidden');
+    }
+
     document.getElementById('btn-check').classList.add('hidden');
     document.getElementById('btn-next').classList.remove('hidden');
     document.getElementById('btn-next').focus();
     document.getElementById('progress-fill').style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
-
-    // KHỞI TẠO VÀ CHẠY HIỆU ỨNG VẼ CHỮ NẾU LÀ TỪ VỰNG
-    if(currentCategory === 'word' && item.hanzi.length <= 4) {
-        const cover = document.getElementById('draw-cover');
-        cover.onclick = () => {
-            cover.style.display = 'none'; // Ẩn cover khi bấm
-            hanziiWriters = [];
-            for(let i=0; i<item.hanzi.length; i++) {
-                let char = item.hanzi.charAt(i);
-                // Tạo writer cho từng chữ
-                let writer = HanziWriter.create(`char-target-${i}`, char, {
-                    width: 80, height: 80, padding: 5, strokeColor: '#15803d', delayBetweenStrokes: 50, showOutline: true
-                });
-                hanziiWriters.push(writer);
-            }
-            // Animate tuần tự từng chữ
-            const animateSequence = async () => {
-                for(let writer of hanziiWriters) { await writer.animateCharacter(); }
-            };
-            animateSequence();
-        };
-    }
 });
 
 document.getElementById('btn-next').addEventListener('click', () => { currentIndex++; loadStudyCard(); });
@@ -379,6 +417,8 @@ document.getElementById('btn-inline-review').onclick = () => {
     if (mistakeList.length === 0) { alert("Tuyệt vời! Bạn chưa có câu nào làm sai trong phiên này."); return; }
     isReviewingMistakes = true; currentList = shuffleArray([...mistakeList]); currentIndex = 0; loadStudyCard();
 };
+
+document.getElementById('btn-refresh').onclick = () => { filterAndLoadData(); };
 
 function initModalEvents() {
     document.getElementById('btn-config-session').onclick = () => document.getElementById('session-config-modal').classList.remove('hidden');
