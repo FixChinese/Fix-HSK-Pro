@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FIX HSK 3.0 Pro - Nền Tảng Học Tiếng Trung Chuyên Sâu</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body>
     <div id="menu-overlay-backdrop" class="menu-overlay-backdrop"></div>
@@ -18,7 +19,6 @@
                     <span class="bar"></span>
                 </button>
 
-                <!-- BẢNG THẺ MENU THẢ NỔI -->
                 <div id="floating-nav-card" class="floating-menu hidden">
                     <div class="floating-menu-header">
                         <span class="menu-header-title">DANH MỤC HỌC TẬP</span>
@@ -39,7 +39,6 @@
                             <span class="c-title">Trang Chủ Hệ Thống</span>
                         </div>
 
-                        <!-- THẺ TỪ VỰNG -->
                         <div class="nav-card-item has-sub" id="card-vocab">
                             <span class="c-icon">📚</span>
                             <span class="c-title">Từ Vựng HSK 3.0</span>
@@ -55,11 +54,9 @@
                                 <a href="#" data-cat="word" data-level="HSK 7" class="hsk-tag-789">HSK 7</a>
                                 <a href="#" data-cat="word" data-level="HSK 8" class="hsk-tag-789">HSK 8</a>
                                 <a href="#" data-cat="word" data-level="HSK 9" class="hsk-tag-789">HSK 9</a>
-                                <a href="#" data-cat="word" data-level="HSK Cao cấp" class="hsk-tag-gold">⭐ HSK 7-9 Toàn Diện</a>
                             </div>
                         </div>
 
-                        <!-- THẺ NGỮ PHÁP -->
                         <div class="nav-card-item has-sub" id="card-grammar">
                             <span class="c-icon">✍️</span>
                             <span class="c-title">Ngữ pháp & Câu văn</span>
@@ -75,7 +72,6 @@
                                 <a href="#" data-cat="sentence" data-level="HSK 7" class="hsk-tag-789">HSK 7</a>
                                 <a href="#" data-cat="sentence" data-level="HSK 8" class="hsk-tag-789">HSK 8</a>
                                 <a href="#" data-cat="sentence" data-level="HSK 9" class="hsk-tag-789">HSK 9</a>
-                                <a href="#" data-cat="sentence" data-level="HSK Cao cấp" class="hsk-tag-gold">⭐ Cấu trúc Cao Cấp</a>
                             </div>
                         </div>
 
@@ -104,7 +100,6 @@
     </header>
 
     <main id="app-workspace">
-        <!-- 1. TRANG CHỦ -->
         <section id="view-home" class="app-view">
             <div class="home-hero-card">
                 <div class="home-badge">🌟 Nền Tảng Chuẩn Khung HSK 3.0 Mới Nhất</div>
@@ -117,7 +112,7 @@
                     <div class="h-card" onclick="goToSection('vocab')">
                         <div class="h-icon">📚</div>
                         <h3>Từ Vựng Độc Lập</h3>
-                        <p>Cô lập chữ Hán, phân tích bộ thủ, âm Hán Việt và mở rộng từ vựng chuẩn.</p>
+                        <p>Cô lập chữ Hán, phân tích bộ thủ, âm Hán Việt và học viết nét chữ trực tiếp.</p>
                         <span class="h-link">Học từ vựng ➔</span>
                     </div>
 
@@ -138,7 +133,6 @@
             </div>
         </section>
 
-        <!-- 2. VIEW HỌC CHÍNH (TỪ VỰNG / NGỮ PHÁP) -->
         <section id="view-study" class="app-view hidden">
             <div class="top-bar">
                 <h1 id="view-title">Học từ vựng HSK 1</h1>
@@ -150,7 +144,6 @@
                 </div>
             </div>
 
-            <!-- BỘ ĐẾM RIÊNG CỦA PHIÊN HỌC HIỆN TẠI -->
             <div class="session-stats-bar">
                 <div class="stat-pill">📈 Đã làm: <strong id="stat-total">0</strong></div>
                 <div class="stat-pill green">✅ Đúng: <strong id="stat-correct">0</strong></div>
@@ -167,7 +160,6 @@
                 <button id="btn-next" class="btn btn-primary hidden">Tiếp tục ➔ (Enter)</button>
             </div>
             
-            <!-- NÚT ÔN TẬP ĐƯỢC CHUYỂN XUỐNG DƯỚI ĐỂ KHÔNG GÂY RỐI -->
             <div style="margin-top: 16px; text-align: center;">
                 <button id="btn-inline-review" class="btn-secondary hidden" style="width: 100%; max-width: 460px; border-color: #fdba74; color: #c2410c; background: #fff7ed; padding: 12px; font-size: 15px;">
                     🔄 Ôn tập lại các câu sai (<span id="inline-mistake-count">0</span>)
@@ -175,7 +167,6 @@
             </div>
         </section>
 
-        <!-- 3. VIEW WORKOUT NGỮ CẢNH -->
         <section id="view-daily" class="app-view hidden">
             <div class="top-bar">
                 <h1>🎯 Workout Ngữ Cảnh Chuyên Sâu</h1>
@@ -187,14 +178,16 @@
                     <div>
                         <label>1. Cấp độ trọng tâm:</label>
                         <select id="daily-level" class="form-select">
-                            <option value="HSK 1" selected>HSK 1 (Sơ cấp chuẩn)</option>
-                            <option value="HSK 2">HSK 2 (Bao gồm ôn lùi HSK 1)</option>
-                            <option value="HSK 3">HSK 3 (Bao gồm ôn lùi HSK 1, 2)</option>
+                            <option value="HSK 1" selected>HSK 1</option>
+                            <option value="HSK 2">HSK 2</option>
+                            <option value="HSK 3">HSK 3</option>
                             <option value="HSK 4">HSK 4</option>
                             <option value="HSK 5">HSK 5</option>
                             <option value="HSK 6">HSK 6</option>
-                            <option value="HSK Cao cấp">⭐ HSK Cao Cấp (7-9)</option>
-                            <option value="ALL">Toàn bộ HSK 3.0 (HSK 1 - 9)</option>
+                            <option value="HSK 7">HSK 7</option>
+                            <option value="HSK 8">HSK 8</option>
+                            <option value="HSK 9">HSK 9</option>
+                            <option value="ALL">Toàn bộ HSK 3.0</option>
                         </select>
                     </div>
                     <div>
@@ -237,7 +230,7 @@
                 </div>
                 <button id="btn-start-daily" class="btn btn-primary" style="margin-top: 15px;">Khởi tạo bài luyện tập ➔</button>
                 <p style="font-size: 13px; color: #16a34a; margin-top: 12px; font-style: italic; line-height: 1.5; font-weight: 600;">
-                    * Lưu ý: Trang web sẽ tận dụng toàn bộ từ vựng từ HSK bạn chọn và tự động quay trở lại các HSK trước đó để có đủ từ ngữ tạo nên câu chuyện và ngữ cảnh thực tế nhất.
+                    * Trang web tự động dùng từ vựng của HSK bạn chọn và lùi lại các HSK trước đó để tạo ngữ cảnh thực tế nhất.
                 </p>
             </div>
 
@@ -256,7 +249,6 @@
             </div>
         </section>
 
-        <!-- 4. VIEW THỐNG KÊ TÍCH LŨY TRỌN ĐỜI -->
         <section id="view-stats" class="app-view hidden">
             <div class="top-bar"><h1>📊 Thống kê tích lũy người dùng</h1></div>
             <div class="panel-box">
@@ -274,7 +266,6 @@
         </section>
     </main>
 
-    <!-- MODAL NỘP BÀI UYỂN CHUYỂN -->
     <div id="workout-decision-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <div style="font-size: 34px; margin-bottom: 10px;">🎯</div>
@@ -308,7 +299,6 @@
         </div>
     </div>
 
-    <!-- MODAL CẤU HÌNH SỐ LƯỢNG THẺ -->
     <div id="session-config-modal" class="modal-overlay hidden">
         <div class="modal-content" id="modal-inner-content" style="width: 380px;">
             <h2 style="font-size: 18px; color: #14532d; margin-bottom: 10px;">⚙️ Cấu hình Số Lượng Thẻ</h2>
@@ -319,12 +309,11 @@
                 <button class="batch-btn btn-secondary" data-batch="30">30 thẻ</button>
                 <button class="batch-btn btn-secondary" data-batch="50">50 thẻ</button>
                 <button class="batch-btn btn-secondary" data-batch="100">100 thẻ</button>
-                <button class="batch-btn btn-secondary" data-batch="ALL" style="background: #dcfce7; font-weight: 800; grid-column: span 2;">Toàn bộ cấp độ</button>
+                <button class="batch-btn btn-secondary" data-batch="ALL" style="background: #dcfce7; font-weight: 800;">Toàn bộ cấp độ</button>
             </div>
         </div>
     </div>
 
-    <!-- MASCOT VỊT -->
     <div id="mascot-wrapper">
         <div id="water-splash" class="hidden">
             <div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div>
