@@ -162,21 +162,31 @@ function initSmartMenu() {
     if (toggleBtn) {
         toggleBtn.onclick = (e) => {
             e.stopPropagation();
-            floatingMenu.classList.toggle('hidden');
-            if (backdrop) backdrop.classList.toggle('active', !floatingMenu.classList.contains('hidden'));
+            const isHidden = floatingMenu.classList.contains('hidden');
+            if (isHidden) {
+                floatingMenu.classList.remove('hidden');
+                setTimeout(() => floatingMenu.classList.add('mobile-active'), 10);
+                if (backdrop) backdrop.classList.add('active');
+            } else {
+                floatingMenu.classList.remove('mobile-active');
+                setTimeout(() => floatingMenu.classList.add('hidden'), 350);
+                if (backdrop) backdrop.classList.remove('active');
+            }
         };
     }
 
     if (closeBtn) {
         closeBtn.onclick = () => {
-            floatingMenu.classList.add('hidden');
+            floatingMenu.classList.remove('mobile-active');
+            setTimeout(() => floatingMenu.classList.add('hidden'), 350);
             if (backdrop) backdrop.classList.remove('active');
         };
     }
 
     if (backdrop) {
         backdrop.onclick = () => {
-            floatingMenu.classList.add('hidden');
+            floatingMenu.classList.remove('mobile-active');
+            setTimeout(() => floatingMenu.classList.add('hidden'), 350);
             backdrop.classList.remove('active');
         };
     }
@@ -190,8 +200,13 @@ function initSmartMenu() {
             showView('view-study');
             document.getElementById('view-title').innerText = `${currentCategory === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${currentLevel}`;
             filterAndLoadData();
-            if (window.innerWidth <= 768 && closeBtn) closeBtn.click(); else floatingMenu.classList.add('hidden');
-            if (backdrop) backdrop.classList.remove('active');
+            if (window.innerWidth <= 768) {
+                floatingMenu.classList.remove('mobile-active');
+                setTimeout(() => floatingMenu.classList.add('hidden'), 350);
+                if (backdrop) backdrop.classList.remove('active');
+            } else {
+                floatingMenu.classList.add('hidden');
+            }
         };
     });
 
@@ -199,13 +214,31 @@ function initSmartMenu() {
     if (brandBtn) brandBtn.onclick = () => showView('view-home');
     
     const cardHome = document.getElementById('card-home');
-    if (cardHome) cardHome.onclick = () => { showView('view-home'); floatingMenu.classList.add('hidden'); if (backdrop) backdrop.classList.remove('active'); };
+    if (cardHome) cardHome.onclick = () => { 
+        showView('view-home'); 
+        floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
+        if (backdrop) backdrop.classList.remove('active'); 
+    };
     
     const cardWorkout = document.getElementById('card-workout');
-    if (cardWorkout) cardWorkout.onclick = () => { showView('view-daily'); document.getElementById('daily-setup-panel').classList.remove('hidden'); document.getElementById('daily-quiz-panel').classList.add('hidden'); floatingMenu.classList.add('hidden'); if (backdrop) backdrop.classList.remove('active'); };
+    if (cardWorkout) cardWorkout.onclick = () => { 
+        showView('view-daily'); 
+        document.getElementById('daily-setup-panel').classList.remove('hidden'); 
+        document.getElementById('daily-quiz-panel').classList.add('hidden'); 
+        floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
+        if (backdrop) backdrop.classList.remove('active'); 
+    };
     
     const cardStats = document.getElementById('card-stats');
-    if (cardStats) cardStats.onclick = () => { renderUserStatsView(); showView('view-stats'); floatingMenu.classList.add('hidden'); if (backdrop) backdrop.classList.remove('active'); };
+    if (cardStats) cardStats.onclick = () => { 
+        renderUserStatsView(); 
+        showView('view-stats'); 
+        floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
+        if (backdrop) backdrop.classList.remove('active'); 
+    };
 }
 
 function initUserManagement() {
@@ -311,16 +344,16 @@ function generateWorkoutSet() {
         const placeholderText = (workoutConfig.mode === 'V2C') ? 'Nhập Hán tự hoặc câu tiếng Trung tương ứng...' : 'Nhập nghĩa tiếng Việt hoặc dịch nghĩa...';
         
         html += `
-            <div class="workout-item-card" data-index="${idx}">
-                <div class="wi-header">
-                    <span class="wi-num">Câu ${idx + 1} (${item.level})</span>
-                    <span class="wi-topic">Chủ đề: ${item.topic}</span>
+            <div class="workout-item-card" data-index="${idx}" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:14px;">
+                <div class="wi-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span class="wi-num" style="font-size:12px; font-weight:800; color:#15803d; background:#dcfce7; padding:4px 10px; border-radius:6px;">Câu ${idx + 1} (${item.level})</span>
+                    <span class="wi-topic" style="font-size:13px; font-weight:700; color:#64748b;">Chủ đề: ${item.topic}</span>
                 </div>
-                <div class="wi-prompt"><strong>Yêu cầu:</strong> ${promptText}</div>
+                <div class="wi-prompt" style="font-size:16px; font-weight:800; color:#0f172a; margin-bottom:12px; line-height:1.5;"><strong>Yêu cầu:</strong> ${promptText}</div>
                 <div class="wi-input-row">
-                    <input type="text" class="workout-user-input form-control" placeholder="${placeholderText}" autocomplete="off">
+                    <input type="text" class="workout-user-input form-control" style="width:100%; padding:12px 14px; border:2px solid #cbd5e1; border-radius:8px; font-size:16px; color:#14532d; font-weight:600;" placeholder="${placeholderText}" autocomplete="off">
                 </div>
-                <div class="wi-feedback hidden"></div>
+                <div class="wi-feedback hidden" style="margin-top:12px; padding:14px; border-radius:8px; font-size:14.5px; line-height:1.5;"></div>
             </div>
         `;
     });
@@ -628,7 +661,6 @@ function initModalEvents() {
     if (btnGrade) {
         btnGrade.onclick = () => {
             document.getElementById('workout-decision-modal').classList.add('hidden');
-            // Chấm điểm hiển thị kết quả chi tiết
             const cards = document.querySelectorAll('.workout-item-card');
             cards.forEach((card, idx) => {
                 const input = card.querySelector('.workout-user-input');
@@ -639,8 +671,14 @@ function initModalEvents() {
                     const evalRes = evaluateAnswerQuality(val, targetItem.hanzi, targetItem.pinyin);
                     feedback.classList.remove('hidden');
                     if (evalRes.isCorrect) {
+                        feedback.style.background = '#dcfce7';
+                        feedback.style.color = '#14532d';
+                        feedback.style.border = '1px solid #86efac';
                         feedback.innerHTML = `<span style="color: #16a34a; font-weight: bold;">✅ Chính xác!</span> Đáp án mẫu: <strong>${targetItem.hanzi}</strong> (${targetItem.pinyin}) - <em>${targetItem.meaning_vn}</em>`;
                     } else {
+                        feedback.style.background = '#fee2e2';
+                        feedback.style.color = '#991b1b';
+                        feedback.style.border = '1px solid #fca5a5';
                         feedback.innerHTML = `<span style="color: #dc2626; font-weight: bold;">❌ Chưa chính xác.</span> Đáp án chuẩn: <strong>${targetItem.hanzi}</strong> (${targetItem.pinyin})<br>💡 <em>${targetItem.goc_lao_su || ''}</em>`;
                     }
                 }
