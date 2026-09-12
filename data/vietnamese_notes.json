@@ -1,0 +1,22 @@
+{
+  "notes_metadata": {
+    "description": "Kho Đa tầng nghĩa & Mẹo Góc Lão Sư bổ trợ cho hệ thống HSK 3.0",
+    "target": "Vietnamese learners"
+  },
+  "items": [
+    {
+      "id": "note_001",
+      "level": "HSK 1-2",
+      "keyword": "想",
+      "multilevel_meaning": "1. Trợ động từ: Muốn, dự định (想去北京). 2. Động từ biểu cảm: Nhớ nhung (我很想家). 3. Động từ tư duy: Suy nghĩ, cân nhắc (让我想一想).",
+      "lao_shi_tip": "Người Việt dùng một từ 'Nhớ' cho cả nhớ nhung và ghi nhớ, nhưng tiếng Trung tách bạch tuyệt đối: Nhớ nhung dùng '想', ghi nhớ bằng não bộ dùng '记住'."
+    },
+    {
+      "id": "note_002",
+      "level": "HSK 1-3",
+      "keyword": "好",
+      "multilevel_meaning": "1. Tính từ: Tốt, khỏe, ngon (天气很好). 2. Bổ ngữ kết quả (V + 好): Hoàn tất, xong xuôi (准备好). 3. Phó từ khẩu ngữ: Rất, quá (好冷).",
+      "lao_shi_tip": "Khi đứng sau động từ như 做好, 好 không dịch là 'tốt' mà chỉ trạng thái hoàn tất: 'làm xong rồi'."
+    }
+  ]
+}

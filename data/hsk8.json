@@ -1,0 +1,75 @@
+[
+  {
+    "id": "h8_w_001",
+    "category": "word",
+    "level": "HSK 8",
+    "topic": "study",
+    "hanzi": "任重道远",
+    "pinyin": "rènzhòngdàoyuǎn",
+    "han_viet": "Nhậm trọng đạo viễn",
+    "radical": "走 (Tẩu - 7 nét). Chiết tự giải mã hình tượng: Chữ 任 (nhậm: gánh vác), 重 (trọng: nặng nề), 道 (đạo: con đường đi), 远 (viễn: xa xôi). Ý nghĩa hình tượng: Gánh nặng trên vai thì vô cùng lớn lao, trong khi con đường hành trình phía trước lại kéo dài vạn dặm xa xôi, đòi hỏi sự kiên trì bền bỉ.",
+    "word_type": "Tính từ / Thành ngữ",
+    "meaning_vn": "Trách nhiệm nặng nề và đường đi còn rất dài",
+    "expansion": "• Trường hợp 1 (Miêu tả sứ mệnh lịch sử hoặc nhiệm vụ quốc gia): 实现全面现代化依然任重道远 (Hiện thực hóa hiện đại hóa toàn diện vẫn còn gánh nặng đường dài).\n• Trường hợp 2 (Nhiệm vụ cá nhân trong sự nghiệp hoặc giáo dục): 培育优秀人才任重道远 (Bồi dưỡng nhân tài ưu tú là sứ mệnh trọng trách dài lâu).\n• Cụm kết hợp cố định (Collocations): 任务任重道远 (nhiệm vụ trọng trách lâu dài), 革命尚未成功，同志仍需努力，任重道远.",
+    "examples": [
+      {
+        "cn": "实现 完全 的 现代化，我们 依然 任重道远。",
+        "py": "Shíxiàn wánquán de xiàndàihuà, wǒmen yīrán rènzhòngdàoyuǎn.",
+        "vn": "Để thực hiện hóa sự hiện đại hóa hoàn toàn, chúng ta vẫn gánh vác trọng trách nặng nề và đường đi còn rất dài."
+      },
+      {
+        "cn": "推动 科技 创新 是 一 项 任重道远 的 任务。",
+        "py": "Tuīdòng kējì chuàngxīn shì yī xiàng rènzhòngdàoyuǎn de rènwù.",
+        "vn": "Thúc đẩy đổi mới khoa học công nghệ là một nhiệm vụ có trách nhiệm nặng nề và đường dài phía trước."
+      }
+    ],
+    "goc_lao_su": "VĂN PHONG CHÍNH LUẬN HSK 7-9: Thành ngữ 4 chữ này thường xuất hiện trong các bài phát biểu chính trị, báo cáo kinh tế vĩ mô hoặc các bài luận văn nghiên cứu khoa học chuyên sâu, dùng để đánh giá khách quan về một quá trình dài hạn đầy thử thách và chông gai."
+  },
+  {
+    "id": "h8_w_002",
+    "category": "word",
+    "level": "HSK 8",
+    "topic": "work",
+    "hanzi": "独具匠心",
+    "pinyin": "dújùjiàngxīn",
+    "han_viet": "Độc cụ tượng tâm",
+    "radical": "工 (Công - 3 nét). Chiết tự giải mã hình tượng: Chữ 独 (độc: duy nhất), 具 (cụ: có sẵn, trang bị), 匠 (tượng: thợ thủ công khéo léo), 心 (tâm: tâm trí, sự sáng tạo). Ý nghĩa hình tượng: Một mình sở hữu sự tinh xảo, tài hoa và tâm huyết độc đáo của người thợ bậc thầy, không lẫn với bất kỳ ai.",
+    "word_type": "Tính từ / Thành ngữ",
+    "meaning_vn": "Mang tính nghệ thuật độc đáo, công phu, khéo léo mang dấu ấn sáng tạo riêng",
+    "expansion": "• Trường hợp 1 (Miêu tả tác phẩm nghệ thuật, kiến trúc, thiết kế): 这座建筑的设计独具匠心 (Thiết kế của tòa kiến trúc này vô cùng độc đáo tinh xảo).\n• Trường hợp 2 (Miêu tả ý tưởng, phương án kinh doanh sáng tạo): 他的方案独具匠心 (Phương án của anh ấy mang dấu ấn sáng tạo riêng biệt).\n• Cụm kết hợp cố định (Collocations): 构思独具匠心 (ý tưởng cấu tứ độc đáo), 设计独具匠心 (thiết kế tinh xảo độc đáo).",
+    "examples": [
+      {
+        "cn": "这 件 艺术品 的 雕刻 独具匠心，令 人 叹为观止。",
+        "py": "Zhè jiàn yìshùpǐn de diāokè dújùjiàngxīn, lìng rén tànwéiguānzhǐ.",
+        "vn": "Điêu khắc của tác phẩm nghệ thuật này vô cùng độc đáo tinh xảo, khiến người ta phải trầm trồ khen ngợi."
+      },
+      {
+        "cn": "晚会 的 舞台 布置 独具匠心，给 观众 带来了 惊喜。",
+        "py": "Wǎnhuì de wǎitái bùzhì dújùjiàngxīn, gěi guānzhòng dài lái le jīngxǐ.",
+        "vn": "Cách bố trí sân khấu của buổi tối hội độc đáo tinh xảo, mang lại bất ngờ lớn cho khán giả."
+      }
+    ],
+    "goc_lao_su": "ỨNG DỤNG THỰC TIỄN HSK 8: Từ '匠心' (tâm huyết của người thợ bậc thầy) kết hợp với '独具' (riêng có) tạo thành cụm từ biểu dương cao nhất dành cho các sản phẩm sáng tạo, thiết kế hoặc văn hóa có chiều sâu nghệ thuật và tính thẩm mỹ cao."
+  },
+  {
+    "id": "h8_s_001",
+    "category": "sentence",
+    "level": "HSK 8",
+    "topic": "study",
+    "hanzi": "在 经济 全球化 的 大 背景 下，各国 只有 加强 合作，才 能 实现 互利 共赢。",
+    "pinyin": "Zài jīngjì quánqiúhuà de dà bèijǐng xià, gèguó zhǐyǒu jiāqiáng hézuò, cái néng shíxiàn hùlì gòngyíng.",
+    "han_viet": "Tại kinh tế toàn cầu hóa đích đại bối cảnh hạ, các quốc chỉ hữu gia cường hợp tác, tài năng thực hiện hỗ lợi cộng vinh.",
+    "radical": "N/A",
+    "word_type": "Câu chính luận cao cấp",
+    "meaning_vn": "Trong bối cảnh lớn của toàn cầu hóa kinh tế, các nước chỉ có cách tăng cường hợp tác thì mới có thể hiện thực hóa sự cùng có lợi và phát triển thịnh vượng.",
+    "expansion": "Cấu trúc chính luận cấp cao: Mở đầu bằng cấu trúc không gian vĩ mô '在...的大背景下' (Trong bối cảnh lớn của...), kết hợp với cặp điều kiện tất yếu '只有... 才能...' (Chỉ có... thì mới...) và thuật ngữ kinh tế đối ngoại '互利共赢' (hợp tác cùng có lợi).",
+    "examples": [
+      {
+        "cn": "在 科技 迅猛 发展 的 大 背景 下，企业 必须 不断 进行 技术 创新。",
+        "py": "Zài kējì xùnměng fāzhǎn de dà bèijǐng xià, qǐyè bìxū búduàn jìnxíng jìshù chuàngxīn.",
+        "vn": "Trong bối cảnh khoa học công nghệ phát triển vũ bão, các doanh nghiệp bắt buộc phải không ngừng tiến hành đổi mới công nghệ."
+      }
+    ],
+    "goc_lao_su": "VĂN PHONG VIẾT LUẬN HSK 8-9: Mẫu câu này là một 'khung xương sống' hoàn hảo cho phần mở bài hoặc kết luận của các bài luận văn xã hội, kinh tế trong kỳ thi năng lực HSK cấp độ chuyên gia."
+  }
+]

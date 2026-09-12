@@ -1,0 +1,122 @@
+[
+  {
+    "id": "h6_w_001",
+    "category": "word",
+    "level": "HSK 6",
+    "topic": "work",
+    "hanzi": "敷衍",
+    "pinyin": "fūyǎn",
+    "han_viet": "Phu diễn",
+    "radical": "攵 (Phộc - 4 nét). Chiết tự giải mã hình tượng: Chữ 敷 (phu: trải rộng ra, bôi đắp bề mặt) kết hợp với chữ 衍 (diễn: lan tràn, trôi chảy qua loa). Ý nghĩa hình tượng: Làm việc gì đó một cách hời hợt, bôi bác cho xong chuyện ở bề ngoài mà không hề đầu tư tâm sức hay trách nhiệm thực sự bên trong.",
+    "word_type": "Động từ / Tính từ",
+    "meaning_vn": "Làm qua loa, chiếu lệ, đối phó",
+    "expansion": "• Trường hợp 1 (Thái độ làm việc/học tập hời hợt): 敷衍了事 (làm qua loa cho xong chuyện), 工作敷衍 (làm việc đối phó).\n• Trường hợp 2 (Đối xử với người khác không chân thành): 对待客户 敷衍塞责 (đối phó trách nhiệm với khách hàng).\n• Cụm kết hợp cố định (Collocations): 敷衍塞责 (đối phó trốn tránh trách nhiệm), 决不敷衍 (quyết không làm qua loa).",
+    "examples": [
+      {
+        "cn": "他 做 事 总 是 敷 衍 了 事，从 不 认 真 负 责。",
+        "py": "Tā zuòshì zǒngshì fūyǎn liǎoshì, cóng bù rènzhēn fùzé.",
+        "vn": "Anh ấy làm việc lúc nào cũng qua loa cho xong chuyện, chưa từng nghiêm túc chịu trách nhiệm."
+      },
+      {
+        "cn": "对 待 学 习 绝 不 能 有 敷 衍 的 态 度。",
+        "py": "Duìdài xuéxí jué bù néng yǒu fūyǎn de tàidù.",
+        "vn": "Đối với việc học tuyệt đối không thể có thái độ chiếu lệ, đối phó."
+      }
+    ],
+    "goc_lao_su": "SẮC THÁI HỌC THUẬT HSK 6: '敷衍' là từ vựng cấp cao chuyên dùng trong môi trường công sở hoặc văn phong phê bình để chỉ thái độ làm việc kém chất lượng, thiếu tâm huyết. Tiếng Việt thường dịch là 'qua loa', 'chiếu lệ' hoặc 'làm cho có lệ'."
+  },
+  {
+    "id": "h6_w_002",
+    "category": "word",
+    "level": "HSK 6",
+    "topic": "daily",
+    "hanzi": "尴尬",
+    "pinyin": "gāngà",
+    "han_viet": "Cám cả / Câm khái",
+    "radical": "尢 (Ương - 3 nét). Chiết tự giải mã hình tượng: Cả hai chữ đều mang bộ Uông/Ương 尢 (dáng đi khập khiễng, què quặt) kết hợp với chữ 九 và 甘. Hình tượng bước chân lỡ làng, tình thế tiến thoái lưỡng nan, đứng ngồi không yên, rơi vào hoàn cảnh khó xử trước mặt người khác.",
+    "word_type": "Tính từ",
+    "meaning_vn": "Ngượng ngùng, khó xử, lúng túng",
+    "expansion": "• Trường hợp 1 (Tình thế khó xử): 局面尴尬 (cục diện khó xử), 处境尴尬 (hoàn cảnh tiến thoái lưỡng nan).\n• Trường hợp 2 (Cảm xúc cá nhân ngượng ngùng): 感到尴尬 (cảm thấy ngượng ngùng), 尴尬的笑 (nụ cười gượng gạo).\n• Cụm kết hợp cố định (Collocations): 尴尬 Vẻ mặt ngượng ngùng, 破解尴尬 (giải tỏa sự ngượng ngùng).",
+    "examples": [
+      {
+        "cn": "他 问 的 这 个 问 题 让 我 觉 得 很 尴尬。",
+        "py": "Tā wèn de zhège wèntí ràng wǒ juéde hěn gāngà.",
+        "vn": "Câu hỏi mà anh ấy vừa hỏi khiến tôi cảm thấy rất ngượng ngùng, khó xử."
+      },
+      {
+        "cn": "为 了 避 免 场 面 尴 尬，他 主 动 找 了 个 话 题。",
+        "py": "Wèile bìmiǎn chǎngmiàn gāngà, tā zhǔdòng zhǎo le gè huàtí.",
+        "vn": "Để tránh hiện trường khó xử, anh ấy chủ động bắt chuyện một chủ đề."
+      }
+    ],
+    "goc_lao_su": "PHẢN XẠ NGỮ DỤNG: Trong đời sống hiện đại Trung Quốc, '尴尬' là từ siêu cửa miệng để miêu tả cảm giác 'cười ra nước mắt' khi gặp một tình huống trớ trêu (ví dụ: chào nhầm người, quên kéo khóa quần...). Khác với '害羞' (hẹn hò e thẹn), '尴尬' mang tính khách quan của hoàn cảnh tạo ra sự lúng túng."
+  },
+  {
+    "id": "h6_w_003",
+    "category": "word",
+    "level": "HSK 6",
+    "topic": "study",
+    "hanzi": "琢磨",
+    "pinyin": "zuómo",
+    "han_viet": "Trác ma",
+    "radical": "玉 (Ngọc - 5 nét). Chiết tự giải mã hình tượng: Chữ 琢 (trác: đục đẽo ngọc) kết hợp với chữ 磨 (ma: mài giũa đá). Ý nghĩa gốc: Dùng công cụ mài giũa, đục đẽo ngọc thô thành ngọc quý. Nghĩa chuyển trong tâm lý: Suy nghĩ đắn đo, nghiền ngẫm, gọt giũa từng ý tưởng trong đầu.",
+    "word_type": "Động từ",
+    "meaning_vn": "Nghiền ngẫm, suy nghĩ đắn đo, ngẫm nghĩ",
+    "expansion": "• Trường hợp 1 (Suy nghĩ, nghiên cứu kỹ lưỡng một vấn đề): 琢磨问题 (nghiền ngẫm vấn đề), 琢磨计划 (suy tính kế hoạch).\n• Trường hợp 2 (Đoán ý đồ người khác): 琢磨他 的心思 (đoán xem anh ta đang nghĩ gì).\n• Cụm kết hợp cố định (Collocations): 细细琢磨 (nghiền ngẫm kỹ càng), 难以琢磨 (khó lòng đoán định/khó hiểu).",
+    "examples": [
+      {
+        "cn": "这 件 事 情 我 琢 磨 了 好 几 天 也没 想 出 办 法。",
+        "py": "Zhè jiàn shìqing wǒ zuómo le hǎo jǐ tiān yě méi xiǎng chū bànfǎ.",
+        "vn": "Việc này tôi đã nghiền ngẫm đắn đo mấy ngày trời mà vẫn chưa nghĩ ra cách giải quyết."
+      },
+      {
+        "cn": "他 的 心 思 太 难 琢 磨 了。",
+        "py": "Tā de xīnsī tài nán zuómo le.",
+        "vn": "Tâm tư của anh ấy thật khó lòng mà đoán định/nghiền ngẫm cho thấu đáo."
+      }
+    ],
+    "goc_lao_su": "LƯU Ý PHÁT ÂM: Khi mang nghĩa 'suy nghĩ, đắn đo, nghiền ngẫm', chữ '磨' đọc nhẹ thành thanh nhẹ (zhuómo). Nếu đọc là 'zhuómó' (thanh 2) thì lại mang nghĩa gốc là hành động đục đẽo, mài giũa ngọc thô theo nghĩa đen."
+  },
+  {
+    "id": "h6_s_001",
+    "category": "sentence",
+    "level": "HSK 6",
+    "topic": "work",
+    "hanzi": "凡 事 都 要 设 身 处 地 地 为 别 人 着 想。",
+    "pinyin": "Fánshì dōu yào shèshēnhǔdì de wèi biérén zhǎoxiǎng.",
+    "han_viet": "Phàm sự đô yếu thiết thân xứ địa địa vị biệt nhân trứ tưởng.",
+    "radical": "N/A",
+    "word_type": "Câu danh ngôn / Thành ngữ ứng dụng",
+    "meaning_vn": "Mọi việc đều phải đặt mình vào hoàn cảnh của người khác mà suy nghĩ.",
+    "expansion": "Câu chứa thành ngữ cao cấp '设身处地' (thiết thân xử địa - đặt mình vào vị trí của người khác). Diễn tả phong cách ứng xử thấu cảm, đạo đức trong giao tiếp xã hội cấp cao.",
+    "examples": [
+      {
+        "cn": "处 理 纠 纷 时，我 们 应 该 设 身 处 地 地 为 双 方 考 虑。",
+        "py": "Chǔlǐ jiūfēn shí, wǒmen yīnggāi shèshēnhǔdì de wèi shuāngfāng kǎolǜ.",
+        "vn": "Khi xử lý tranh chấp, chúng ta nên đặt mình vào hoàn cảnh của cả hai bên để cân nhắc."
+      }
+    ],
+    "goc_lao_su": "VĂN PHONG CHÍNH LUẬN: Thành ngữ '设身处地' kết hợp với cấu trúc '为...着想' (vì ai đó mà suy tính) là mẫu câu ăn điểm tuyệt đối trong phần thi Viết luận (Writing) của kỳ thi HSK 6 khi bạn bàn về chủ đề đạo đức, lòng nhân ái hoặc kỹ năng lãnh đạo."
+  },
+  {
+    "id": "h6_s_002",
+    "category": "sentence",
+    "level": "HSK 6",
+    "topic": "study",
+    "hanzi": "尽 管 面 临 巨 大 的 挑 战，他 依 然 镇 定 自 若。",
+    "pinyin": "Jǐnguǎn miànlín jùdà de tiǎozhàn, tā yīrán zhèndìng zìruò.",
+    "han_viet": "Tẫn quản diện lâm cự đại đích khiêu chiến, tha y nhiên trấn định tự nhược.",
+    "radical": "N/A",
+    "word_type": "Câu phức nhượng bộ cao cấp",
+    "meaning_vn": "Mặc dù đối mặt với thách thức to lớn, anh ấy vẫn bình tĩnh tự nhiên.",
+    "expansion": "Cấu trúc nhượng bộ cao cấp: 尽管 [Vế 1 - Khó khăn bủa vây] , 依然 / 仍然 [Vế 2 - Giữ vững phong độ/trạng thái không đổi]. Kết hợp thành ngữ '镇定自若' (trấn định tự nhược - bình tĩnh, không hề nao núng).",
+    "examples": [
+      {
+        "cn": "在 危 急 关 头，他 依 然 能 保 持 镇 定 自 若。",
+        "py": "Zài wēijí guānt tóu, tā yīrán néng bǎochí zhèndìng zìruò.",
+        "vn": "Vào thời khắc nguy cấp, anh ấy vẫn có thể duy trì được sự bình tĩnh, tự nhiên không chút hoảng loạn."
+      }
+    ],
+    "goc_lao_su": "TƯ DUY KẾT HỢP HỌC THUẬT: Từ '尽管' (mặc dù) ở cấp độ HSK 6 có cấu trúc tương đương với 虽然, nhưng trang trọng hơn. Vế sau thường đi kèm các phó từ chỉ sự kiên định như '依然', '始终', '始终如一' để tôn lên phẩm chất của nhân vật."
+  }
+]

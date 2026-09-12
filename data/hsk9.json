@@ -1,0 +1,75 @@
+[
+  {
+    "id": "h9_w_004",
+    "category": "word",
+    "level": "HSK 9",
+    "topic": "study",
+    "hanzi": "鞭辟入里",
+    "pinyin": "biān pì rù lǐ",
+    "han_viet": "Biên tích nhập lý",
+    "radical": "韦 (Vi - 9 nét). Chiết tự giải mã hình tượng: Chữ 鞭 (biên: roi da đánh ngựa), 辟 (tích: vạch rõ, khai mở), 入 (nhập: đi vào), 里 (lý: bên trong, cốt tủy). Ý nghĩa hình tượng: Dùng roi quất sâu vào tận bên trong cốt tủy, miêu tả sự phân tích, nghiên cứu hoặc phê bình cực kỳ sâu sắc, thấu đáo đến tận cùng bản chất vấn đề.",
+    "word_type": "Tính từ / Thành ngữ",
+    "meaning_vn": "Sâu sắc, thấu đáo, chạm đến tận cốt tủy",
+    "expansion": "• Trường hợp 1 (Miêu tả bài viết, lời bình luận hoặc lý luận sắc sảo): 分析问题鞭辟入里 (Phân tích vấn đề vô cùng sâu sắc, thấu đáo).\n• Trường hợp 2 (Miêu tả nội dung tác phẩm nghệ thuật/triết học): 见解鞭辟入里 (Kiến giải thấu triệt bản chất).\n• Cụm kết hợp cố định (Collocations): 论述鞭辟入里 (luận bàn sâu sắc thấu đáo).",
+    "examples": [
+      {
+        "cn": "这 篇 文 章 对 社 会 现 象 的 分 析 鞭辟入里，引 人 深 思。",
+        "py": "Zhè piān wénzhāng duì shèhuì xiànxiàng de fēnxī biānpìrùlǐ, yǐn rén shēnsī.",
+        "vn": "Bài viết này phân tích hiện tượng xã hội vô cùng sâu sắc thấu đáo, khiến người ta phải suy ngẫm sâu xa."
+      },
+      {
+        "cn": "老 教 授 的 讲 评 鞭辟入里，让 学 生 们 茅 塞 开 朗。",
+        "py": "Lǎojiàoshòu de jiǎngpíng biānpìrùlǐ, ràng xuéshengmen máosè kāilǎn.",
+        "vn": "Lời nhận xét bình luận của vị giáo sư vô cùng sâu sắc thấu đáo, khiến các học sinh bỗng chốc thông suốt."
+      }
+    ],
+    "goc_lao_su": "VĂN PHONG HSK 9: Thành ngữ '鞭辟入里' dùng để ca ngợi tư duy đỉnh cao, khả năng nhìn thấu bản chất vấn đề mà người thường dễ bỏ qua. Thường xuất hiện trong văn bản phê bình văn học hoặc triết học."
+  },
+  {
+    "id": "h9_w_005",
+    "category": "word",
+    "level": "HSK 9",
+    "topic": "study",
+    "hanzi": "醍醐灌顶",
+    "pinyin": "tí hú guàn dǐng",
+    "han_viet": "Đề hồ quán đảnh",
+    "radical": "酉 (Dậu - 7 nét). Chiết tự giải mã hình tượng: 醍醐 (đề hồ: loại bơ sữa tinh chất thượng hạng thời cổ đại, ví như tinh hoa trí tuệ), 灌 (quán: rót, tưới xuống), 顶 (đỉnh: đỉnh đầu). Ý nghĩa hình tượng: Đem dòng sữa bơ tinh túy rót thẳng lên đỉnh đầu, miêu tả cảm giác chợt bừng tỉnh, ngộ ra chân lý sau khi được ai đó điểm hóa.",
+    "word_type": "Động từ / Thành ngữ",
+    "meaning_vn": "Chợt bừng tỉnh, ngộ ra chân lý, khai sáng tâm trí",
+    "expansion": "• Trường hợp 1 (Miêu tả trạng thái bừng tỉnh sau khi nghe lời khuyên/lời giảng): 听了 他 的 话，真 有 如 醍醐灌顶 (Nghe lời anh ấy nói, quả thực như được khai sáng tâm trí).\n• Trường hợp 2 (Sự giác ngộ trong tư tưởng, nghệ thuật): 让人 醍醐灌顶 的 启发 (Sự gợi mở khiến người ta bừng tỉnh ngộ).\n• Cụm kết hợp cố định (Collocations): 犹如醍醐灌顶 (giống như được rót cam lộ khai sáng trí tuệ).",
+    "examples": [
+      {
+        "cn": "老 师 的 一 番 话 让 我 醍醐灌顶，终 于 明 白 了 自 己 的 误 区。",
+        "py": "Lǎoshī de yī fān huà ràng wǒ tíhúguàndǐng, zhōngyú míngbái le zìjǐ de wùqū.",
+        "vn": "Những lời của thầy giáo đã khiến tôi bừng tỉnh ngộ, cuối cùng cũng hiểu rõ sai lầm của chính mình."
+      },
+      {
+        "cn": "读 完 这 本 书，我 有 一 种 醍醐灌顶 的 感 觉。",
+        "py": "Dú wán zhè běn shū, wǒ yǒu yī zhǒng tíhúguàndǐng de gǎnjué.",
+        "vn": "Đọc xong cuốn sách này, tôi có cảm giác như được khai sáng tâm trí."
+      }
+    ],
+    "goc_lao_su": "SẮC THÁI BIỂU ĐẠT: '醍醐灌顶' là thành ngữ gốc Phật giáo, nay dùng rộng rãi trong văn học và đời sống để biểu thị khoảnh khắc 'Aha moment' – vỡ lẽ ra vấn đề một cách sâu sắc sau khi u mê."
+  },
+  {
+    "id": "h9_s_003",
+    "category": "sentence",
+    "level": "HSK 9",
+    "topic": "study",
+    "hanzi": "唯 有 不 断 跨 越 认 知 的 边 界，我 们 才 能 在 瞬 息 万 变 的 时 代 中 立 于 不 败 之 地。",
+    "pinyin": "Wéi yǒu búduàn kuàyuè rènzhī de biānjiè, wǒmen cái néng zài shùnxīwànbiàn de shídài zhōng lì yú búbài zhī dì.",
+    "han_viet": "Duy hữu bất đoạn khóa việt nhận tri đích biên giới, ngã môn tài năng tại thuấn tức vạn biến đích thời đại trung lập vu bất bại chi địa.",
+    "radical": "N/A",
+    "word_type": "Câu triết lý thời đại chuyên sâu",
+    "meaning_vn": "Chỉ có không ngừng vượt qua ranh giới nhận thức, chúng ta mới có thể đứng vững ở vị trí bất bại trong thời đại biến đổi khôn lường trong chớp mắt.",
+    "expansion": "Cấu trúc triết lý hiện đại cấp cao: Sử dụng cấu trúc điều kiện duy nhất '唯有... 才...' (Chỉ có... mới...), kết hợp các cụm từ vựng mang tính học thuật cao như '认知边界' (ranh giới nhận thức) và '瞬息万变' (biến đổi khôn lường trong chớp mắt).",
+    "examples": [
+      {
+        "cn": "面 对 未 知 的 挑 战，唯 有 更 新 思 维，才 能 迎 接 胜 利。",
+        "py": "Miàn duì wèizhī de tiǎozhàn, wéi yǒu gēngxīn sīwéi, cáinéng yíngjiē shènglì.",
+        "vn": "Đối diện với những thách thức chưa biết, chỉ có đổi mới tư duy, mới có thể đón nhận chiến thắng."
+      }
+    ],
+    "goc_lao_su": "ĐỈNH CAO DIỄN ĐẠT HSK 9: Câu văn kết hợp nhuần nhuyễn giữa ngữ pháp cao cấp (唯有...才) và tư duy triết học hiện đại, là mẫu mực của văn phong viết luận, phát biểu tổng kết tầm cỡ chuyên gia."
+  }
+]

@@ -1,0 +1,257 @@
+[
+  {
+    "id": "h1_w_001",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "我",
+    "pinyin": "wǒ",
+    "han_viet": "Ngã",
+    "radical": "戈 (Qua - 4 nét). Chiết tự giải mã hình tượng: Phía bên phải là bộ Qua 戈 (cây giáo, vũ khí), phía bên trái là nét thủ (bàn tay). Hình ảnh bàn tay cầm vũ khí mang ý nghĩa tự bảo vệ bản ngã, bảo vệ chính mình. Từ đó sinh ra nghĩa là 'Tôi'.",
+    "word_type": "Đại từ",
+    "meaning_vn": "Tôi, tao, tớ, mình",
+    "expansion": "• Trường hợp 1 (Chủ ngữ/Tân ngữ): Đại từ nhân xưng ngôi thứ nhất số ít dùng trong mọi ngữ cảnh.\n• Trường hợp 2 (Sở hữu): Kết hợp với '的' tạo thành '我的' (của tôi).\n• Trường hợp 3 (Số nhiều): Thêm hậu tố '们' tạo thành '我们' (chúng tôi, chúng ta).\n• Cụm kết hợp cố định: 自我 (tự ngã / bản thân mình).",
+    "examples": [
+      {
+        "cn": "我是越南人，你呢？",
+        "py": "Wǒ shì Yuènán rén, nǐ ne?",
+        "vn": "Tôi là người Việt Nam, còn bạn thì sao?"
+      },
+      {
+        "cn": "这是我的好朋友。",
+        "py": "Zhè shì wǒ de hǎo péngyǒu.",
+        "vn": "Đây là người bạn tốt của tôi."
+      }
+    ],
+    "goc_lao_su": "MẸO PHẢN XẠ & LỖI SAI: Chữ '我' mang thanh 3. Theo quy tắc biến điệu, khi nó đứng ngay trước một chữ mang thanh 3 khác (ví dụ: 很 hěn, 想 xiǎng), chữ '我' bắt buộc phải đọc vút lên thành thanh 2 ('wó'). Tuyệt đối không đọc là 'wǒ hěn', phải đọc là 'wó hěn'."
+  },
+  {
+    "id": "h1_w_002",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "爱",
+    "pinyin": "ài",
+    "han_viet": "Ái",
+    "radical": "爫 (Trảo - 4 nét). Chiết tự giải mã hình tượng: Chữ này gồm bộ Trảo 爫 (bàn tay vồ lấy), bộ Mịch 冖 (che phủ), bộ Tâm 心 (trái tim) và bộ Tuy 夂 (bước đi chậm). Tượng hình cho việc dùng trái tim ôm ấp, cất giấu tình cảm sâu sắc một cách thận trọng.",
+    "word_type": "Động từ / Trợ động từ",
+    "meaning_vn": "Yêu, thích, đam mê",
+    "expansion": "• Trường hợp 1 (Động từ cảm xúc): Yêu thương ai đó sâu đậm (爱家人, 爱国).\n• Trường hợp 2 (Trợ động từ + V): Cực kỳ thích làm một việc gì đó, đam mê thói quen (爱看书, 爱开玩笑).\n• Cụm kết hợp cố định: 爱好 (sở thích), 可爱 (đáng yêu), 爱情 (tình yêu).",
+    "examples": [
+      {
+        "cn": "爸爸妈妈很爱我。",
+        "py": "Bàba māma hěn ài wǒ.",
+        "vn": "Bố mẹ rất yêu tôi. (Trường hợp động từ cảm xúc)"
+      },
+      {
+        "cn": "他很爱吃苹果。",
+        "py": "Tā hěn ài chī píngguǒ.",
+        "vn": "Anh ấy rất thích ăn táo. (Trường hợp trợ động từ)"
+      }
+    ],
+    "goc_lao_su": "TƯ DUY BẤT ĐỒNG: Người Việt thường dùng từ 'yêu' khá tùy tiện. Nhưng tiếng Trung '爱' mang sắc thái cực kỳ mạnh mẽ và trang trọng. Nếu chỉ là cảm mến, thích bình thường, người Trung Quốc dùng '喜欢' (xǐhuan). Ngoài ra, khi '爱' đứng trước động từ (爱吃), nó thể hiện một thói quen đam mê, không dịch là 'yêu ăn'."
+  },
+  {
+    "id": "h1_w_003",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "有",
+    "pinyin": "yǒu",
+    "han_viet": "Hữu",
+    "radical": "月 (Nguyệt/Nhục - 4 nét). Chiết tự giải mã hình tượng: Phía trên là bộ Hựu 𠂇 (cánh tay), phía dưới là bộ Nhục 肉 (viết giống chữ Nguyệt 月 - miếng thịt). Hình ảnh bàn tay đang cầm miếng thịt, biểu thị việc sở hữu tài sản, có cái ăn.",
+    "word_type": "Động từ",
+    "meaning_vn": "Có, tồn tại",
+    "expansion": "• Trường hợp 1 (Động từ sở hữu): Có cái gì đó thuộc về mình (我有钱).\n• Trường hợp 2 (Động từ tồn tại): Ở một địa điểm nào đó có tồn tại sự vật (桌子上有水).\n• Trường hợp 3 (Liệt kê): 有的... 有的... (Có cái thì... có cái thì...).\n• Cụm kết hợp cố định: 有意思 (thú vị), 有名 (nổi tiếng).",
+    "examples": [
+      {
+        "cn": "我没有时间去商店。",
+        "py": "Wǒ méiyǒu shíjiān qù shāngdiàn.",
+        "vn": "Tôi không có thời gian đi cửa hàng. (Trường hợp sở hữu)"
+      },
+      {
+        "cn": "房间里有三个人。",
+        "py": "Fángjiān lǐ yǒu sān ge rén.",
+        "vn": "Trong phòng có ba người. (Trường hợp tồn tại)"
+      }
+    ],
+    "goc_lao_su": "CẤM KỴ NGỮ PHÁP: Để phủ định động từ '有', BẮT BUỘC phải dùng phó từ '没' (méi) tạo thành '没有' (không có). TUYỆT ĐỐI không bao giờ được dùng '不有' (bù yǒu). Đây là lỗi sai chí mạng mà 90% người mới học mắc phải."
+  },
+  {
+    "id": "h1_w_004",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "喝",
+    "pinyin": "hē",
+    "han_viet": "Hát",
+    "radical": "口 (Khẩu - 3 nét). Chiết tự giải mã hình tượng: Bên trái là bộ Khẩu 口 (cái miệng) chỉ hành động bằng miệng. Bên phải là chữ Hạt 曷 (khát nước). Khi miệng thấy khát nước thì hành động tất yếu là phải 'uống'.",
+    "word_type": "Động từ",
+    "meaning_vn": "Uống",
+    "expansion": "• Trường hợp 1 (Động từ): Dùng để chỉ hành động đưa các loại chất lỏng vào miệng và nuốt.\n• Cụm kết hợp cố định: 喝水 (uống nước), 喝茶 (uống trà), 喝酒 (uống rượu), 好喝 (uống ngon/ngon miệng).",
+    "examples": [
+      {
+        "cn": "你想喝点儿什么？",
+        "py": "Nǐ xiǎng hē diǎnr shénme?",
+        "vn": "Bạn muốn uống chút gì không?"
+      },
+      {
+        "cn": "中国人喜欢喝热茶。",
+        "py": "Zhōngguó rén xǐhuan hē rè chá.",
+        "vn": "Người Trung Quốc thích uống trà nóng."
+      }
+    ],
+    "goc_lao_su": "THÓI QUEN TƯ DUY: Người Việt Nam nói 'Ăn canh' (dùng từ ăn). Nhưng người Trung Quốc phân loại theo trạng thái vật lý: Canh (汤) là chất lỏng, nên BẮT BUỘC phải dùng từ '喝' ➔ '喝汤' (uống canh). Nếu bạn nói '吃汤' (chī tāng) người bản xứ sẽ thấy rất kỳ cục."
+  },
+  {
+    "id": "h1_w_005",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "work",
+    "hanzi": "在",
+    "pinyin": "zài",
+    "han_viet": "Tại",
+    "radical": "土 (Thổ - 3 nét). Chiết tự giải mã hình tượng: Gồm chữ Tài 才 (sự sinh thành, mới nhú) và bộ Thổ 土 (đất). Hình ảnh mầm cây vươn lên và tồn tại trên mặt đất, biểu thị sự định vị, hiện diện ở một không gian.",
+    "word_type": "Giới từ / Phó từ / Động từ",
+    "meaning_vn": "Ở, đang",
+    "expansion": "• Trường hợp 1 (Động từ + Địa điểm): Biểu thị sự hiện diện (我在家 - Tôi ở nhà).\n• Trường hợp 2 (Giới từ dẫn xuất địa điểm: 在 + Nơi chốn + Động từ): Biểu thị nơi chốn xảy ra hành động (我在公司工作 - Tôi làm việc ở công ty).\n• Trường hợp 3 (Phó từ + Động từ): Biểu thị hành động đang tiếp diễn (他在睡觉 - Anh ấy đang ngủ).\n• Cụm kết hợp cố định: 现在 (bây giờ), 正在 (đang).",
+    "examples": [
+      {
+        "cn": "对不起，王医生现在不在医院。",
+        "py": "Duìbuqǐ, Wáng yīshēng xiànzài bú zài yīyuàn.",
+        "vn": "Xin lỗi, bác sĩ Vương bây giờ không ở bệnh viện. (Trường hợp động từ)"
+      },
+      {
+        "cn": "我们明天在饭店见。",
+        "py": "Wǒmen míngtiān zài fàndiàn jiàn.",
+        "vn": "Ngày mai chúng ta gặp nhau ở nhà hàng nhé. (Trường hợp giới từ)"
+      }
+    ],
+    "goc_lao_su": "LỖI TRẬT TỰ TỪ NGHIÊM TRỌNG: Người Việt tư duy 'Làm gì + Ở đâu' (Ví dụ: Mua sách ở Bắc Kinh). Tiếng Trung BẮT BUỘC đảo ngược tư duy thành 'Ở đâu + Làm gì' (Ví dụ: 在北京买书 - Ở Bắc Kinh mua sách). Giới từ '在' và địa điểm luôn phải đứng TRƯỚC động từ hành động."
+  },
+  {
+    "id": "h1_w_006",
+    "category": "word",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "好",
+    "pinyin": "hǎo",
+    "han_viet": "Hảo",
+    "radical": "女 (Nữ - 3 nét). Chiết tự giải mã hình tượng: Gồm bộ Nữ 女 (phụ nữ/người mẹ) và bộ Tử 子 (con trai/đứa trẻ). Quan niệm cổ đại, một gia đình có mẹ có con, hoặc sinh được cả con trai lẫn con gái là điều vô cùng trọn vẹn, tốt đẹp.",
+    "word_type": "Tính từ / Bổ ngữ / Phó từ",
+    "meaning_vn": "Tốt, đẹp, xong, rất",
+    "expansion": "• Trường hợp 1 (Tính từ): Tốt, khỏe, ngon (天气很好 - thời tiết tốt).\n• Trường hợp 2 (Bổ ngữ kết quả: V + 好): Đứng sau động từ biểu thị hành động không chỉ làm xong mà còn đạt mức độ tươm tất, hoàn hảo (准备好 - chuẩn bị xong xuôi).\n• Trường hợp 3 (Phó từ khẩu ngữ: 好 + Tính từ): Mang nghĩa 'rất, quá' thay cho chữ 很 (好冷啊 - Lạnh quá!).",
+    "examples": [
+      {
+        "cn": "这个电影很好看。",
+        "py": "Zhège diànyǐng hěn hǎokàn.",
+        "vn": "Bộ phim này rất hay. (Trường hợp tính từ)"
+      },
+      {
+        "cn": "我的作业做好了。",
+        "py": "Wǒ de zuòyè zuò hǎo le.",
+        "vn": "Bài tập của tôi làm xong xuôi hết rồi. (Trường hợp bổ ngữ)"
+      }
+    ],
+    "goc_lao_su": "MẸO DỊCH THUẬT: Khi thấy cấu trúc Động từ + 好 (như: 想好, 做好, 买好), người Việt hay dịch theo mặt chữ là 'nghĩ tốt', 'làm tốt'. Tư duy này SAI HOÀN TOÀN. Ở vị trí này, '好' là bổ ngữ báo hiệu sự HOÀN TẤT. Phải dịch là 'nghĩ xong rồi', 'làm xong rồi', 'mua xong rồi'."
+  },
+  {
+    "id": "h1_s_001",
+    "category": "sentence",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "今天天气很好。",
+    "pinyin": "Jīntiān tiānqì hěn hǎo.",
+    "han_viet": "Kim thiên thiên khí ngận hảo.",
+    "radical": "N/A",
+    "word_type": "Câu vị ngữ tính từ",
+    "meaning_vn": "Thời tiết hôm nay rất tốt.",
+    "expansion": "Cấu trúc cơ bản nhất của tiếng Trung: Chủ ngữ (今天天气) + Phó từ chỉ mức độ (很) + Tính từ làm vị ngữ (好). Dùng để miêu tả trạng thái, tính chất của sự vật.",
+    "examples": [
+      {
+        "cn": "你的衣服很漂亮。",
+        "py": "Nǐ de yīfu hěn piàoliang.",
+        "vn": "Quần áo của bạn rất đẹp."
+      },
+      {
+        "cn": "那个苹果不大。",
+        "py": "Nàge píngguǒ bú dà.",
+        "vn": "Quả táo kia không to."
+      }
+    ],
+    "goc_lao_su": "KHÁC BIỆT TƯ DUY: Người Việt Nam thường nói 'Thời tiết LÀ rất tốt' (có chữ là). Tuy nhiên, ngữ pháp tiếng Trung CẤM KỴ việc sử dụng động từ 是 (shì - là) đứng trước một tính từ. Để nối chủ ngữ và tính từ, người Trung Quốc bắt buộc dùng các phó từ chỉ mức độ như 很 (hěn), 非常 (fēicháng). Nếu nói '天气是很好' là sai hoàn toàn."
+  },
+  {
+    "id": "h1_s_002",
+    "category": "sentence",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "你想喝茶吗？",
+    "pinyin": "Nǐ xiǎng hē chá ma?",
+    "han_viet": "Nhĩ tưởng hát trà ma?",
+    "radical": "N/A",
+    "word_type": "Câu nghi vấn chữ 吗",
+    "meaning_vn": "Bạn có muốn uống trà không?",
+    "expansion": "Cấu trúc câu hỏi xác nhận: [Câu trần thuật khẳng định] + 吗？ Trợ từ ngữ khí 吗 (ma) chuyên dùng để đặt câu hỏi 'Có... không?', 'Phải... không?'.",
+    "examples": [
+      {
+        "cn": "你是医生吗？",
+        "py": "Nǐ shì yīshēng ma?",
+        "vn": "Bạn là bác sĩ phải không?"
+      },
+      {
+        "cn": "他明天去北京吗？",
+        "py": "Tā míngtiān qù Běijīng ma?",
+        "vn": "Ngày mai anh ấy đi Bắc Kinh không?"
+      }
+    ],
+    "goc_lao_su": "MẸO PHẢN XẠ: Rất nhiều người học tiếng Anh chuyển sang tiếng Trung bị thói quen 'đảo trợ động từ lên đầu câu' khi đặt câu hỏi. Tiếng Trung cực kỳ dễ: Bạn cứ nói một câu khẳng định bình thường (Bạn muốn uống trà), rồi ném chữ 吗 vào cuối câu là tự động thành câu hỏi. Tuyệt đối không thay đổi trật tự từ."
+  },
+  {
+    "id": "h1_s_003",
+    "category": "sentence",
+    "level": "HSK 1",
+    "topic": "work",
+    "hanzi": "我明天去北京买东西。",
+    "pinyin": "Wǒ míngtiān qù Běijīng mǎi dōngxi.",
+    "han_viet": "Ngã minh thiên khứ Bắc Kinh mãi đông tây.",
+    "radical": "N/A",
+    "word_type": "Câu liên động & Trạng ngữ thời gian",
+    "meaning_vn": "Ngày mai tôi đi Bắc Kinh mua đồ.",
+    "expansion": "Câu chứa hai hành động liên tiếp (去 - đi, và 买 - mua) do cùng một chủ ngữ thực hiện. Động từ nào xảy ra trước thì đứng trước. Đồng thời chứa trạng từ thời gian (明天).",
+    "examples": [
+      {
+        "cn": "他下午来我家吃饭。",
+        "py": "Tā xiàwǔ lái wǒ jiā chī fàn.",
+        "vn": "Buổi chiều anh ấy đến nhà tôi ăn cơm."
+      }
+    ],
+    "goc_lao_su": "LỖI ĐẶT THỜI GIAN ĐUÔI CÂU: Tiếng Việt có thể nói 'Tôi đi Bắc Kinh mua đồ VÀO NGÀY MAI'. Nhưng tiếng Trung thì không bao giờ. Trạng ngữ chỉ thời gian (明天, 现在, 上午) BẮT BUỘC phải đặt ở đầu câu, đứng TRƯỚC hoặc NGAY SAU chủ ngữ. Nói '我去北京买东西明天' là sai cú pháp cơ bản."
+  },
+  {
+    "id": "h1_s_004",
+    "category": "sentence",
+    "level": "HSK 1",
+    "topic": "daily",
+    "hanzi": "这是谁的书？",
+    "pinyin": "Zhè shì shéi de shū?",
+    "han_viet": "Giá thị thùy đích thư?",
+    "radical": "N/A",
+    "word_type": "Cấu trúc định ngữ chữ 的",
+    "meaning_vn": "Đây là sách của ai?",
+    "expansion": "Cấu trúc sở hữu và định ngữ: [Định ngữ] + 的 + [Danh từ trung tâm]. Dùng để xác định thuộc tính, sở hữu của một sự vật.",
+    "examples": [
+      {
+        "cn": "我的电脑在桌子上。",
+        "py": "Wǒ de diànnǎo zài zhuōzi shang.",
+        "vn": "Máy tính của tôi ở trên bàn."
+      },
+      {
+        "cn": "那是昨天买的苹果。",
+        "py": "Nà shì zuótiān mǎi de píngguǒ.",
+        "vn": "Kia là quả táo mua hôm qua."
+      }
+    ],
+    "goc_lao_su": "TƯ DUY ĐẢO NGƯỢC: Tiếng Việt nói 'Sách của tôi' (Vật chính đứng trước, người sở hữu đứng sau). Tiếng Trung ngược lại 100%, những gì phụ (người sở hữu, đặc điểm) phải đứng TRƯỚC chữ 的, vật chính (trung tâm ngữ) bị ném ra SAU CÙNG. Tư duy này cần rèn luyện phản xạ lật ngược liên tục ngay từ HSK 1."
+  }
+]

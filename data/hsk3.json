@@ -1,0 +1,221 @@
+[
+  {
+    "id": "h3_w_001",
+    "category": "word",
+    "level": "HSK 3",
+    "topic": "daily",
+    "hanzi": "照顾",
+    "pinyin": "zhàogù",
+    "han_viet": "Chiếu cố",
+    "radical": "目 (Mục - 5 nét). Chiết tự giải mã hình tượng: Chữ 照 (chiếu: ánh sáng rọi xuống) kết hợp với chữ 顾 (cố: ngoảnh đầu lại nhìn, quan sát). Hình tượng dùng ánh mắt dịu dàng để quan sát, chiếu cố, che chở và để ý từng chút một đến người thân hoặc công việc xung quanh.",
+    "word_type": "Động từ",
+    "meaning_vn": "Chăm sóc, chiếu cố, trông nom",
+    "expansion": "• Trường hợp 1 (Chăm sóc người/vật): Trông nom, lo liệu sức khỏe, đời sống cho ai đó (照顾老人, 照顾孩子).\n• Trường hợp 2 (Thương mại/Dịch vụ): Ủng hộ, mua hàng cho cửa hàng của ai đó (谢谢您照顾我的生意).\n• Cụm kết hợp cố định (Collocations): 照顾周到 (chăm sóc chu đáo), 互相照顾 (chăm sóc lẫn nhau).",
+    "examples": [
+      {
+        "cn": "爸 妈 年 纪 大 了，我 们 应 该 好 好 照 顾 他 们。",
+        "py": "Bà mā niánjì dà le, wǒmen yīnggāi hǎohǎo zhàogù tāmen.",
+        "vn": "Bố mẹ tuổi cao rồi, chúng ta nên chăm sóc tốt cho họ."
+      },
+      {
+        "cn": "出 门 在 外，你 要 学 会 自 己 照 顾 自 己。",
+        "py": "Chūmén zài wài, nǐ yào xuéhuì zìjǐ zhàogù zìjǐ.",
+        "vn": "Ra ngoài xã hội, bạn phải học cách tự chăm sóc bản thân."
+      }
+    ],
+    "goc_lao_su": "THÓI QUYÊN DÙNG TỪ: Người Trung Quốc rất hay dùng cụm '好好照顾自己' (chăm sóc tốt bản thân nhé) khi chào tạm biệt người thân đi xa. Khác với tiếng Việt hay dùng từ 'lo lắng', chữ '照顾' mang sắc thái tích cực, hành động thiết thực để bảo bọc."
+  },
+  {
+    "id": "h3_w_002",
+    "category": "word",
+    "level": "HSK 3",
+    "topic": "work",
+    "hanzi": "环境",
+    "pinyin": "huánjìng",
+    "han_viet": "Hoàn cảnh",
+    "radical": "土 (Thổ - 3 nét). Chiết tự giải mã hình tượng: Chữ 环 (hoàn: vòng tròn, vây quanh) kết hợp với chữ 境 (cảnh: biên giới, nơi chốn). Ý nghĩa hình tượng: Không gian vật lý hoặc xã hội bao bọc xung quanh một con người, tạo nên bầu không khí tác động trực tiếp đến cuộc sống.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Môi trường, hoàn cảnh",
+    "expansion": "• Trường hợp 1 (Môi trường tự nhiên/sinh thái): 自然环境, 保护环境 (bảo vệ môi trường).\n• Trường hợp 2 (Môi trường sống/làm việc): 工作环境, 生活环境, 这里的环境很好 (Môi trường ở đây rất tốt).\n• Cụm kết hợp cố định (Collocations): 环境污染 (ô nhiễm môi trường), 适应环境 (thích nghi với môi trường).",
+    "examples": [
+      {
+        "cn": "这 家 公 司 的 工 作 环 境 非 常 好。",
+        "py": "Zhè jiā gōngsī de gōngzuò huánjìng fēicháng hǎo.",
+        "vn": "Môi trường làm việc của công ty này vô cùng tốt."
+      },
+      {
+        "cn": "我 们 必 须 保 护 自 然 环 境。",
+        "py": "Wǒmen bìxū bǎohù zìrán huánjìng.",
+        "vn": "Chúng ta bắt buộc phải bảo vệ môi trường tự nhiên."
+      }
+    ],
+    "goc_lao_su": "BẪY DỊCH HÁN VIỆT: Người Việt thường dùng từ 'hoàn cảnh' trong văn cảnh nói về sự nghèo khó, éo le (Ví dụ: Hoàn cảnh gia đình khó khăn). Tuy nhiên trong tiếng Trung, '环境' thuần túy chỉ không gian vật lý hoặc môi trường xung quanh, không mang sắc thái bi lụy."
+  },
+  {
+    "id": "h3_w_003",
+    "category": "word",
+    "level": "HSK 3",
+    "topic": "work",
+    "hanzi": "解决",
+    "pinyin": "jiějué",
+    "han_viet": "Giải quyết",
+    "radical": "角 (Giác - 7 nét). Chiết tự giải mã hình tượng: Chữ 解 (giải: cởi trói, tháo gỡ) kết hợp với chữ 决 (quyết: quyết đoán, đứt đoạn). Ý nghĩa hình tượng: Dùng trí tuệ và hành động quyết liệt để tháo gỡ nút thắt, chặt đứt và xử lý triệt để một rắc rối.",
+    "word_type": "Động từ",
+    "meaning_vn": "Giải quyết, xử lý dứt điểm",
+    "expansion": "• Trường hợp 1 (Xử lý vấn đề/khó khăn): 解决问题, 解决困难.\n• Trường hợp 2 (Đưa ra phương án đáp ứng nhu cầu): 解决温饱 (giải quyết ăn mặc), 解决矛盾 (giải quyết mâu thuẫn).\n• Cụm kết hợp cố định (Collocations): 妥善解决 (giải quyết thỏa đáng),  an ủi giải quyết.",
+    "examples": [
+      {
+        "cn": "有 什 么 问 题 我 们 一 起 解 决。",
+        "py": "Yǒu shénme wèntí wǒmen yìqǐ jiějué.",
+        "vn": "Có vấn đề gì chúng ta cùng nhau giải quyết."
+      },
+      {
+        "cn": "这 个 难 题 终于 被 他 们 解 决 了。",
+        "py": "Zhège nántí zhōngyú bèi tāmen jiějué le.",
+        "vn": "Bài toán khó này cuối cùng đã được họ giải quyết xong."
+      }
+    ],
+    "goc_lao_su": "PHÂN BIỆT TỪ VỰNG: Học viên thường nhầm giữa '解决' (jiějué - hành động thực tế nhằm tháo gỡ, tiêu diệt vấn đề) và '解释' (jiěshì - chỉ là dùng lời nói để giải thích, trình bày lý do). Gặp rắc rối thì phải '解决', hiểu lầm thì '解释'."
+  },
+  {
+    "id": "h3_w_004",
+    "category": "word",
+    "level": "HSK 3",
+    "topic": "study",
+    "hanzi": "经历",
+    "pinyin": "jīnglì",
+    "han_viet": "Kinh lịch",
+    "radical": "厂 (Hán - 2 nét). Chiết tự giải mã hình tượng: Chữ 经 (kinh: sợi chỉ dọc, trải qua thời gian) kết hợp với chữ 历 (lịch: qua, trải qua từng mốc không gian). Ý nghĩa hình tượng: Quãng đường đời mà một người đã tự mình dấn thân, bước qua và lưu giữ thành ký ức.",
+    "word_type": "Động từ / Danh từ",
+    "meaning_vn": "Trải qua, trải nghiệm bản thân",
+    "expansion": "• Trường hợp 1 (Động từ): Tự mình trải qua trắc trở, sự việc (经历风雨 - trải qua mưa gió).\n• Trường hợp 2 (Danh từ): Những gì đã trải qua trong đời (难忘 经历 - trải nghiệm khó quên).\n• Cụm kết hợp cố định (Collocations): 亲身经历 (trải nghiệm thực tế tận mắt), 经历 挫折 (trải qua trắc trở).",
+    "examples": [
+      {
+        "cn": "他 经 历 了 许 多 困 难 才 取 得 成 功。",
+        "py": "Tā jīnglì le xǔduō kùnnán cái qǔdé chénggōng.",
+        "vn": "Anh ấy đã trải qua rất nhiều khó khăn mới giành được thành công."
+      },
+      {
+        "cn": "这 是 我 人 生 中 最 特 别 的 经 历。",
+        "py": "Zhè shì wǒ rénshēng zhōng zuì tèbié de jīnglì.",
+        "vn": "Đây là trải nghiệm đặc biệt nhất trong đời tôi."
+      }
+    ],
+    "goc_lao_su": "SO SÁNH CỰC GẮT: '经历' (jīnglì) là quá trình bạn *đi qua* sự việc (mang tính sự kiện, trải nghiệm). Còn '经验' (jīngyàn) là *kinh nghiệm* (tri thức đọng lại, kỹ năng tích lũy sau khi đã qua kinh lịch). Không nói '经验 困难'."
+  },
+  {
+    "id": "h3_w_005",
+    "category": "word",
+    "level": "HSK 3",
+    "topic": "study",
+    "hanzi": "发展",
+    "pinyin": "fāzhǎn",
+    "han_viet": "Phát triển",
+    "radical": "弓 (Cung - 3 nét). Chiết tự giải mã hình tượng: Chữ 发 (phát: tỏa ra, vươn lên) kết hợp với chữ 展 (triển: mở rộng, kéo căng ra như giương cung). Ý nghĩa hình tượng: Sự vươn mình lớn mạnh, mở rộng quy mô từ nhỏ đến lớn, từ thấp lên cao một cách liên tục.",
+    "word_type": "Động từ / Danh từ",
+    "meaning_vn": "Phát triển, mở rộng",
+    "expansion": "• Trường hợp 1 (Phát triển kinh tế/xã hội/khoa học): 经济发展 (kinh tế phát triển).\n• Trường hợp 2 (Phát triển tổ chức/thành viên): 发展党员 (kết nạp/phát triển đảng viên).\n• Cụm kết hợp cố định (Collocations): 迅速发展 (phát triển nhanh chóng), 发展方向 (phương hướng phát triển).",
+    "examples": [
+      {
+        "cn": "这 几 年，中 国 的 经 济 发 展 得 很 快。",
+        "py": "Zhè jǐ nián, Zhōngguó de jīngjì fāzhǎn de hěn kuài.",
+        "vn": "Mấy năm nay, kinh tế Trung Quốc phát triển rất nhanh."
+      },
+      {
+        "cn": "我 们 需 要 寻 找 新 的 发 展 机 会。",
+        "py": "Wǒmen xūyào xúnzhǎo xīn de fāzhǎn jīhuì.",
+        "vn": "Chúng ta cần tìm kiếm cơ hội phát triển mới."
+      }
+    ],
+    "goc_lao_su": "MẸO KẾT HỢP BỔ NGỮ TRẠNG THÁI: Khi muốn nói 'phát triển như thế nào', người Trung Quốc rất hay dùng cấu trúc bổ ngữ '得' (fāzhǎn de hěn hǎo / fāzhǎn de hěn kuài), tuyệt đối không nói '很发展'."
+  },
+  {
+    "id": "h3_s_001",
+    "category": "sentence",
+    "level": "HSK 3",
+    "topic": "work",
+    "hanzi": "把 这 份 文 件 发 给 经 理。",
+    "pinyin": "Bǎ zhè fèn wénjiàn fā gěi jīnglǐ.",
+    "han_viet": "Bả giá phần văn kiện phát cấp kinh lý.",
+    "radical": "N/A",
+    "word_type": "Câu chữ 把 (Bǎ - Cốt lõi HSK 3)",
+    "meaning_vn": "Hãy gửi tập tài liệu này cho giám đốc.",
+    "expansion": "Cấu trúc chữ 把 kinh điển: Chủ ngữ + 把 + Tân ngữ [đối tượng bị tác động] + Động từ + Kết quả/Hướng đi (发给). Dùng khi chủ ngữ chủ động cầm nắm, dịch chuyển hoặc xử lý triệt để một đồ vật cụ thể.",
+    "examples": [
+      {
+        "cn": "请 把 门 关 上。",
+        "py": "Qǐng bǎ mén guān shàng.",
+        "vn": "Làm ơn đóng cửa lại."
+      },
+      {
+        "cn": "他 把 苹 果 吃 完 了。",
+        "py": "Tā bǎ píngguǒ chī wán le.",
+        "vn": "Anh ấy đã ăn sạch quả táo rồi."
+      }
+    ],
+    "goc_lao_su": "CƠ CHẾ TƯ DUY KHÁC BIỆT: Tiếng Việt nói 'Gửi tài liệu cho giám đốc' (Động từ đứng trước tân ngữ). Tiếng Trung ở cấp độ nâng cao HSK 3 bắt buộc dùng câu chữ 把 để lôi tân ngữ lên trước động từ: '把文件发...'. Nếu bạn nói '发这份文件给经理' vẫn hiểu được, nhưng dùng '把' mới thể hiện tư duy ngữ pháp chuẩn bản xứ."
+  },
+  {
+    "id": "h3_s_002",
+    "category": "sentence",
+    "level": "HSK 3",
+    "topic": "daily",
+    "hanzi": "哥 哥 比 弟 弟 高 十 公 分。",
+    "pinyin": "Gēge bǐ dìdi gāo shí gōngfēn.",
+    "han_viet": "Ca ca bỉ đệ đệ cao thập công phân.",
+    "radical": "N/A",
+    "word_type": "Câu so sánh hơn chữ 比",
+    "meaning_vn": "Anh trai cao hơn em trai 10 centimet.",
+    "expansion": "Cấu trúc so sánh hơn: A + 比 + B + Tính từ + Mức độ chênh lệch cụ thể (十公分). Cấm kỵ tuyệt đối không dùng đồng thời chữ '比' và từ '很' hay '更' trong cùng một vế so sánh.",
+    "examples": [
+      {
+        "cn": "这 个 包 比 那 个 包 便 宜 三 十 块。",
+        "py": "Zhège bāo bǐ nàge bāo piányi sānshí kuài.",
+        "vn": "Cái túi này rẻ hơn cái túi kia 30 tệ."
+      }
+    ],
+    "goc_lao_su": "LỖI PHẠT ĐIỂM NẶNG: Rất nhiều học viên hay dịch word-by-word thành '哥哥比弟弟很高' (thêm chữ 很). Đây là lỗi ngữ pháp cực kỳ nặng trong kỳ thi HSK. Trong câu chữ 比, vế sau tính từ (gāo) chỉ được phép cộng trực tiếp với số đo chênh lệch (shí gōngfēn), tuyệt đối KHÔNG ĐƯỢC chèn phó từ mức độ như 很, 非常 vào giữa."
+  },
+  {
+    "id": "h3_s_003",
+    "category": "sentence",
+    "level": "HSK 3",
+    "topic": "study",
+    "hanzi": "只 要 认 真 练 习，就 能 取 得 好 成 绩。",
+    "pinyin": "Zhǐyào rènzhēn liànxí, jiù néng qǔdé hǎo chéngjì.",
+    "han_viet": "Chỉ yếu nhận chân luyện tập, tựu năng thủ đắc hảo thành tích.",
+    "radical": "N/A",
+    "word_type": "Câu phức điều kiện đủ",
+    "meaning_vn": "Chỉ cần chăm chỉ luyện tập, thì sẽ đạt được thành tích tốt.",
+    "expansion": "Cặp liên từ điều kiện đủ: 只要 [Vế 1 - Điều kiện tối thiểu] , 就 [Vế 2 - Kết quả tất yếu]. Đảm bảo vế một xảy ra là vế hai sẽ tự động đạt được.",
+    "examples": [
+      {
+        "cn": "只 要 你 肯 努 力，什 么 困 难 都 能 克 服。",
+        "py": "Zhǐyào nǐ kěn nǔlì, shénme kùnnán dōu néng kèfú.",
+        "vn": "Chỉ cần bạn chịu khó nỗ lực, khó khăn nào cũng có thể khắc phục."
+      }
+    ],
+    "goc_lao_su": "MẸO PHẢN XẠ: Cấu trúc '只要... 就...' là vũ khí cực mạnh trong phần thi viết và nói HSK 3. Hãy ghi nhớ công thức: '只要' đi với điều kiện, '就' chốt hạ kết quả, không bao giờ dùng lẫn lộn với các liên từ khác."
+  },
+  {
+    "id": "h3_s_004",
+    "category": "sentence",
+    "level": "HSK 3",
+    "topic": "outing",
+    "hanzi": "周 末 去 爬 山 不 仅 能 锻 炼 身 体，而 且 能 放 松 心 情。",
+    "pinyin": "Zhōumò qù páshān bùjǐn néng duànliàn shēntǐ, érqiě néng fàngsōng xīnqíng.",
+    "han_viet": "Chu mạt khứ bò sơn bất cận năng đoán luyện thân thể, nhi thả năng phóng tùng tâm tình.",
+    "radical": "N/A",
+    "word_type": "Câu phức tăng tiến",
+    "meaning_vn": "Cuối tuần đi leo núi không chỉ rèn luyện sức khỏe, mà còn có thể thư giãn tâm trạng.",
+    "expansion": "Cặp liên từ biểu thị quan hệ tăng tiến: 不仅 [Vế 1 - Mức độ thường] , 而且 [Vế 2 - Mức độ cao hơn/Ý nghĩa bổ trợ sâu sắc hơn].",
+    "examples": [
+      {
+        "cn": "他 不 仅 会 说 汉 语，而 且 说 得 非 常 流 利。",
+        "py": "Tā bùjǐn huì shuō Hànyǔ, érqiě shuō de fēicháng liúliì.",
+        "vn": "Anh ấy không những biết nói tiếng Trung, mà còn nói rất lưu loát."
+      }
+    ],
+    "goc_lao_su": "BẢN CHẤT NGỮ DỤNG: Vế sau của '不仅... 而且...' thường mang ý nghĩa bổ sung mở rộng hoặc nâng cao hơn vế trước. Thường đi kèm các từ '也', '还', '更' để làm nổi bật mức độ tăng tiến."
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "workout_metadata": {
+    "description": "Kho Kịch bản hội thoại, đoạn văn và thực chiến HSK 3.0",
+    "target": "Interactive reading and listening practice"
+  },
+  "scenarios": [
+    {
+      "id": "scenario_001",
+      "level": "HSK 1-2",
+      "topic": "daily",
+      "title": "Làm quen và hỏi thăm sức khỏe",
+      "dialogue": [
+        {
+          "speaker": "A",
+          "cn": "你好！最近工作忙吗？",
+          "py": "Nǐ hǎo! Zuìjìn gōngzuò máng ma?",
+          "vn": "Xin chào! Dạo này công việc bận không?"
+        },
+        {
+          "speaker": "B",
+          "cn": "挺忙的，但是很高兴。",
+          "py": "Tǐng máng de, dànshì hěn gāoxìng.",
+          "vn": "Khá bận, nhưng rất vui."
+        }
+      ]
+    },
+    {
+      "id": "scenario_002",
+      "level": "HSK 3-4",
+      "topic": "work",
+      "title": "Thảo luận công việc văn phòng",
+      "dialogue": [
+        {
+          "speaker": "A",
+          "cn": "把这份文件发给经理，别忘了。",
+          "py": "Bǎ zhè fèn wénjiàn fā gěi jīnglǐ, bié wàngle.",
+          "vn": "Hãy gửi tập tài liệu này cho giám đốc, đừng quên nhé."
+        },
+        {
+          "speaker": "B",
+          "cn": "好的，我马上处理好。",
+          "py": "Hǎo de, wǒ mǎshàng chǔlǐ hǎo.",
+          "vn": "Vâng, tôi xử lý xong ngay đây."
+        }
+      ]
+    }
+  ]
+}

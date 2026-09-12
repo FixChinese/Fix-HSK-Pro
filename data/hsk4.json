@@ -1,0 +1,148 @@
+[
+  {
+    "id": "h4_w_001",
+    "category": "word",
+    "level": "HSK 4",
+    "topic": "work",
+    "hanzi": "责任",
+    "pinyin": "zérèn",
+    "han_viet": "Trách nhiệm",
+    "radical": "贝 (Bối - 4 nét). Chiết tự giải mã hình tượng: Chữ 责 (trách: đòi hỏi, gánh nặng) kết hợp với chữ 任 (nhậm: gánh vác, giao phó). Hình tượng một người phải gánh trên vai những phần việc nặng nhọc, liên quan đến lợi ích kinh tế hoặc nghĩa vụ xã hội được phó thác.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Trách nhiệm, bổn phận",
+    "expansion": "• Trường hợp 1 (Gánh vác trách nhiệm): 承担责任 (chịu trách nhiệm), 负责任 (có trách nhiệm).\n• Trường hợp 2 (Quy củ, quy trách nhiệm): 责任心 (tinh thần trách nhiệm), 推卸责任 (chối bỏ trách nhiệm).\n• Cụm kết hợp cố định (Collocations):  Lịch sự, chuyên nghiệp trong môi trường công sở.",
+    "examples": [
+      {
+        "cn": "作为 经理，你 必须 对 这 件 事 负 全 责。",
+        "py": "Zuòwéi jīnglǐ, nǐ bìxū duì zhè jiàn shì fù quán zé.",
+        "vn": "Làm giám đốc, bạn bắt buộc phải chịu toàn bộ trách nhiệm về việc này."
+      },
+      {
+        "cn": "保护 环境 是 每个 公民 的 责任。",
+        "py": "Bǎohù huánjìng shì měi ge gōngmín de zérèn.",
+        "vn": "Bảo vệ môi trường là trách nhiệm của mỗi công dân."
+      }
+    ],
+    "goc_lao_su": "CẤU TRÚC ĐI KÈM: Trong văn phong công sở HSK 4, từ '责任' cực kỳ hay đi chung với cấu trúc '对... 负责' (chịu trách nhiệm đối với...). Lưu ý giới từ '对' luôn phải đứng trước đối tượng nhận trách nhiệm."
+  },
+  {
+    "id": "h4_w_002",
+    "category": "word",
+    "level": "HSK 4",
+    "topic": "work",
+    "hanzi": "提供",
+    "pinyin": "tígōng",
+    "han_viet": "Đề cung",
+    "radical": "扌 (Thủ - 3 nét). Chiết tự giải mã hình tượng: Chữ 提 (đề: tay nhấc lên, đưa ra) kết hợp với chữ 供 (cung: bày biện, dâng hiến). Hình tượng dùng đôi tay dâng hiến, chìa ra những vật phẩm, dịch vụ hoặc thông tin cần thiết để phục vụ người khác.",
+    "word_type": "Động từ",
+    "meaning_vn": "Cung cấp, đem lại",
+    "expansion": "• Trường hợp 1 (Cung cấp dịch vụ/điều kiện): 提供帮助 (cung cấp sự giúp đỡ), 提供方便 (tạo điều kiện thuận lợi).\n• Trường hợp 2 (Cung cấp thông tin/tài liệu): 提供信息, 提供证据 (cung cấp chứng cứ).\n• Cụm kết hợp cố định (Collocations): 提供就业机会 (cung cấp cơ hội việc làm).",
+    "examples": [
+      {
+        "cn": "这家 酒店 为 客人 提供 免费 的 早餐。",
+        "py": "Zhè jiā jiǔdiàn wèi kèrén tígōng miǎnfèi de zǎocān.",
+        "vn": "Khách sạn này cung cấp bữa sáng miễn phí cho khách hàng."
+      },
+      {
+        "cn": "请 您 为 我 提供 更 多 的 详细 信息。",
+        "py": "Qǐng nín wèi wǒ tígōng gèng duō de xiángxì xìnxī.",
+        "vn": "Xin ngài cung cấp thêm cho tôi nhiều thông tin chi tiết hơn."
+      }
+    ],
+    "goc_lao_su": "PHÂN BIỆT SẮC THÁI: '提供' thường dùng cho việc cung cấp dịch vụ, thông tin, cơ hội, điều kiện (mang tính phi vật thể hoặc cơ sở hạ tầng). Đối với việc cung cấp hàng hóa vật chất số lượng lớn cho thị trường, người ta thường dùng '供应' (gōngyǐng)."
+  },
+  {
+    "id": "h4_w_003",
+    "category": "word",
+    "level": "HSK 4",
+    "topic": "study",
+    "hanzi": "压力",
+    "pinyin": "yālì",
+    "han_viet": "Áp lực",
+    "radical": "土 (Thổ - 3 nét). Chiết tự giải mã hình tượng: Chữ 压 (áp: đè nặng xuống, ép) kết hợp với chữ 力 (lực: sức mạnh, năng lượng). Hình tượng một khối trọng lực khổng lồ đè ép lên bề mặt hoặc tinh thần con người.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Áp lực, sức ép",
+    "expansion": "• Trường hợp 1 (Áp lực tinh thần/công việc): 工作压力 (áp lực công việc), 学习压力 (áp lực học tập).\n• Trường hợp 2 (Áp lực vật lý): 气压 (áp suất), 压力锅 (nồi áp suất).\n• Cụm kết hợp cố định (Collocations): 承受压力 (chịu đựng áp lực), 减轻压力 (giảm bớt áp lực).",
+    "examples": [
+      {
+        "cn": "现 在 年 轻 人 的 工 作 压 力 太 大 了。",
+        "py": "Xiànzài niánqīng rén de gōngzuò yālì tài dà le.",
+        "vn": "Áp lực công việc của giới trẻ hiện nay lớn quá."
+      },
+      {
+        "cn": "运 动 是 减 轻 压 力 的 好 方 法。",
+        "py": "Yùndòng shì jiǎnqīng yālì de hǎo fāngfǎ.",
+        "vn": "Thể thao là phương pháp tốt để giảm bớt áp lực."
+      }
+    ],
+    "goc_lao_su": "KẾT HỢP TỪ VỰNG: Khi nói về áp lực, người Trung Quốc không dùng tính từ '多' mà dùng tính từ '大' hoặc '小'. Ví dụ: 压力很大 (Áp lực rất lớn), tuyệt đối không nói 压力很 多."
+  },
+  {
+    "id": "h4_w_004",
+    "category": "word",
+    "level": "HSK 4",
+    "topic": "study",
+    "hanzi": "印象",
+    "pinyin": "yìnxiàng",
+    "han_viet": "Ấn tượng",
+    "radical": "卩 (Tiết - 2 nét). Chiết tự giải mã hình tượng: Chữ 印 (ấn: con dấu khắc chìm để lại vết) kết hợp với chữ 象 (tượng: hình ảnh, bóng dáng). Hình tượng chiếc con dấu ấn sâu xuống tấm sáp, để lại vệt hằn rõ nét trong tâm trí người nhìn.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Ấn tượng",
+    "expansion": "• Trường hợp 1 (Ấn tượng chung): 留下好印象 (để lại ấn tượng tốt), 第一印象 (ấn tượng đầu tiên).\n• Trường hợp 2 (Ký ức mờ ảo/sâu sắc về ai): 对他很有印象 (có ấn tượng sâu sắc về anh ấy).\n• Cụm kết hợp cố định (Collocations): 印象深刻 (ấn tượng sâu sắc).",
+    "examples": [
+      {
+        "cn": "她 给 我 留 下 了 深 刻 的 印 象。",
+        "py": "Tā gěi wǒ liú xià le shēnkè de yìnxiàng.",
+        "vn": "Cô ấy đã để lại cho tôi ấn tượng sâu sắc."
+      },
+      {
+        "cn": "我 对 这 座 城 市 的 第 一 印 象 非 常 好。",
+        "py": "Wǒ duì zhè zuò chéngshì de dì yī yìnxiàng fēicháng hǎo.",
+        "vn": "Ấn tượng đầu tiên của tôi đối với thành phố này rất tốt."
+      }
+    ],
+    "goc_lao_su": "CẤU TRÚC CỐ ĐỊNH: Để nói 'ai đó để lại ấn tượng cho tôi', cấu trúc chuẩn là: [Ai đó] + 给我 + 留下了 + [Tính từ] + 印象. Cấu trúc này xuất hiện cực kỳ dày đặc trong các bài đọc hiểu và viết luận HSK 4."
+  },
+  {
+    "id": "h4_s_001",
+    "category": "sentence",
+    "level": "HSK 4",
+    "topic": "work",
+    "hanzi": "既 然 大 家 都 同 意，那 我 们 就 这 么 办 吧。",
+    "pinyin": "Jìrán dàjiā dōu tóngyì, nà wǒmen jiù zhème bàn ba.",
+    "han_viet": "Ký nhiên đại gia đô đồng ý, nà ngã môn tựu giá ma biện ba.",
+    "radical": "N/A",
+    "word_type": "Câu phức nhân quả / suy luận",
+    "meaning_vn": "Đã vậy mọi người đều đồng ý, thì chúng ta cứ làm thế đi.",
+    "expansion": "Cặp liên từ suy luận nhân quả: 既然 [Vế 1 - Sự thật hiển nhiên đã rõ] , 就 / 那 [Vế 2 - Đưa ra quyết định hoặc kết luận dựa trên thực tế đó].",
+    "examples": [
+      {
+        "cn": "既 然 你 不 想 去，我 就 自 己 去 吧。",
+        "py": "Jìrán nǐ bù xiǎng qù, wǒ jiù zìjǐ qù ba.",
+        "vn": "Đã vậy bạn không muốn đi, thì tôi tự đi vậy."
+      }
+    ],
+    "goc_lao_su": "PHÂN BIỆT VỚI 因为 (Vì): Khác với 因为 (chỉ nguyên nhân thông thường), chữ 既然 mang sắc thái 'Đã đành rằng / Đã là sự thật rành rành như thế', vế sau thường dẫn tới một giải pháp tất yếu mang tính chốt hạ."
+  },
+  {
+    "id": "h4_s_002",
+    "category": "sentence",
+    "level": "HSK 4",
+    "topic": "study",
+    "hanzi": "无 论 遇 到 多 大 的 困 难，我 们 也 不 能 放 弃。",
+    "pinyin": "Wúlùn yùdào duō dà de kùnnán, wǒmen yě bù néng fàngqì.",
+    "han_viet": "Vô luận ngộ đáo đa đại đích khốn nạn, ngã môn dã bất năng phóng khí.",
+    "radical": "N/A",
+    "word_type": "Câu phức điều kiện phổ quát (Nhượng bộ)",
+    "meaning_vn": "Dù có gặp khó khăn lớn đến đâu, chúng ta cũng không thể từ bỏ.",
+    "expansion": "Cặp liên từ nhượng bộ phổ quát: 无论 / 不管 [Vế 1 - Mọi điều kiện giả định cực đoan] , 都 / 也 [Vế 2 - Kết quả không thay đổi].",
+    "examples": [
+      {
+        "cn": "无 论 谁 说，我 也 不 相 信。",
+        "py": "Wúlùn shuí shuō, wǒ yě bù xiāngxìn.",
+        "vn": "Cho dù ai nói đi nữa, tôi cũng không tin."
+      }
+    ],
+    "goc_lao_su": "MẸO NGỮ PHÁP HSK 4: Sau 必须/无论, vế câu thường đi kèm các từ để hỏi như 怎么, 谁, 多么 hoặc từ chỉ định để tạo thành thế điều kiện mở rộng. Vế sau bắt buộc phải có 都 hoặc 也 để làm mỏ neo kết luận."
+  }
+]

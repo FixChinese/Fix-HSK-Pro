@@ -1,0 +1,122 @@
+[
+  {
+    "id": "h5_w_001",
+    "category": "word",
+    "level": "HSK 5",
+    "topic": "work",
+    "hanzi": "矛盾",
+    "pinyin": "máodùn",
+    "han_viet": "Mâu thuẫn",
+    "radical": "矛 (Mâu - 5 nét). Chiết tự giải mã hình tượng: Chữ 矛 (mâu: cái giáo đâm thủng vạn vật) kết hợp với chữ 盾 (thuẫn: cái khiên đỡ được mọi loại binh khí). Xuất phát từ điển cố người nước Sở rao bán giáo và thuẫn: Khoa trương giáo sắc bén đến mức đâm thủng mọi thứ, lại khoe khiên kiên cố đến mức không gì đâm thủng được. Khi bị hỏi 'Dùng giáo của anh đâm vào khiên của anh thì thế nào?', người bán cứng họng. Từ đó biểu thị sự trái ngược, xung đột nhau hoàn toàn.",
+    "word_type": "Danh từ / Tính từ",
+    "meaning_vn": "Mâu thuẫn, trái ngược nhau",
+    "expansion": "• Trường hợp 1 (Danh từ - Sự bất hòa, xung đột lợi ích/quan điểm): 产生矛盾 (phát sinh mâu thuẫn), 解决矛盾 (giải quyết mâu thuẫn).\n• Trường hợp 2 (Tính từ - Lời nói hoặc sự việc trước sau trái ngược nhau): 他的话前后矛盾 (Lời nói của anh ta trước sau mâu thuẫn).\n• Cụm kết hợp cố định (Collocations): 充满矛盾 (đầy rẫy mâu thuẫn), 调解矛盾 (hòa giải mâu thuẫn).",
+    "examples": [
+      {
+        "cn": "我 们 之 间 存 在 着 一 些 误 解 和 矛 盾。",
+        "py": "Wǒmen zhījiān cúnzài zhe yīxiē wùjiě hé máodùn.",
+        "vn": "Giữa chúng tôi tồn tại một số hiểu lầm và mâu thuẫn."
+      },
+      {
+        "cn": "他 自 相 矛 盾 的 话 让 大 家 很 困 惑。",
+        "py": "Tā zìxiāng máodùn de huà ràng dàjiā hěn kūnhuò.",
+        "vn": "Những lời tự mâu thuẫn lẫn nhau của anh ta khiến mọi người rất hoang mang."
+      }
+    ],
+    "goc_lao_su": "MẸO HỌC THUẬT: Cụm từ '自相矛盾' (tự tương mâu thuẫn) là thành ngữ HSK 5 cực kỳ hay dùng để chỉ hành động tự vả vào lời nói của chính mình. Khi dịch sang tiếng Việt, từ 'mâu thuẫn' vừa có thể là danh từ, vừa là tính từ, linh hoạt hơn tiếng Việt nhiều trong văn bản chính luận."
+  },
+  {
+    "id": "h5_w_002",
+    "category": "word",
+    "level": "HSK 5",
+    "topic": "study",
+    "hanzi": "概念",
+    "pinyin": "gàiniàn",
+    "han_viet": "Khái niệm",
+    "radical": "木 (Mộc - 4 nét). Chiết tự giải mã hình tượng: Chữ 概 (khái: tổng quát, khái quát chung) kết hợp với chữ 念 (niệm: suy nghĩ, ghi nhớ trong đầu). Ý nghĩa hình tượng: Sự đúc kết, khái quát hóa các thuộc tính chung của sự vật thành một ý niệm trừu tượng trong tư duy con người.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Khái niệm, quan niệm",
+    "expansion": "• Trường hợp 1 (Thuật ngữ khoa học/triết học): 明确概念 (làm rõ khái niệm), 基本概念 (khái niệm cơ bản).\n• Trường hợp 2 (Nhận thức mơ hồ của con người): 没有这个概念 (không có khái niệm này trong đầu).\n• Cụm kết hợp cố định (Collocations): 概念不清 (khái niệm mơ hồ),  đổi mới 观念 (đổi mới quan niệm).",
+    "examples": [
+      {
+        "cn": "我 们 首 先 需 要 弄 清 楚 这 个 词 的 概 念。",
+        "py": "Wǒmen shǒuxiān xūyào nòng qīngchǔ zhège cí de gàiniàn.",
+        "vn": "Trước tiên chúng ta cần làm rõ khái niệm của từ này."
+      },
+      {
+        "cn": "对 他 来 说，时 间 管 理 完 全 是 个 新 概 念。",
+        "py": "Duì tā lái shuō, shíjiān guǎnlǐ wánquán shì gè xīn gàiniàn.",
+        "vn": "Đối với anh ấy, quản lý thời gian hoàn toàn là một khái niệm mới mẻ."
+      }
+    ],
+    "goc_lao_su": "BẢN CHẤT NGỮ DỤNG: Ở cấp độ HSK 5, '概念' thường xuất hiện trong các bài văn nghị luận, khoa học hoặc hội thảo chuyên đề. Khác với '意思' (nghĩa thông thường), '概念' mang hàm ý trừu tượng và học thuật cao hơn."
+  },
+  {
+    "id": "h5_w_003",
+    "category": "word",
+    "level": "HSK 5",
+    "topic": "work",
+    "hanzi": " 根 据",
+    "pinyin": "gēnjù",
+    "han_viet": "Căn cứ",
+    "radical": "木 (Mộc - 4 nét). Chiết tự giải mã hình tượng: Chữ 根 (căn: gốc rễ cây cắm sâu vào đất) kết hợp với chữ 据 (cứ: dựa vào, chỗ dựa vững chắc). Ý nghĩa hình tượng: Dựa vào phần gốc rễ sâu bền, có bằng chứng xác thực làm chỗ dựa để đưa ra kết luận.",
+    "word_type": "Giới từ / Danh từ",
+    "meaning_vn": "Căn cứ vào, dựa theo",
+    "expansion": "• Trường hợp 1 (Giới từ - Dựa theo chứng cứ/tài liệu): 根据法律 (căn cứ theo pháp luật), 根据调查 (dựa vào kết quả điều tra).\n• Trường hợp 2 (Danh từ - Cơ sở chứng cứ): 说话要有根据 (nói năng phải có căn cứ).\n• Cụm kết hợp cố định (Collocations): 根据实际情况 (dựa vào tình hình thực tế).",
+    "examples": [
+      {
+        "cn": "根 据 统 计 数 据，这 种 产 品 非 常 受 欢 迎。",
+        "py": "Gēnjù tǒngjì shùjù, zhè zhǒng chǎnpǐn fēicháng shòu huānyíng.",
+        "vn": "Dựa trên số liệu thống kê, loại sản phẩm này rất được hoan nghênh."
+      },
+      {
+        "cn": "你 这 样 说 有 什 么 根 据 吗？",
+        "py": "Nǐ zhèyàng shuō yǒu shénme gēnjù ma?",
+        "vn": "Bạn nói như vậy có căn cứ gì không?"
+      }
+    ],
+    "goc_lao_su": "SO SÁNH VỚI 按照 (ànzhào): '根据' thiên về việc dựa trên cơ sở lý luận, số liệu, văn bản luật làm căn cứ chứng minh. Còn '按照' thiên về việc tuân thủ theo quy trình, chỉ thị, phương án đã định sẵn để thi hành."
+  },
+  {
+    "id": "h5_s_001",
+    "category": "sentence",
+    "level": "HSK 5",
+    "topic": "study",
+    "hanzi": "既 然 选 择 了 这 条 路，就 无 论 如 何 也 要 坚 持 下 去。",
+    "pinyin": "Jìrán xuǎnzé le zhè tiáo lù, jiù wúlùn rúhé yě yào jiānchí xià qù.",
+    "han_viet": "Ký nhiên lựa chọn liễu giá điều lộ, tựu vô luận như hà dã yếu kiên trì hạ khứ.",
+    "radical": "N/A",
+    "word_type": "Câu phức lồng ghép liên từ cao cấp",
+    "meaning_vn": "Đã lựa chọn con đường này, thì dù thế nào cũng phải kiên trì đi tiếp.",
+    "expansion": "Cấu trúc phức hợp kết hợp giữa 既然 (Đã là sự thật rằng...) và 无论如何 (Dù thế nào đi nữa...). Thể hiện quyết tâm sắt đá của chủ thể trước nghịch cảnh.",
+    "examples": [
+      {
+        "cn": "既 然 目 标 已 经 定 下 了，我 们 就 无 论 如 何 也 要 实 现 它。",
+        "py": "Jìrán mùbiāo yǐjīng dìng xià le, wǒmen jiù wúlùn rúhé yě yào shíxiàn tā.",
+        "vn": "Đã định sẵn mục tiêu rồi, chúng ta dù thế nào cũng phải thực hiện cho bằng được."
+      }
+    ],
+    "goc_lao_su": "VĂN PHONG CHÍNH LUẬN: Câu văn chứa đồng thời hai cặp liên từ 既然 và 无论...都/也 là đặc sản của văn phong HSK 5. Nó giúp câu văn trở nên đanh thép, logic chặt chẽ, rất thích hợp dùng trong phần thi viết luận điểm."
+  },
+  {
+    "id": "h5_s_002",
+    "category": "sentence",
+    "level": "HSK 5",
+    "topic": "work",
+    "hanzi": "对 于 这 个 问 题，大 家 的 看 法 各 不 相 同。",
+    "pinyin": "Duìyú zhège wèntí, dàjiā de kànfǎ gè bù xiāngtóng.",
+    "han_viet": "Đối vu giá cái vấn đề, đại gia đích khan pháp các bất tương đồng.",
+    "radical": "N/A",
+    "word_type": "Câu giới từ nhấn mạnh đối tượng",
+    "meaning_vn": "Đối với vấn đề này, cách nhìn nhận của mọi người hoàn toàn khác nhau.",
+    "expansion": "Cấu trúc đưa đối tượng lên đầu câu làm đề ngữ bằng giới từ '对于' (Đối với...). Giúp hướng sự chú ý của người nghe/đọc tập trung hoàn toàn vào trọng tâm vấn đề trước khi đưa ra nhận định.",
+    "examples": [
+      {
+        "cn": "对 于 学 习 外 语 来 说，环 境 非 常 重 要。",
+        "py": "Duìyú xuéxí wàiyǔ lái shuō, huánjìng fēicháng zhòngyào.",
+        "vn": "Đối với việc học ngoại ngữ mà nói, môi trường vô cùng quan trọng."
+      }
+    ],
+    "goc_lao_su": "MẸO ĐẶT CÂU: '对于' thường đứng ở đầu câu để giới thiệu phạm vi hoặc đối tượng bàn luận. Cần phân biệt với '关于' (Về vấn đề...). '关于' mang tính giới thiệu đề tài chung chung, còn '对于' mang tính hướng đích, tác động hoặc nêu quan điểm trực diện vào đối tượng cụ thể."
+  }
+]

@@ -1,0 +1,247 @@
+[
+  {
+    "id": "h2_w_001",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "daily",
+    "hanzi": "帮",
+    "pinyin": "bāng",
+    "han_viet": "Bang",
+    "radical": "巾 (Cân - 3 nét). Chiết tự giải mã hình tượng: Gồm chữ Phong 丰 (hình ảnh cây cỏ sum suê mọc thành bụi hỗ trợ nhau) kết hợp với bộ Cân 巾 (tấm khăn). Biểu thị hành động dùng tay chân, sức lực để quấn tay, gánh vác hoặc hỗ trợ người khác trong lúc khó khăn.",
+    "word_type": "Động từ",
+    "meaning_vn": "Giúp, giúp đỡ",
+    "expansion": "• Trường hợp 1 (Động từ đơn thuần + Ai đó): Giúp ai đó làm việc (帮我 - giúp tôi).\n• Trường hợp 2 (Cấu trúc nhờ vả: 帮... + V): Nhờ ai làm gì (帮我 拿一下 - giúp tôi lấy một chút).\n• Cụm kết hợp cố định (Collocations): 帮忙 (giúp đỡ / nặn nã việc), 帮 忙 (nói gộp thành cụm ly hợp: 帮了一个忙 - giúp một việc).",
+    "examples": [
+      {
+        "cn": "请 帮 我 买 一 瓶 水。",
+        "py": "Qǐng bāng wǒ mǎi yì píng shuǐ.",
+        "vn": "Làm ơn giúp tôi mua một chai nước."
+      },
+      {
+        "cn": "他 经 常 帮 同 学 学 习 汉 语。",
+        "py": "Tā jīngcháng bāng tóngxué xuéxí Hànyǔ.",
+        "vn": "Anh ấy thường xuyên giúp bạn học học tiếng Trung."
+      }
+    ],
+    "goc_lao_su": "BẢN CHẤT TỪ LY HỢP: '帮忙' (bāngmáng) là từ ly hợp (động từ + tân ngữ ẩn). Khi bạn muốn nói 'Giúp anh ấy một việc', bạn không thể nói '帮他忙儿' theo kiểu chèn tân ngữ lung tung, mà phải tách ra: '帮他一个忙' (giúp anh ấy một cái giúp đỡ) hoặc nói gọn là '帮他'."
+  },
+  {
+    "id": "h2_w_002",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "work",
+    "hanzi": "觉",
+    "pinyin": "jiào",
+    "han_viet": "Giác",
+    "radical": "见 (Kiến - 4 nét). Chiết tự giải mã hình tượng: Phía trên là bộ Thi 尸 (mái nhà/cái xác nằm), ở giữa là chữ Giản 𦥑 (cái đầu), phía dưới là bộ Kiến 见 (mắt mở). Hình tượng một người nằm trên giường buông lơi ý thức, nhắm mắt thả lỏng cơ thể để chìm vào giấc ngủ.",
+    "word_type": "Danh từ",
+    "meaning_vn": "Giấc ngủ",
+    "expansion": "• Trường hợp 1 (Kết hợp đặc thù với động từ 睡): 睡觉 (shìujiào - đi ngủ).\n• Trường hợp 2 (Đi kèm lượng từ): 觉 (giấc). Cụm cố định: 睡一个好觉 (ngủ một giấc thật ngon).\n• Cụm kết hợp cố định (Collocations): 午觉 (ngủ trưa), 懒觉 (ngủ nướng).",
+    "examples": [
+      {
+        "cn": "我 累 了，想 去 睡 觉。",
+        "py": "Wǒ lèi le, xiǎng qù shuìjiào.",
+        "vn": "Tôi mệt rồi, muốn đi ngủ."
+      },
+      {
+        "cn": "孩子 中 午 都 要 睡 午 觉。",
+        "py": "Háizi zhōngwǔ dōu yào shuì wǔjiào.",
+        "vn": "Trẻ con buổi trưa đều phải ngủ trưa."
+      }
+    ],
+    "goc_lao_su": "MẸO PHẢN XẠ: Chữ '觉' trong từ '睡觉' đọc là 'jiào' (thanh 4). Tuy nhiên, khi nó đứng trong từ '觉得' (cảm thấy), nó lại đọc là 'jué' (thanh 2). Đây là từ đa âm tiết rất hay gặp trong đề thi HSK, học viên cần ghi nhớ thuộc lòng từng hoàn cảnh phát âm."
+  },
+  {
+    "id": "h2_w_003",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "daily",
+    "hanzi": "问",
+    "pinyin": "wèn",
+    "han_viet": "Vấn",
+    "radical": "口 (Khẩu - 3 nét). Chiết tự giải mã hình tượng: Gồm bộ Môn 门 (cái cửa) bọc lấy bộ Khẩu 口 (cái miệng). Hình tượng một người đứng ở ngoài cửa, ghé miệng vào trong để cất tiếng hỏi thăm, dò tin tức.",
+    "word_type": "Động từ",
+    "meaning_vn": "Hỏi, thăm hỏi",
+    "expansion": "• Trường hợp 1 (Động từ + Ai đó): Hỏi ai việc gì (问老师, 问路 - hỏi đường).\n• Trường hợp 2 (Khẩu ngữ lịch sự): 请问... (Xin hỏi... / Cho hỏi...).\n• Cụm kết hợp cố định (Collocations): 问题 (vấn đề), 问候 (thăm hỏi), 3问3答 (hỏi đáp).",
+    "examples": [
+      {
+        "cn": "请 问，这 里 离 火 车 站 有 多 远？",
+        "py": "Qǐngwèn, zhèlǐ lí huǒchēzhàn yǒu duō yuǎn?",
+        "vn": "Xin hỏi, từ đây cách ga tàu hỏa bao xa?"
+      },
+      {
+        "cn": "有 不 懂 的 地 方，你 可 以 问 我。",
+        "py": "Yǒu bù dǒng de dìfang, nǐ kěyǐ wèn wǒ.",
+        "vn": "Có chỗ nào không hiểu, bạn có thể hỏi tôi."
+      }
+    ],
+    "goc_lao_su": "BẪY NGỮ PHÁP TIẾNG VIỆT: Người Việt hay nói 'Hỏi anh ấy một câu'. Trong tiếng Trung, khi muốn nói 'hỏi ai đó việc gì', cấu trúc chuẩn là: 问 + [Người] + [Sự việc/Nội dung]. Ví dụ: 问他这个问题 (Hỏi anh ấy vấn đề này), không được dùng cấu trúc dịch word-by-word từ tiếng Việt."
+  },
+  {
+    "id": "h2_w_004",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "study",
+    "hanzi": "懂",
+    "pinyin": "dǒng",
+    "han_viet": "Đổng",
+    "radical": "忄 (Tâm - 3 nét). Chiết tự giải mã hình tượng: Bên trái là bộ Tâm 忄 (trái tim/tâm trí), bên phải là chữ Đổng 重 (nặng, thấu đáo). Trái tim đã thấu suốt, nắm bắt được trọng tâm của vấn đề, không còn mơ hồ.",
+    "word_type": "Động từ",
+    "meaning_vn": "Hiểu, nắm rõ",
+    "expansion": "• Trường hợp 1 (Hiểu ý nghĩa, ngôn ngữ): 懂汉语 (hiểu tiếng Trung), 听懂 (nghe hiểu).\n• Trường hợp 2 (Hiểu đạo lý, tâm tư): 懂事 (hiểu chuyện - dùng khen trẻ con ngoan ngoãn).\n• Cụm kết hợp cố định (Collocations): 懂得 (hiểu biết), 听懂 (nghe thủng/nghe hiểu), 看懂 (đọc hiểu).",
+    "examples": [
+      {
+        "cn": "老 师 讲 的 话，我 都 听 懂 了。",
+        "py": "Lǎoshī jiǎng de huà, wǒ dōu tīng dǒng le.",
+        "vn": "Những lời thầy cô giảng, tôi đều nghe hiểu hết rồi."
+      },
+      {
+        "cn": "这 个 孩 子 真 懂 事。",
+        "py": "Zhège háizi zhēn dǒngshì.",
+        "vn": "Đứa trẻ này thật hiểu chuyện."
+      }
+    ],
+    "goc_lao_su": "PHÂN BIỆT VỚI 知道 (zhīdào): '知道' nghĩa là 'Biết' (biết thông tin, biết sự việc có tồn tại hay không). Còn '懂' nghĩa là 'Hiểu' sâu sắc bản chất, thấu đáo vấn đề. Ví dụ: 我知道这个字 (Tôi biết chữ này - nhìn mặt chữ là nhận ra), nhưng 我不懂意思 (Tôi không hiểu ý nghĩa của nó)."
+  },
+  {
+    "id": "h2_w_005",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "daily",
+    "hanzi": "贵",
+    "pinyin": "guì",
+    "han_viet": "Quý",
+    "radical": "贝 (Bối - 4 nét). Chiết tự giải mã hình tượng: Phía trên là chữ Trung 中 (ở giữa), phía dưới là bộ Bối 贝 (vỏ sò tiền tệ cổ). Vật gì quý giá, khan hiếm thường được cất giữ ở vị trí trung tâm, có giá trị kinh tế cao.",
+    "word_type": "Tính từ",
+    "meaning_vn": "Đắt, quý báu",
+    "expansion": "• Trường hợp 1 (Giá cả vật chất): Đắt đỏ (太贵了 - đắt quá).\n• Trường hợp 2 (Tôn kính xã giao): Dùng trong câu hỏi xã giao về họ tên, quốc tịch của đối phương (您贵姓？ - Ngài quý tính đại danh là gì?).\n• Cụm kết hợp cố định (Collocations): 宝贵 (quý báu), 珍贵 (trân quý), 贵重 (quý trọng).",
+    "examples": [
+      {
+        "cn": "这 件 衣 服 太 贵 了，我 不 买。",
+        "py": "Zhè jiàn yīfu tài guì le, wǒ bù mǎi.",
+        "vn": "Bộ quần áo này đắt quá, tôi không mua."
+      },
+      {
+        "cn": "请 问 您 贵 姓？",
+        "py": "Qǐngwèn nín guì xìng?",
+        "vn": "Xin hỏi quý danh ngài là gì? (Lịch sự)"
+      }
+    ],
+    "goc_lao_su": "VĂN HÓA GIAO TIẾP: Trong tiếng Trung, khi giao tiếp thương mại hoặc gặp gỡ đối tác lớn tuổi, người ta dùng từ '贵' (quý) gắn vào các từ thuộc về đối phương để thể hiện sự kính trọng cao độ như: 贵姓 (quý tính), 贵公司 (quý công ty)."
+  },
+  {
+    "id": "h2_w_006",
+    "category": "word",
+    "level": "HSK 2",
+    "topic": "work",
+    "hanzi": "忙",
+    "pinyin": "máng",
+    "han_viet": "Mang",
+    "radical": "忄 (Tâm - 3 nét). Chiết tự giải mã hình tượng: Gồm bộ Tâm 忄 (trái tim/tâm trạng) kết hợp với chữ Vong 亡 (mất mát, tiêu tan). Ý nghĩa hình tượng: Tâm trí bị công việc quấn lấy, bận rộn đến mức tâm can tơi bời, đầu óc trống rỗng không kịp nghỉ ngơi.",
+    "word_type": "Tính từ / Động từ",
+    "meaning_vn": "Bận rộn",
+    "expansion": "• Trường hợp 1 (Tính từ làm vị ngữ): Bận (我今天很忙 - Hôm nay tôi rất bận).\n• Trường hợp 2 (Động từ bận rộn làm gì): 忙着 + V (忙着工作 - bận rộn làm việc).\n• Cụm kết hợp cố định (Collocations): 帮忙 (giúp đỡ), 繁忙 (phồn vinh/bận rộn), 连忙 (vội vã/liền mang).",
+    "examples": [
+      {
+        "cn": "你 最 近 忙 什 么 呢？",
+        "py": "Nǐ zuìjìn máng shénme ne?",
+        "vn": "Dạo này bạn đang bận rộn việc gì thế?"
+      },
+      {
+        "cn": "他 正 在 忙 着 准 备 考 试。",
+        "py": "Tā zhèngzài máng zhe zhǔnbèi kǎoshì.",
+        "vn": "Anh ấy đang bận rộn chuẩn bị cho kỳ thi."
+      }
+    ],
+    "goc_lao_su": "LỖI SAI NGỮ PHÁP: Giống như chữ '好', từ '忙' là tính từ thuần túy. Bạn không thể nói '很忙' (rất bận) khi làm trạng ngữ chỉ mục đích. Muốn nói 'bận làm gì', bắt buộc phải dùng cấu trúc '忙着 + [Hành động]'."
+  },
+  {
+    "id": "h2_s_001",
+    "category": "sentence",
+    "level": "HSK 2",
+    "topic": "work",
+    "hanzi": "虽然很忙，但是他很高兴。",
+    "pinyin": "Suīrán hěn máng, dànshì tā hěn gāoxìng.",
+    "han_viet": "Tuy nhiên ngận mang, đản thị tha ngận cao hưng.",
+    "radical": "N/A",
+    "word_type": "Câu phức chuyển ngoặt",
+    "meaning_vn": "Tuy rất bận, nhưng anh ấy rất vui.",
+    "expansion": "Cấu trúc biểu thị quan hệ nhượng bộ, chuyển ngoặt ý nghĩa giữa hai vế câu: 虽然 [Vế 1 - Sự thật] , 但(是) [Vế 2 - Kết quả bất ngờ].",
+    "examples": [
+      {
+        "cn": "虽 然 天 气 很 冷，他 还 是 去 跑 步 了。",
+        "py": "Suīrán tiānqì hěn lěng, tā háishì qù pǎobù le.",
+        "vn": "Tuy thời tiết rất lạnh, anh ấy vẫn đi chạy bộ."
+      },
+      {
+        "cn": "这 件 衣 服 虽 然 贵，但 是 很 好 看。",
+        "py": "Zhè jiàn yīfu suīrán guì, dànshì hěn hǎokàn.",
+        "vn": "Bộ quần áo này tuy đắt, nhưng rất đẹp."
+      }
+    ],
+    "goc_lao_su": "TƯ DUY KẾT HỢP CẶP LIÊN TỪ: Trong tiếng Việt, đôi khi chúng ta chỉ nói 'Tuy bận, anh ấy vẫn vui' (bỏ chữ nhưng). Nhưng trong ngữ pháp chuẩn Trung Quốc, cặp liên từ '虽然' và '但是' (hoặc 可是) có xu hướng đi song hành bắt buộc. Việc lặp đủ cặp giúp câu văn có nhịp điệu và chuẩn văn phạm HSK."
+  },
+  {
+    "id": "h2_s_002",
+    "category": "sentence",
+    "level": "HSK 2",
+    "topic": "daily",
+    "hanzi": "你 帮 我 问 一 下 他 好 吗？",
+    "pinyin": "Nǐ bāng wǒ wèn yíxià tā hǎo ma?",
+    "han_viet": "Nhĩ bang ngã vấn nhất hạ tha hảo ma?",
+    "radical": "N/A",
+    "word_type": "Câu nhờ vả (Động từ kép)",
+    "meaning_vn": "Bạn giúp tôi hỏi anh ấy một chút được không?",
+    "expansion": "Cấu trúc nhờ vả lịch sự kết hợp hình thức lặp động từ '一下' (vài cái / một chút) để làm giảm sắc thái mệnh lệnh, tăng sự nhẹ nhàng cho câu.",
+    "examples": [
+      {
+        "cn": "你 帮 我 看 一 看 这 个 字 怎 么 读。",
+        "py": "Nǐ bāng wǒ kàn yí kàn zhège zì zěnme dú.",
+        "vn": "Bạn giúp tôi xem thử chữ này đọc thế nào."
+      }
+    ],
+    "goc_lao_su": "MẸO KHẨU NGỮ THỰC CHIẾN: Người Trung Quốc cực kỳ hay dùng cụm 'V + 一下' (như: 看一下, 问一下, 听一下) khi nhờ vả. Nó giống như từ 'thử', 'chút' trong tiếng Việt, giúp câu nói không bị cục cằn, thô lỗ."
+  },
+  {
+    "id": "h2_s_003",
+    "category": "sentence",
+    "level": "HSK 2",
+    "topic": "study",
+    "hanzi": "这 个 汉 字 我 已 经 懂 了。",
+    "py": "Zhège Hànzì wǒ yǐjīng dǒng le.",
+    "han_viet": "Giá cái Hán tự ngã dĩ kinh đổng liễu.",
+    "radical": "N/A",
+    "word_type": "Câu nhấn mạnh trạng thái",
+    "meaning_vn": "Chữ Hán này tôi đã hiểu rồi.",
+    "expansion": "Cấu trúc nhấn mạnh sự thay đổi trạng thái hoặc hoàn thành: Chủ ngữ + 已经 + Động từ + 了. Thể hiện sự việc không còn ở trạng thái cũ nữa.",
+    "examples": [
+      {
+        "cn": "他 已 经 离 开 北 京 了。",
+        "py": "Tā yǐjīng líkāi Běijīng le.",
+        "vn": "Anh ấy đã rời khỏi Bắc Kinh rồi."
+      }
+    ],
+    "goc_lao_su": "VỊ TRÍ CỦA '已经': Rất nhiều học viên Việt Nam đặt '已经' ở cuối câu giống như chữ 'rồi' trong tiếng Việt (Ví dụ: 我懂了已经). Đây là lỗi phạt điểm nặng trong các kỳ thi. '已经' phải đứng trước động từ chính."
+  },
+  {
+    "id": "h2_s_004",
+    "category": "sentence",
+    "level": "HSK 2",
+    "topic": "daily",
+    "hanzi": "飞 机 票 太 贵 了，我 不 买。",
+    "py": "Fēijīpiào tài guì le, wǒ bù mǎi.",
+    "han_viet": "Phi cơ phiếu thái quý liễu, ngã bất mãi.",
+    "radical": "N/A",
+    "word_type": "Câu nguyên nhân - kết quả ẩn",
+    "meaning_vn": "Vé máy bay đắt quá, tôi không mua.",
+    "expansion": "Cấu trúc cảm thán mức độ cao: 太 + Tính từ + 了 (Quá... / Lắm...). Diễn tả sự việc vượt ngưỡng chịu đựng hoặc đánh giá cảm xúc mạnh mẽ.",
+    "examples": [
+      {
+        "cn": "这 件 衣 服 太 贵 了，宜 家 一 点 儿 吧。",
+        "py": "Zhè jiàn yīfu tài guì le, yíjiā yìdiǎnr ba.",
+        "vn": "Bộ quần áo này đắt quá, rẻ đi một chút đi."
+      }
+    ],
+    "goc_lao_su": "CẤU TRÚC CỐ ĐỊNH: Cụm '太...了' là một cặp hoàn chỉnh. Bạn không được bỏ chữ '了' ở cuối khi dùng '太'. Nói '太贵' là thiếu ngữ pháp trong văn viết trang trọng, phải nói '太贵了'."
+  }
+]
