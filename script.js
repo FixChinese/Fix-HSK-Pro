@@ -84,10 +84,10 @@ function updateSessionStatsUI() {
     const btnReview = document.getElementById('btn-inline-review');
     if (btnReview) {
         if (mistakeList.length > 0) {
-            btnReview.classList.remove('hidden');
+            btnReview.classList.remove('d-none');
             document.getElementById('inline-mistake-count').innerText = mistakeList.length;
         } else {
-            btnReview.classList.add('hidden');
+            btnReview.classList.add('d-none');
         }
     }
 }
@@ -100,6 +100,7 @@ function renderUserStatsView() {
     document.getElementById('user-total-acc').innerText = `${acc}%`;
 }
 
+// ----------------- KHỞI TẠO HỆ THỐNG DỮ LIỆU CHÍNH -----------------
 async function loadAllSystemData() {
     try {
         const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -122,12 +123,12 @@ async function loadAllSystemData() {
         try {
             const resNotes = await fetch('data/vietnamese_notes.json');
             if (resNotes.ok) workoutNotesData = await resNotes.json();
-        } catch (e) { console.warn('Không tải được vietnamese_notes.json', e); }
+        } catch (e) { console.warn('Không tải vietnamese_notes.json', e); }
 
         try {
             const resWorkout = await fetch('data/context_workout.json');
             if (resWorkout.ok) workoutContextData = await resWorkout.json();
-        } catch (e) { console.warn('Không tải được context_workout.json', e); }
+        } catch (e) { console.warn('Không tải context_workout.json', e); }
 
         initSmartMenu(); 
         initUserManagement(); 
@@ -140,74 +141,70 @@ async function loadAllSystemData() {
 
 loadAllSystemData();
 
+// ----------------- ĐIỀU KHIỂN GIAO DIỆN VÀ MENU -----------------
 function initSmartMenu() {
-    const menuWrapper = document.getElementById('menu-wrapper');
     const floatingMenu = document.getElementById('floating-nav-card');
-    let hoverTimeout = null;
-
-    function openDesktop() { if (window.innerWidth > 768) { clearTimeout(hoverTimeout); floatingMenu.classList.remove('hidden'); } }
-    function closeDesktop() { if (window.innerWidth > 768) { hoverTimeout = setTimeout(() => { floatingMenu.classList.add('hidden'); }, 1500); } }
-
-    if (menuWrapper) {
-        menuWrapper.addEventListener('mouseenter', openDesktop);
-        menuWrapper.addEventListener('mouseleave', closeDesktop);
-    }
-
     const toggleBtn = document.getElementById('btn-toggle-menu');
     const closeBtn = document.getElementById('btn-close-floating-menu');
     const backdrop = document.getElementById('menu-overlay-backdrop');
 
-    if (toggleBtn) {
-        toggleBtn.onclick = (e) => {
-            e.stopPropagation();
-            if (window.innerWidth <= 768) {
-                const isMobileActive = floatingMenu.classList.contains('mobile-active');
-                if (!isMobileActive) {
-                    floatingMenu.classList.remove('hidden');
-                    floatingMenu.classList.add('mobile-active');
-                    if (backdrop) backdrop.classList.add('active');
-                    document.body.classList.add('menu-open-mobile');
-                } else {
-                    floatingMenu.classList.remove('mobile-active');
-                    floatingMenu.classList.add('hidden');
-                    if (backdrop) backdrop.classList.remove('active');
-                    document.body.classList.remove('menu-open-mobile');
-                }
-            } else {
-                floatingMenu.classList.toggle('hidden');
-            }
-        };
-    }
+    // Hàm chung điều khiển Menu (chuẩn hóa loại bỏ class xung đột d-none)
+    const openMenu = () => {
+        if (window.innerWidth <= 768) {
+            floatingMenu.classList.add('mobile-active');
+            if (backdrop) backdrop.classList.add('active');
+            document.body.classList.add('menu-open-mobile');
+        } else {
+            floatingMenu.classList.remove('d-none');
+        }
+    };
 
-    if (closeBtn) {
-        closeBtn.onclick = () => {
+    const closeMenu = () => {
+        if (window.innerWidth <= 768) {
             floatingMenu.classList.remove('mobile-active');
-            floatingMenu.classList.add('hidden');
             if (backdrop) backdrop.classList.remove('active');
             document.body.classList.remove('menu-open-mobile');
-        };
+        } else {
+            floatingMenu.classList.add('d-none');
+        }
+    };
+
+    // Sự kiện nút Hamburger
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 768) {
+                if (floatingMenu.classList.contains('mobile-active')) closeMenu(); else openMenu();
+            } else {
+                floatingMenu.classList.toggle('d-none');
+            }
+        });
     }
 
-    if (backdrop) {
-        backdrop.onclick = () => {
-            floatingMenu.classList.remove('mobile-active');
-            floatingMenu.classList.add('hidden');
-            backdrop.classList.remove('active');
-            document.body.classList.remove('menu-open-mobile');
-        };
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+    // Desktop hover (mở rộng tự động)
+    const menuWrapper = document.getElementById('menu-wrapper');
+    let hoverTimeout = null;
+    if (menuWrapper && window.innerWidth > 768) {
+        menuWrapper.addEventListener('mouseenter', () => { clearTimeout(hoverTimeout); floatingMenu.classList.remove('d-none'); });
+        menuWrapper.addEventListener('mouseleave', () => { hoverTimeout = setTimeout(() => floatingMenu.classList.add('d-none'), 1500); });
     }
 
+    // Sự kiện Accordion Menu Con trên thiết bị di động
     document.querySelectorAll('.nav-card-item.has-sub').forEach(item => {
-        item.onclick = (e) => {
+        item.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
                 e.stopPropagation();
                 item.classList.toggle('mobile-expanded');
             }
-        };
+        });
     });
 
+    // Định tuyến (Routing) bài học
     document.querySelectorAll('.sub-flyout-panel a').forEach(link => {
-        link.onclick = (e) => {
+        link.addEventListener('click', (e) => {
             e.preventDefault(); e.stopPropagation();
             currentCategory = link.getAttribute('data-cat');
             currentLevel = link.getAttribute('data-level');
@@ -215,49 +212,27 @@ function initSmartMenu() {
             showView('view-study');
             document.getElementById('view-title').innerText = `${currentCategory === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${currentLevel}`;
             filterAndLoadData();
-            if (window.innerWidth <= 768) {
-                floatingMenu.classList.remove('mobile-active');
-                floatingMenu.classList.add('hidden');
-                if (backdrop) backdrop.classList.remove('active');
-                document.body.classList.remove('menu-open-mobile');
-            } else {
-                floatingMenu.classList.add('hidden');
-            }
-        };
+            closeMenu();
+        });
     });
 
-    const brandBtn = document.getElementById('brand-logo-btn');
-    if (brandBtn) brandBtn.onclick = () => showView('view-home');
-    
-    const cardHome = document.getElementById('card-home');
-    if (cardHome) cardHome.onclick = () => { 
-        showView('view-home'); 
-        floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
-        if (backdrop) backdrop.classList.remove('active'); 
-        document.body.classList.remove('menu-open-mobile');
+    const bindLink = (id, viewName) => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('click', () => { 
+            if(viewName === 'view-stats') renderUserStatsView();
+            if(viewName === 'view-daily') {
+                document.getElementById('daily-setup-panel').classList.remove('d-none');
+                document.getElementById('daily-quiz-panel').classList.add('d-none');
+            }
+            showView(viewName); 
+            closeMenu(); 
+        });
     };
-    
-    const cardWorkout = document.getElementById('card-workout');
-    if (cardWorkout) cardWorkout.onclick = () => { 
-        showView('view-daily'); 
-        document.getElementById('daily-setup-panel').classList.remove('hidden'); 
-        document.getElementById('daily-quiz-panel').classList.add('hidden'); 
-        floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
-        if (backdrop) backdrop.classList.remove('active'); 
-        document.body.classList.remove('menu-open-mobile');
-    };
-    
-    const cardStats = document.getElementById('card-stats');
-    if (cardStats) cardStats.onclick = () => { 
-        renderUserStatsView(); 
-        showView('view-stats'); 
-        floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
-        if (backdrop) backdrop.classList.remove('active'); 
-        document.body.classList.remove('menu-open-mobile');
-    };
+
+    bindLink('brand-logo-btn', 'view-home');
+    bindLink('card-home', 'view-home');
+    bindLink('card-workout', 'view-daily');
+    bindLink('card-stats', 'view-stats');
 }
 
 function initUserManagement() {
@@ -267,7 +242,7 @@ function initUserManagement() {
 
     if (nameInput) {
         nameInput.value = currentUser;
-        nameInput.onchange = (e) => {
+        nameInput.addEventListener('change', (e) => {
             const val = e.target.value.trim();
             if (val) {
                 currentUser = val;
@@ -277,62 +252,60 @@ function initUserManagement() {
                 lifetimeStats = JSON.parse(localStorage.getItem(`hsk_stats_${currentUser}`)) || { total: 0, correct: 0, wrong: 0 };
                 updateSessionStatsUI();
             }
-        };
+        });
     }
     if (userDisplay) userDisplay.innerText = currentUser;
     if (statsDisplay) statsDisplay.innerText = currentUser;
 
     const resetBtn = document.getElementById('btn-reset-user-stats');
     if (resetBtn) {
-        resetBtn.onclick = () => {
+        resetBtn.addEventListener('click', () => {
             if (confirm(`Bạn có chắc chắn muốn làm mới toàn bộ thống kê của tài khoản "${currentUser}" không?`)) {
                 lifetimeStats = { total: 0, correct: 0, wrong: 0 };
                 saveLifetimeStats();
                 renderUserStatsView();
                 alert("Đã đặt lại thống kê thành công!");
             }
-        };
+        });
     }
 }
 
 function showView(viewId) {
-    document.querySelectorAll('.app-view').forEach(v => v.classList.add('hidden'));
+    document.querySelectorAll('.app-view').forEach(v => v.classList.add('d-none'));
     const target = document.getElementById(viewId);
-    if (target) target.classList.remove('hidden');
+    if (target) target.classList.remove('d-none');
 }
 
-function goToSection(type) {
+window.goToSection = function(type) {
     if (type === 'vocab') { currentCategory = 'word'; currentLevel = 'HSK 1'; showView('view-study'); document.getElementById('view-title').innerText = 'Học từ vựng HSK 1'; filterAndLoadData(); } 
     else if (type === 'grammar') { currentCategory = 'sentence'; currentLevel = 'HSK 1'; showView('view-study'); document.getElementById('view-title').innerText = 'Học ngữ pháp & câu văn HSK 1'; filterAndLoadData(); } 
-    else if (type === 'workout') { showView('view-daily'); document.getElementById('daily-setup-panel').classList.remove('hidden'); document.getElementById('daily-quiz-panel').classList.add('hidden'); }
+    else if (type === 'workout') { showView('view-daily'); document.getElementById('daily-setup-panel').classList.remove('d-none'); document.getElementById('daily-quiz-panel').classList.add('d-none'); }
 }
 
 function initWorkoutModule() {
     const startBtn = document.getElementById('btn-start-daily');
     if (startBtn) {
-        startBtn.onclick = () => {
+        startBtn.addEventListener('click', () => {
             workoutConfig.level = document.getElementById('daily-level').value;
             workoutConfig.format = document.getElementById('daily-format').value;
             workoutConfig.topic = document.getElementById('daily-topic').value;
             workoutConfig.mode = document.getElementById('daily-mode').value;
             workoutConfig.count = parseInt(document.getElementById('daily-count').value);
             generateWorkoutSet();
-        };
+        });
     }
-
     const reconfBtn = document.getElementById('btn-workout-reconfigure');
     if (reconfBtn) {
-        reconfBtn.onclick = () => {
-            document.getElementById('daily-setup-panel').classList.remove('hidden');
-            document.getElementById('daily-quiz-panel').classList.add('hidden');
-        };
+        reconfBtn.addEventListener('click', () => {
+            document.getElementById('daily-setup-panel').classList.remove('d-none');
+            document.getElementById('daily-quiz-panel').classList.add('d-none');
+        });
     }
 }
 
 function generateWorkoutSet() {
     let pool = allData.filter(i => i.category === 'sentence');
     if (pool.length === 0) pool = allData;
-
     let topicPool = pool.filter(i => i.topic === workoutConfig.topic);
     if (topicPool.length > 0) pool = topicPool;
 
@@ -346,7 +319,9 @@ function generateWorkoutSet() {
     }
 
     pool = shuffleArray(pool);
-    currentWorkoutSet = pool.slice(0, workoutConfig.count);
+    // Xử lý không lặp vô hạn
+    if (workoutConfig.count > pool.length) currentWorkoutSet = pool;
+    else currentWorkoutSet = pool.slice(0, workoutConfig.count);
 
     const listContainer = document.getElementById('workout-items-list');
     if (!listContainer) return;
@@ -366,23 +341,19 @@ function generateWorkoutSet() {
                 <div class="wi-input-row">
                     <input type="text" class="workout-user-input form-control" style="width:100%; padding:10px 12px; border:2px solid #cbd5e1; border-radius:8px; font-size:15px; color:#14532d; font-weight:600;" placeholder="${placeholderText}" autocomplete="off">
                 </div>
-                <div class="wi-feedback hidden" style="margin-top:10px; padding:12px; border-radius:8px; font-size:14px; line-height:1.4;"></div>
+                <div class="wi-feedback d-none" style="margin-top:10px; padding:12px; border-radius:8px; font-size:14px; line-height:1.4;"></div>
             </div>
         `;
     });
     listContainer.innerHTML = html;
-
-    document.getElementById('daily-setup-panel').classList.add('hidden');
-    document.getElementById('daily-quiz-panel').classList.remove('hidden');
+    document.getElementById('daily-setup-panel').classList.add('d-none');
+    document.getElementById('daily-quiz-panel').classList.remove('d-none');
 
     const submitAllBtn = document.getElementById('btn-workout-submit-all');
-    if (submitAllBtn) {
-        submitAllBtn.onclick = () => {
-            document.getElementById('workout-decision-modal').classList.remove('hidden');
-        };
-    }
+    if (submitAllBtn) submitAllBtn.onclick = () => document.getElementById('workout-decision-modal').classList.remove('d-none');
 }
 
+// ----------------- QUẢN LÝ FLASHCARD & BÀI HỌC -----------------
 window.filterAndLoadData = function() {
     if (isReviewingMistakes) return;
     sessionStats = { total: 0, correct: 0, wrong: 0 };
@@ -392,8 +363,9 @@ window.filterAndLoadData = function() {
     let filtered = allData.filter(item => item.category === currentCategory && item.level === currentLevel);
     filtered = shuffleArray(filtered);
 
+    // XỬ LÝ TRIỆT ĐỂ LỖI LẶP TỪ: Chỉ lấy mảng slice thực tế, không sinh vòng lặp while.
     if (currentBatchSize !== 'ALL' && filtered.length > 0) {
-        currentList = filtered.slice(0, currentBatchSize);
+        currentList = filtered.slice(0, Math.min(currentBatchSize, filtered.length));
     } else { 
         currentList = filtered; 
     }
@@ -418,14 +390,14 @@ function loadStudyCard() {
                 <p style="color: #64748b; margin-bottom: 20px; font-size: 14px;">Hãy chọn bước tiếp theo để duy trì nhịp độ học tập nhé.</p>
                 <div class="end-actions" style="display:flex; gap:10px; justify-content:center;">
                     <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 10px 18px; font-size:14px;">🔄 Học lại bộ mới</button>
-                    <button onclick="document.getElementById('session-config-modal').classList.remove('hidden')" class="btn-secondary" style="width: auto; padding: 10px 18px; font-size:14px;">⚙️ Đổi số lượng</button>
+                    <button onclick="document.getElementById('session-config-modal').classList.remove('d-none')" class="btn-secondary" style="width: auto; padding: 10px 18px; font-size:14px;">⚙️ Đổi số lượng</button>
                 </div>
             </div>
         `;
         const btnCheck = document.getElementById('btn-check');
         const btnNext = document.getElementById('btn-next');
-        if (btnCheck) btnCheck.classList.add('hidden');
-        if (btnNext) btnNext.classList.add('hidden');
+        if (btnCheck) btnCheck.classList.add('d-none');
+        if (btnNext) btnNext.classList.add('d-none');
         const fill = document.getElementById('progress-fill');
         if (fill) fill.style.width = `100%`;
         return;
@@ -444,18 +416,18 @@ function loadStudyCard() {
             <div class="tools-wrapper">
                 <button id="btn-hint" class="btn-tool">💡 Bật mí Pinyin</button>
                 <button id="btn-audio" class="btn-tool">🔊 Nghe phát âm</button>
-                <span id="hint-display" class="hint-text hidden">(${item.pinyin})</span>
+                <span id="hint-display" class="hint-text d-none">(${item.pinyin})</span>
             </div>
             <div class="input-container">
                 <input type="text" id="user-input" placeholder="${currentCategory === 'word' ? 'Nhập Hán tự hoặc Pinyin...' : 'Nhập Hán tự...'}" autocomplete="off">
             </div>
-            <div id="answer-reveal-box" class="hidden"></div>
-            <div id="explanation-box" class="hidden"></div>
+            <div id="answer-reveal-box" class="d-none"></div>
+            <div id="explanation-box" class="d-none"></div>
         </div>
     `;
 
     const btnHint = document.getElementById('btn-hint');
-    if (btnHint) btnHint.onclick = () => { const hd = document.getElementById('hint-display'); if(hd) hd.classList.remove('hidden'); };
+    if (btnHint) btnHint.onclick = () => { const hd = document.getElementById('hint-display'); if(hd) hd.classList.remove('d-none'); };
 
     const btnAudio = document.getElementById('btn-audio');
     if (btnAudio) btnAudio.onclick = () => { window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.hanzi)); };
@@ -463,21 +435,21 @@ function loadStudyCard() {
     const userInput = document.getElementById('user-input');
     if (userInput) {
         userInput.focus();
-        userInput.onkeydown = (e) => {
+        userInput.addEventListener('keydown', (e) => {
             if(e.key === 'Enter') {
                 e.preventDefault();
                 const checkBtn = document.getElementById('btn-check');
                 const nextBtn = document.getElementById('btn-next');
-                if(checkBtn && !checkBtn.classList.contains('hidden')) checkBtn.click();
-                else if(nextBtn && !nextBtn.classList.contains('hidden')) nextBtn.click();
+                if(checkBtn && !checkBtn.classList.contains('d-none')) checkBtn.click();
+                else if(nextBtn && !nextBtn.classList.contains('d-none')) nextBtn.click();
             }
-        };
+        });
     }
 
     const checkBtn = document.getElementById('btn-check');
     const nextBtn = document.getElementById('btn-next');
-    if (checkBtn) checkBtn.classList.remove('hidden');
-    if (nextBtn) nextBtn.classList.add('hidden');
+    if (checkBtn) checkBtn.classList.remove('d-none');
+    if (nextBtn) nextBtn.classList.add('d-none');
     
     const fill = document.getElementById('progress-fill');
     if (fill) fill.style.width = `${((currentIndex) / currentList.length) * 100}%`;
@@ -509,8 +481,12 @@ if (checkBtnElem) {
         
         const revealBox = document.getElementById('answer-reveal-box');
         const expBox = document.getElementById('explanation-box');
+        let warningHtml = result.warning ? `<div style="margin-top: 6px; padding: 8px 12px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13px; text-align: left;">💡 <strong>Góc Lão Sư:</strong> ${result.warning}</div>` : '';
 
-        let warningHtml = result.warning ? `<div style="margin-top: 10px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13.5px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
+        // TỐI ƯU GIAO DIỆN COMPACT CHO MOBILE (HIỂN THỊ KẾT QUẢ ĐÚNG/SAI LÊN ĐẦU TRONG 1 BOX)
+        const statusClass = result.isCorrect ? 'correct' : 'incorrect';
+        const statusIcon = result.isCorrect ? '✅' : '❌';
+        const statusText = result.isCorrect ? 'Chính xác!' : 'Chưa chính xác';
 
         if (currentCategory === 'word') {
             let drawAreaHtml = '';
@@ -524,7 +500,6 @@ if (checkBtnElem) {
                         <div id="draw-cover" class="draw-cover-layer">
                             <span style="font-size:20px; margin-bottom:2px;">✍️</span>
                             <h4>Xem bút thuận</h4>
-                            <p>Bấm để xem</p>
                         </div>
                         <div id="hanzi-drawing-board">${charDivs}</div>
                     </div>
@@ -533,9 +508,12 @@ if (checkBtnElem) {
 
             if (revealBox) {
                 revealBox.innerHTML = `
+                    <div class="compact-result-header">
+                        <div class="status-badge ${statusClass}">${statusIcon} ${statusText}</div>
+                        <div class="user-input-record">Bạn đã nhập: <strong>${userVal || '[Bỏ trống]'}</strong></div>
+                    </div>
                     <div class="dual-pane-reveal">
                         <div class="reveal-left">
-                            <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 16px;">${userVal || '[Bỏ trống]'}</strong></div>
                             <div class="hanzi-large">${item.hanzi}</div>
                             <div class="pinyin-sub">${item.pinyin}</div>
                             ${warningHtml}
@@ -543,7 +521,7 @@ if (checkBtnElem) {
                         ${drawAreaHtml}
                     </div>
                 `;
-                revealBox.classList.remove('hidden');
+                revealBox.classList.remove('d-none');
             }
 
             let formattedExpansion = item.expansion ? item.expansion.replace(/\n/g, '<br>• ') : '';
@@ -571,13 +549,13 @@ if (checkBtnElem) {
                         </div>
                     </div>
                 `;
-                expBox.classList.remove('hidden');
+                expBox.classList.remove('d-none');
             }
 
             if(item.hanzi && item.hanzi.length <= 4) {
                 const cover = document.getElementById('draw-cover');
                 if (cover) {
-                    cover.onclick = () => {
+                    cover.addEventListener('click', () => {
                         cover.style.display = 'none';
                         hanziiWriters = [];
                         for(let i=0; i<item.hanzi.length; i++) {
@@ -589,20 +567,23 @@ if (checkBtnElem) {
                         }
                         const animateSequence = async () => { for(let writer of hanziiWriters) { await writer.animateCharacter(); } };
                         animateSequence();
-                    };
+                    });
                 }
             }
         } else {
             if (revealBox) {
                 revealBox.innerHTML = `
                     <div class="grammar-reveal-box">
-                        <div style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Bạn đã dịch: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 16px;">${userVal || '[Bỏ trống]'}</strong></div>
+                        <div class="compact-result-header" style="border-bottom:1px solid #93c5fd; margin-bottom:12px;">
+                            <div class="status-badge ${statusClass}">${statusIcon} ${statusText}</div>
+                            <div class="user-input-record">Bạn đã dịch: <strong>${userVal || '[Bỏ trống]'}</strong></div>
+                        </div>
                         <div class="g-sentence-large">${item.hanzi}</div>
                         <div class="g-pinyin">${item.pinyin}</div>
                         ${warningHtml}
                     </div>
                 `;
-                revealBox.classList.remove('hidden');
+                revealBox.classList.remove('d-none');
             }
 
             if (expBox) {
@@ -612,20 +593,21 @@ if (checkBtnElem) {
                         <p>${item.goc_lao_su}</p>
                     </div>
                 `;
-                expBox.classList.remove('hidden');
+                expBox.classList.remove('d-none');
             }
         }
 
         const btnCheckRef = document.getElementById('btn-check');
         const btnNextRef = document.getElementById('btn-next');
-        if (btnCheckRef) btnCheckRef.classList.add('hidden');
+        if (btnCheckRef) btnCheckRef.classList.add('d-none');
         if (btnNextRef) {
-            btnNextRef.classList.remove('hidden');
+            btnNextRef.classList.remove('d-none');
             btnNextRef.focus();
         }
         const fill = document.getElementById('progress-fill');
         if (fill) fill.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
 
+        // Tự động cuộn nhẹ màn hình xuống để hộp kết quả nằm ngay trong tầm mắt trên di động
         revealBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 }
@@ -637,43 +619,43 @@ if (nextBtnElem) {
 
 const inlineReviewBtn = document.getElementById('btn-inline-review');
 if (inlineReviewBtn) {
-    inlineReviewBtn.onclick = () => {
+    inlineReviewBtn.addEventListener('click', () => {
         if (mistakeList.length === 0) { alert("Tuyệt vời! Bạn chưa có câu nào làm sai trong phiên này."); return; }
         isReviewingMistakes = true; currentList = shuffleArray([...mistakeList]); currentIndex = 0; loadStudyCard();
-    };
+    });
 }
 
 const refreshBtn = document.getElementById('btn-refresh');
-if (refreshBtn) refreshBtn.onclick = () => { filterAndLoadData(); };
+if (refreshBtn) refreshBtn.addEventListener('click', () => { filterAndLoadData(); });
 
 function initModalEvents() {
     const configBtn = document.getElementById('btn-config-session');
-    if (configBtn) configBtn.onclick = () => document.getElementById('session-config-modal').classList.remove('hidden');
+    if (configBtn) configBtn.addEventListener('click', () => document.getElementById('session-config-modal').classList.remove('d-none'));
 
     document.querySelectorAll('.batch-btn').forEach(b => {
-        b.onclick = (e) => {
+        b.addEventListener('click', (e) => {
             currentBatchSize = e.target.getAttribute('data-batch') === 'ALL' ? 'ALL' : parseInt(e.target.getAttribute('data-batch'));
             const modal = document.getElementById('session-config-modal');
-            if (modal) modal.classList.add('hidden'); 
+            if (modal) modal.classList.add('d-none'); 
             filterAndLoadData();
-        };
+        });
     });
 
     const shuffleBtn = document.getElementById('btn-shuffle');
     if (shuffleBtn) {
-        shuffleBtn.onclick = () => { 
+        shuffleBtn.addEventListener('click', () => { 
             if (currentList.length > 0) { 
                 currentList = shuffleArray(currentList); 
                 currentIndex = 0; 
                 loadStudyCard(); 
             } 
-        };
+        });
     }
 
     const btnGrade = document.getElementById('btn-decide-grade');
     if (btnGrade) {
-        btnGrade.onclick = () => {
-            document.getElementById('workout-decision-modal').classList.add('hidden');
+        btnGrade.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
             const cards = document.querySelectorAll('.workout-item-card');
             cards.forEach((card, idx) => {
                 const input = card.querySelector('.workout-user-input');
@@ -682,7 +664,7 @@ function initModalEvents() {
                 if (input && feedback && targetItem) {
                     const val = input.value.trim();
                     const evalRes = evaluateAnswerQuality(val, targetItem.hanzi, targetItem.pinyin);
-                    feedback.classList.remove('hidden');
+                    feedback.classList.remove('d-none');
                     if (evalRes.isCorrect) {
                         feedback.style.background = '#dcfce7';
                         feedback.style.color = '#14532d';
@@ -696,22 +678,22 @@ function initModalEvents() {
                     }
                 }
             });
-        };
+        });
     }
 
     const btnContinue = document.getElementById('btn-decide-continue');
     if (btnContinue) {
-        btnContinue.onclick = () => {
-            document.getElementById('workout-decision-modal').classList.add('hidden');
+        btnContinue.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
             generateWorkoutSet();
-        };
+        });
     }
 
     const btnReview = document.getElementById('btn-decide-review');
     if (btnReview) {
-        btnReview.onclick = () => {
-            document.getElementById('workout-decision-modal').classList.add('hidden');
-        };
+        btnReview.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
+        });
     }
 }
 
@@ -723,16 +705,16 @@ function triggerDuckReaction(isCorrect) {
     duckContainer.className = ''; void duckContainer.offsetWidth; 
     if (isCorrect) { 
         duckContainer.className = "duck-happy"; 
-        if (hearts) hearts.classList.remove('hidden'); 
-        if (splash) splash.classList.add('hidden'); 
+        if (hearts) hearts.classList.remove('d-none'); 
+        if (splash) splash.classList.add('d-none'); 
     } else { 
         duckContainer.className = "duck-sad"; 
-        if (splash) splash.classList.remove('hidden'); 
-        if (hearts) hearts.classList.add('hidden'); 
+        if (splash) splash.classList.remove('d-none'); 
+        if (hearts) hearts.classList.add('d-none'); 
     }
     effectTimeout = setTimeout(() => { 
-        if (hearts) hearts.classList.add('hidden'); 
-        if (splash) splash.classList.add('hidden'); 
+        if (hearts) hearts.classList.add('d-none'); 
+        if (splash) splash.classList.add('d-none'); 
         duckContainer.className = "duck-idle"; 
     }, 1500);
 }
