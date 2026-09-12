@@ -100,7 +100,6 @@ function renderUserStatsView() {
     document.getElementById('user-total-acc').innerText = `${acc}%`;
 }
 
-// TẢI TOÀN BỘ 11 TỆP TỪ THƯ MỤC data/
 async function loadAllSystemData() {
     try {
         const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -120,7 +119,6 @@ async function loadAllSystemData() {
 
         allData = fetchedData;
 
-        // Tải 2 tệp phụ trợ
         try {
             const resNotes = await fetch('data/vietnamese_notes.json');
             if (resNotes.ok) workoutNotesData = await resNotes.json();
@@ -162,15 +160,11 @@ function initSmartMenu() {
     if (toggleBtn) {
         toggleBtn.onclick = (e) => {
             e.stopPropagation();
-            const isHidden = floatingMenu.classList.contains('hidden');
-            if (isHidden) {
-                floatingMenu.classList.remove('hidden');
-                setTimeout(() => floatingMenu.classList.add('mobile-active'), 10);
-                if (backdrop) backdrop.classList.add('active');
+            if (window.innerWidth <= 768) {
+                const isActive = floatingMenu.classList.toggle('mobile-active');
+                if (backdrop) backdrop.classList.toggle('active', isActive);
             } else {
-                floatingMenu.classList.remove('mobile-active');
-                setTimeout(() => floatingMenu.classList.add('hidden'), 350);
-                if (backdrop) backdrop.classList.remove('active');
+                floatingMenu.classList.toggle('hidden');
             }
         };
     }
@@ -178,7 +172,6 @@ function initSmartMenu() {
     if (closeBtn) {
         closeBtn.onclick = () => {
             floatingMenu.classList.remove('mobile-active');
-            setTimeout(() => floatingMenu.classList.add('hidden'), 350);
             if (backdrop) backdrop.classList.remove('active');
         };
     }
@@ -186,10 +179,18 @@ function initSmartMenu() {
     if (backdrop) {
         backdrop.onclick = () => {
             floatingMenu.classList.remove('mobile-active');
-            setTimeout(() => floatingMenu.classList.add('hidden'), 350);
             backdrop.classList.remove('active');
         };
     }
+
+    document.querySelectorAll('.nav-card-item.has-sub').forEach(item => {
+        item.onclick = (e) => {
+            if (window.innerWidth <= 768) {
+                e.stopPropagation();
+                item.classList.toggle('mobile-expanded');
+            }
+        };
+    });
 
     document.querySelectorAll('.sub-flyout-panel a').forEach(link => {
         link.onclick = (e) => {
@@ -202,7 +203,6 @@ function initSmartMenu() {
             filterAndLoadData();
             if (window.innerWidth <= 768) {
                 floatingMenu.classList.remove('mobile-active');
-                setTimeout(() => floatingMenu.classList.add('hidden'), 350);
                 if (backdrop) backdrop.classList.remove('active');
             } else {
                 floatingMenu.classList.add('hidden');
@@ -217,7 +217,6 @@ function initSmartMenu() {
     if (cardHome) cardHome.onclick = () => { 
         showView('view-home'); 
         floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
     
@@ -227,7 +226,6 @@ function initSmartMenu() {
         document.getElementById('daily-setup-panel').classList.remove('hidden'); 
         document.getElementById('daily-quiz-panel').classList.add('hidden'); 
         floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
     
@@ -236,7 +234,6 @@ function initSmartMenu() {
         renderUserStatsView(); 
         showView('view-stats'); 
         floatingMenu.classList.remove('mobile-active');
-        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
 }
@@ -327,13 +324,7 @@ function generateWorkoutSet() {
     }
 
     pool = shuffleArray(pool);
-    if (pool.length > 0 && pool.length < workoutConfig.count) {
-        let tempArr = [...pool];
-        while (tempArr.length < workoutConfig.count) { tempArr = tempArr.concat(shuffleArray(pool)); }
-        currentWorkoutSet = tempArr.slice(0, workoutConfig.count);
-    } else { 
-        currentWorkoutSet = pool.slice(0, workoutConfig.count); 
-    }
+    currentWorkoutSet = pool.slice(0, workoutConfig.count);
 
     const listContainer = document.getElementById('workout-items-list');
     if (!listContainer) return;
@@ -379,10 +370,9 @@ window.filterAndLoadData = function() {
     let filtered = allData.filter(item => item.category === currentCategory && item.level === currentLevel);
     filtered = shuffleArray(filtered);
 
+    // Lấy chuẩn xác dữ liệu thực tế không lặp lại bù trừ
     if (currentBatchSize !== 'ALL' && filtered.length > 0) {
-        let tempArr = [...filtered];
-        while (tempArr.length < currentBatchSize) { tempArr = tempArr.concat(shuffleArray(filtered)); }
-        currentList = tempArr.slice(0, currentBatchSize);
+        currentList = filtered.slice(0, currentBatchSize);
     } else { 
         currentList = filtered; 
     }

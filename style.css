@@ -182,7 +182,7 @@ body.menu-open-mobile { overflow: hidden !important; }
 .end-session-box h3 { color: #15803d; font-size: 24px; font-weight: 900; margin-bottom: 20px; }
 .end-actions { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
 
-/* WORKOUT & CÁC THÀNH PHẦN KHÁC GIỮ NGUYÊN... */
+/* CONFIG & WORKOUT */
 .config-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0; }
 .config-grid label { font-size: 14px; font-weight: 800; color: #334155; margin-bottom: 4px; display: block; }
 .form-select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; font-weight: 600; color: #1e293b; background: #f8fafc; outline: none; transition: 0.2s; }
@@ -190,21 +190,6 @@ body.menu-open-mobile { overflow: hidden !important; }
 .context-banner { background: #fefce8; color: #854d0e; padding: 6px 12px; border-radius: 20px; font-size: 13.5px; font-weight: 800; border: 1px solid #fef08a; display: inline-block; margin-bottom: 8px; }
 .workout-instruction { font-size: 14px; color: #64748b; font-style: italic; }
 .workout-items-container { display: flex; flex-direction: column; gap: 14px; max-height: 60vh; overflow-y: auto; margin: 15px 0; padding-right: 5px; }
-.workout-sentence-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; transition: all 0.3s; }
-.workout-sentence-row.correct-row { border-color: #86efac; background: #f0fdf4; }
-.workout-sentence-row.wrong-row { border-color: #fca5a5; background: #fef2f2; }
-.w-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.w-sentence-num { font-size: 12px; font-weight: 800; color: #15803d; background: #dcfce7; padding: 4px 10px; border-radius: 6px; }
-.w-speaker-label { font-size: 13px; font-weight: 700; color: #64748b; }
-.w-prompt-text { font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 12px; line-height: 1.5; }
-.w-input-group { display: flex; gap: 10px; align-items: stretch; }
-.w-text-input { flex: 1; padding: 12px 14px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 16px; color: #14532d; font-weight: 600; }
-.w-text-input:focus { outline: none; border-color: #16a34a; background: #ffffff; }
-.btn-check-single { background: #f0fdf4; border: 1px solid #86efac; color: #15803d; padding: 0 16px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
-.btn-check-single:hover { background: #dcfce7; transform: translateY(-1px); }
-.w-single-feedback { margin-top: 12px; padding: 14px; border-radius: 8px; font-size: 14.5px; line-height: 1.5; }
-.w-single-feedback.correct { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
-.w-single-feedback.wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 .workout-bottom-actions { display: flex; gap: 12px; margin-top: 18px; }
 
 /* MODAL */
@@ -245,19 +230,37 @@ body.menu-open-mobile { overflow: hidden !important; }
 @media (max-width: 768px) {
     #top-navbar { padding: 0 12px; height: 56px; }
     #app-workspace { padding: 14px 10px; }
-    .menu-overlay-backdrop { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(2px); z-index: 1500; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+    
+    .menu-overlay-backdrop { 
+        display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+        background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(2px); 
+        z-index: 1500; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; 
+    }
     .menu-overlay-backdrop.active { opacity: 1; pointer-events: auto; }
-    .floating-menu { position: fixed; top: 0; left: 0; width: 86vw; max-width: 320px; height: 100vh; border-radius: 0 20px 20px 0; padding: 20px 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; display: flex; box-shadow: 10px 0 30px rgba(0,0,0,0.15); }
-    .floating-menu.mobile-active { transform: translateX(0); }
+    
+    .floating-menu { 
+        position: fixed; top: 0; left: 0; width: 86vw; max-width: 320px; height: 100vh; 
+        border-radius: 0 20px 20px 0; padding: 20px 16px; overflow-y: auto; 
+        -webkit-overflow-scrolling: touch; transform: translateX(-100%); 
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; 
+        display: flex; flex-direction: column; box-shadow: 10px 0 30px rgba(0,0,0,0.15); 
+        visibility: hidden; opacity: 0; background: #ffffff;
+    }
+    .floating-menu.mobile-active { 
+        transform: translateX(0); 
+        visibility: visible; 
+        opacity: 1; 
+    }
+    
     .floating-menu-header { display: flex !important; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0; margin-bottom: 12px; }
     .mobile-close-btn { width: 34px; height: 34px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: center; color: #475569; cursor: pointer; }
+    
     .sub-flyout-panel { position: static; box-shadow: none; border: 1px solid #dcfce7; border-radius: 12px; background: #f0fdf4; margin-top: 10px; padding: 12px; display: none; flex-direction: column; gap: 8px; width: 100%; transform: none !important; opacity: 1 !important; visibility: visible !important; }
     .sub-flyout-panel::before { display: none; }
     .nav-card-item.has-sub.mobile-expanded .sub-flyout-panel { display: flex; animation: fadeInMenu 0.2s; }
+    
     .home-cards-row, .explanation-grid { grid-template-columns: 1fr; }
     .dual-pane-reveal { flex-direction: column; }
-    .w-input-group { flex-direction: column; align-items: stretch; }
-    .btn-check-single { width: 100%; padding: 12px; }
     .stats-grid-box { grid-template-columns: 1fr; }
     .modal-content { width: 95%; padding: 20px; }
     #mascot-wrapper { bottom: 10px; right: 10px; }
