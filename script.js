@@ -155,9 +155,10 @@ function initSmartMenu() {
 
     function closeDesktop() {
         if (window.innerWidth > 768) {
+            // ĐỘ TRỄ 1.5s CHO MENU ĐỂ CHUỘT KHÔNG RỚT
             hoverTimeout = setTimeout(() => {
                 floatingMenu.classList.add('hidden');
-            }, 350); // Tăng thời gian chờ an toàn
+            }, 1500); 
         }
     }
 
@@ -185,7 +186,8 @@ function initSmartMenu() {
             if (floatingMenu.classList.contains('mobile-active')) closeMobile();
             else openMobile();
         } else {
-            floatingMenu.classList.toggle('hidden');
+            if(floatingMenu.classList.contains('hidden')) openDesktop();
+            else closeDesktop();
         }
     });
 
@@ -664,6 +666,7 @@ function loadStudyCard() {
     userInput.focus();
     userInput.onkeydown = (e) => {
         if(e.key === 'Enter') {
+            e.preventDefault(); // CHỐNG LỖI BẤM ĐÚP ENTER NHẢY CÓC CÂU
             const checkBtn = document.getElementById('btn-check');
             const nextBtn = document.getElementById('btn-next');
             if(!checkBtn.classList.contains('hidden')) checkBtn.click();
@@ -681,7 +684,7 @@ document.getElementById('btn-check').addEventListener('click', () => {
     const inputElem = document.getElementById('user-input');
     if(!inputElem) return;
     
-    const userVal = inputElem.value;
+    const userVal = inputElem.value.trim();
     inputElem.disabled = true; // Khóa ô nhập liệu lại
     
     sessionStats.total++;
@@ -705,18 +708,18 @@ document.getElementById('btn-check').addEventListener('click', () => {
     saveLifetimeStats();
     updateSessionStatsUI();
     
-    // BUILD KHU VỰC HIỂN THỊ ĐÁP ÁN SO SÁNH
+    // HIỂN THỊ ĐÁP ÁN VÀ LINK HANZII ĐÚNG NHƯ YÊU CẦU
     let hanziiBtn = '';
     if(currentCategory === 'word') {
-        hanziiBtn = `<a href="https://hanzii.net/search/word/${encodeURIComponent(item.hanzi)}" target="_blank" class="btn-tool" style="display:inline-block; margin-top:12px; text-decoration:none;">✍️ Xem hướng dẫn viết nét trên Hanzii</a>`;
+        hanziiBtn = `<a href="https://hanzii.net/search/word/${encodeURIComponent(item.hanzi)}" target="_blank" class="btn-secondary" style="display:inline-block; margin-top:16px; text-decoration:none; padding:10px 20px; font-size:15px; border: 2px solid #16a34a;">✍️ Xem hướng dẫn viết nét trên Hanzii</a>`;
     }
 
-    let warningHtml = result.warning ? `<div style="margin-top: 12px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 14px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
+    let warningHtml = result.warning ? `<div style="margin-top: 16px; padding: 12px 16px; background: #fffbeb; border: 1px solid #fde047; border-radius: 10px; color: #854d0e; font-size: 14.5px; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
 
     const revealBox = document.getElementById('answer-reveal-box');
     revealBox.innerHTML = `
-        <div style="font-size: 15px; color: #64748b; margin-bottom: 8px;">
-            Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Trống]'}</strong>
+        <div style="font-size: 15px; color: #64748b; margin-bottom: 12px;">
+            Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 20px; border-bottom: 2px dashed ${result.isCorrect ? '#16a34a' : '#dc2626'}; padding-bottom: 2px;">${userVal || '[Bỏ trống]'}</strong>
         </div>
         <div class="hanzi-large">${item.hanzi}</div>
         <div class="pinyin-sub">${item.pinyin}</div>

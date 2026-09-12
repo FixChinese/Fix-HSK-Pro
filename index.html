@@ -18,7 +18,7 @@
                     <span class="bar"></span>
                 </button>
 
-                <!-- BẢNG THẺ MENU THẢ NỔI UYỂN CHUYỂN -->
+                <!-- BẢNG THẺ MENU THẢ NỔI -->
                 <div id="floating-nav-card" class="floating-menu hidden">
                     <div class="floating-menu-header">
                         <span class="menu-header-title">DANH MỤC HỌC TẬP</span>
@@ -46,16 +46,16 @@
                             <span class="c-arrow">›</span>
 
                             <div class="sub-flyout-panel">
-                                <a href="#" data-cat="word" data-level="HSK 1">HSK 1</a>
-                                <a href="#" data-cat="word" data-level="HSK 2">HSK 2</a>
-                                <a href="#" data-cat="word" data-level="HSK 3">HSK 3</a>
-                                <a href="#" data-cat="word" data-level="HSK 4">HSK 4</a>
-                                <a href="#" data-cat="word" data-level="HSK 5">HSK 5</a>
-                                <a href="#" data-cat="word" data-level="HSK 6">HSK 6</a>
-                                <a href="#" data-cat="word" data-level="HSK 7">HSK 7</a>
-                                <a href="#" data-cat="word" data-level="HSK 8">HSK 8</a>
-                                <a href="#" data-cat="word" data-level="HSK 9">HSK 9</a>
-                                <a href="#" data-cat="word" data-level="HSK Cao cấp" class="highlight-gold">⭐ HSK 7-9 Toàn Diện</a>
+                                <a href="#" data-cat="word" data-level="HSK 1" class="hsk-tag-123">HSK 1</a>
+                                <a href="#" data-cat="word" data-level="HSK 2" class="hsk-tag-123">HSK 2</a>
+                                <a href="#" data-cat="word" data-level="HSK 3" class="hsk-tag-123">HSK 3</a>
+                                <a href="#" data-cat="word" data-level="HSK 4" class="hsk-tag-456">HSK 4</a>
+                                <a href="#" data-cat="word" data-level="HSK 5" class="hsk-tag-456">HSK 5</a>
+                                <a href="#" data-cat="word" data-level="HSK 6" class="hsk-tag-456">HSK 6</a>
+                                <a href="#" data-cat="word" data-level="HSK 7" class="hsk-tag-789">HSK 7</a>
+                                <a href="#" data-cat="word" data-level="HSK 8" class="hsk-tag-789">HSK 8</a>
+                                <a href="#" data-cat="word" data-level="HSK 9" class="hsk-tag-789">HSK 9</a>
+                                <a href="#" data-cat="word" data-level="HSK Cao cấp" class="hsk-tag-gold">⭐ HSK 7-9 Toàn Diện</a>
                             </div>
                         </div>
 
@@ -66,16 +66,16 @@
                             <span class="c-arrow">›</span>
 
                             <div class="sub-flyout-panel">
-                                <a href="#" data-cat="sentence" data-level="HSK 1">HSK 1</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 2">HSK 2</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 3">HSK 3</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 4">HSK 4</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 5">HSK 5</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 6">HSK 6</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 7">HSK 7</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 8">HSK 8</a>
-                                <a href="#" data-cat="sentence" data-level="HSK 9">HSK 9</a>
-                                <a href="#" data-cat="sentence" data-level="HSK Cao cấp" class="highlight-gold">⭐ Cấu trúc Cao Cấp</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 1" class="hsk-tag-123">HSK 1</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 2" class="hsk-tag-123">HSK 2</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 3" class="hsk-tag-123">HSK 3</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 4" class="hsk-tag-456">HSK 4</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 5" class="hsk-tag-456">HSK 5</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 6" class="hsk-tag-456">HSK 6</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 7" class="hsk-tag-789">HSK 7</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 8" class="hsk-tag-789">HSK 8</a>
+                                <a href="#" data-cat="sentence" data-level="HSK 9" class="hsk-tag-789">HSK 9</a>
+                                <a href="#" data-cat="sentence" data-level="HSK Cao cấp" class="hsk-tag-gold">⭐ Cấu trúc Cao Cấp</a>
                             </div>
                         </div>
 
@@ -187,7 +187,6 @@
                     <div>
                         <label>1. Cấp độ trọng tâm:</label>
                         <select id="daily-level" class="form-select">
-                            <!-- BẮT ĐẦU TỪ HSK 1 MẶC ĐỊNH -->
                             <option value="HSK 1" selected>HSK 1 (Sơ cấp chuẩn)</option>
                             <option value="HSK 2">HSK 2 (Bao gồm ôn lùi HSK 1)</option>
                             <option value="HSK 3">HSK 3 (Bao gồm ôn lùi HSK 1, 2)</option>
@@ -237,9 +236,8 @@
                     </div>
                 </div>
                 <button id="btn-start-daily" class="btn btn-primary" style="margin-top: 15px;">Khởi tạo bài luyện tập ➔</button>
-                <!-- GIẢI THÍCH THUẬT TOÁN ÔN LÙI -->
-                <p style="font-size: 12.5px; color: #64748b; margin-top: 12px; font-style: italic; line-height: 1.5;">
-                    * Trang web sẽ tận dụng toàn bộ từ vựng từ HSK bạn đang dùng và quay trở lại các HSK trước đó để có đủ từ ngữ tạo nên câu chuyện và ngữ cảnh thực tế nhất.
+                <p style="font-size: 13px; color: #16a34a; margin-top: 12px; font-style: italic; line-height: 1.5; font-weight: 600;">
+                    * Lưu ý: Trang web sẽ tận dụng toàn bộ từ vựng từ HSK bạn chọn và tự động quay trở lại các HSK trước đó để có đủ từ ngữ tạo nên câu chuyện và ngữ cảnh thực tế nhất.
                 </p>
             </div>
 
@@ -321,7 +319,7 @@
                 <button class="batch-btn btn-secondary" data-batch="30">30 thẻ</button>
                 <button class="batch-btn btn-secondary" data-batch="50">50 thẻ</button>
                 <button class="batch-btn btn-secondary" data-batch="100">100 thẻ</button>
-                <button class="batch-btn btn-secondary" data-batch="ALL" style="background: #dcfce7; font-weight: 800;">Toàn bộ cấp độ</button>
+                <button class="batch-btn btn-secondary" data-batch="ALL" style="background: #dcfce7; font-weight: 800; grid-column: span 2;">Toàn bộ cấp độ</button>
             </div>
         </div>
     </div>
