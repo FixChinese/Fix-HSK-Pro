@@ -10,14 +10,14 @@ let isReviewingMistakes = false;
 
 let currentUser = localStorage.getItem('hsk_current_user') || 'Fix Chinese';
 
-// WORKOUT CONFIG
+// WORKOUT CONFIG TÙY BIẾN
 let currentWorkoutSet = [];
 let workoutConfig = {
     level: 'HSK 3',
     format: 'dialogue',
     topic: 'daily',
     mode: 'V2C',
-    count: 5
+    count: 10
 };
 
 let effectTimeout = null;
@@ -31,14 +31,58 @@ function playSound(type) {
     osc.connect(gain); gain.connect(audioCtx.destination);
     
     if (type === 'correct') {
-        osc.type = 'sine'; osc.frequency.setValueAtTime(783.99, now);
-        gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        osc.type = 'sine'; osc.frequency.setValueAtTime(880, now); // Cao hơn tí cho vui tai
+        gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
         osc.start(now); osc.stop(now + 0.4);
     } else {
-        osc.type = 'triangle'; osc.frequency.setValueAtTime(150, now);
-        gain.gain.setValueAtTime(0.4, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        osc.type = 'triangle'; osc.frequency.setValueAtTime(140, now);
+        gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
         osc.start(now); osc.stop(now + 0.3);
     }
+}
+
+// ==========================================
+// CÔNG CỤ XỬ LÝ CHUỖI & DẤU CÂU THÔNG MINH
+// ==========================================
+function stripAllPunctuation(str) {
+    if (!str) return '';
+    return str.toString()
+        .toLowerCase()
+        // Xóa sạch mọi thể loại dấu câu (Tây lẫn Tàu) và khoảng trắng
+        .replace(/[.,/#!$%^&*;:{}=\-_`~()?"'，。！？、“”‘’（）]/g, '')
+        .replace(/\s+/g, '')
+        .trim();
+}
+
+function evaluateAnswerQuality(userInput, targetHanzi, targetPinyin) {
+    const rawInput = (userInput || '').trim();
+    const cleanInput = stripAllPunctuation(rawInput);
+    const cleanTarget = stripAllPunctuation(targetHanzi);
+    const cleanPinyin = stripAllPunctuation(targetPinyin);
+
+    // 1. Kiểm tra Lõi từ vựng
+    const isBaseCorrect = (cleanInput === cleanTarget || (cleanPinyin && cleanInput === cleanPinyin));
+
+    if (!isBaseCorrect) {
+        return { isCorrect: false, warning: null };
+    }
+
+    // 2. Cố vấn Sư phạm (Nếu lõi từ vựng đã đúng)
+    let warningMsg = null;
+    
+    const targetHasQuestion = /[?？]/.test(targetHanzi);
+    const inputHasQuestion = /[?？]/.test(rawInput);
+    if (targetHasQuestion && !inputHasQuestion) {
+        warningMsg = "Bạn nên bổ sung thêm dấu chấm hỏi <strong>？</strong> ở cuối câu để hoàn chỉnh thể nghi vấn đúng quy chuẩn tiếng Trung.";
+    }
+
+    const targetHasComma = /[,，]/.test(targetHanzi);
+    const inputHasComma = /[,，]/.test(rawInput);
+    if (targetHasComma && !inputHasComma && !warningMsg) {
+        warningMsg = "Bạn nên thêm dấu phẩy <strong>，</strong> giữa các vế câu. Người Trung Quốc rất chú trọng việc ngắt nghỉ đúng nhịp để câu mạch lạc.";
+    }
+
+    return { isCorrect: true, warning: warningMsg };
 }
 
 function shuffleArray(array) {
@@ -60,113 +104,123 @@ function saveUserStats(stats) {
 
 let sessionStats = getUserStats();
 
+// KHỞI CHẠY HỆ THỐNG
 fetch('data.json')
     .then(res => res.json())
     .then(data => {
         allData = data;
-        initSmartHamburgerMenu();
+        initSmartMenu();
         initUserManagement();
         initWorkoutModule();
         initModalEvents();
-    });
+    })
+    .catch(err => console.error("Lỗi khi tải data.json:", err));
 
 // ==========================================
-// 1. CƠ CHẾ MENU THẺ NỔI (LUÔN TỰ ĐÓNG KHI CHỌN HOẶC RỜI CHUỘT)
+// 1. LOGIC MENU UYỂN CHUYỂN (SAFE HOVER)
 // ==========================================
-function initSmartHamburgerMenu() {
-    const menuContainer = document.getElementById('menu-container');
+function initSmartMenu() {
+    const menuWrapper = document.getElementById('menu-wrapper');
     const btnToggle = document.getElementById('btn-toggle-menu');
     const floatingMenu = document.getElementById('floating-nav-card');
-    let closeTimer = null;
+    const backdrop = document.getElementById('menu-overlay-backdrop');
+    const btnCloseMobile = document.getElementById('btn-close-floating-menu');
+    let hoverTimeout = null;
 
-    function openMenu() {
-        if (closeTimer) clearTimeout(closeTimer);
+    function openDesktop() {
+        if (window.innerWidth > 768) {
+            clearTimeout(hoverTimeout);
+            floatingMenu.classList.remove('hidden');
+        }
+    }
+
+    function closeDesktop() {
+        if (window.innerWidth > 768) {
+            // Vùng đệm thời gian an toàn, lỡ trượt chuột vẫn không đóng ngay
+            hoverTimeout = setTimeout(() => {
+                floatingMenu.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    function openMobile() {
         floatingMenu.classList.remove('hidden');
+        floatingMenu.classList.add('mobile-active');
+        backdrop.classList.add('active');
+        document.body.classList.add('menu-open-mobile');
     }
 
-    function closeMenu() {
-        floatingMenu.classList.add('hidden');
-        document.querySelectorAll('.nav-card-item').forEach(el => el.classList.remove('active-mobile-sub'));
+    function closeMobile() {
+        floatingMenu.classList.remove('mobile-active');
+        backdrop.classList.remove('active');
+        document.body.classList.remove('menu-open-mobile');
+        setTimeout(() => floatingMenu.classList.add('hidden'), 350); // Khớp CSS transition
+        document.querySelectorAll('.nav-card-item.has-sub').forEach(el => el.classList.remove('mobile-expanded'));
     }
 
-    // Khi di chuột vào nút ☰ hoặc menu -> Tự động mở
-    menuContainer.addEventListener('mouseenter', openMenu);
+    // Gắn sự kiện Desktop
+    menuWrapper.addEventListener('mouseenter', openDesktop);
+    menuWrapper.addEventListener('mouseleave', closeDesktop);
 
-    // Khi di chuột ra ngoài -> Tự động đóng sau 250ms cực mượt
-    menuContainer.addEventListener('mouseleave', () => {
-        closeTimer = setTimeout(closeMenu, 250);
-    });
-
-    // Bấm nút ☰ trên màn hình cảm ứng hoặc click
+    // Gắn sự kiện Mobile
     btnToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (floatingMenu.classList.contains('hidden')) {
-            openMenu();
+        if (window.innerWidth <= 768) {
+            if (floatingMenu.classList.contains('mobile-active')) closeMobile();
+            else openMobile();
         } else {
-            closeMenu();
+            floatingMenu.classList.toggle('hidden');
         }
     });
 
-    // Chạm ra ngoài màn hình -> Tự động thu vào ngay
-    document.addEventListener('click', (e) => {
-        if (!menuContainer.contains(e.target)) {
-            closeMenu();
-        }
-    });
+    if (btnCloseMobile) btnCloseMobile.onclick = closeMobile;
+    if (backdrop) backdrop.onclick = closeMobile;
 
-    // Xử lý các thẻ con trên màn hình cảm ứng điện thoại
+    // Accordion Mobile (Mở thẻ con)
     document.querySelectorAll('.nav-card-item.has-sub').forEach(item => {
         item.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A' && window.innerWidth <= 768) {
-                this.classList.toggle('active-mobile-sub');
+            if (window.innerWidth <= 768 && e.target.tagName !== 'A') {
+                this.classList.toggle('mobile-expanded');
             }
         });
     });
 
-    // Chọn thẻ Trang Chủ
+    // Hành vi chọn thẻ
     document.getElementById('card-home').onclick = () => {
         showView('view-home');
-        closeMenu();
+        if (window.innerWidth <= 768) closeMobile(); else floatingMenu.classList.add('hidden');
     };
 
-    // Chọn một cấp độ con trong Từ vựng hoặc Ngữ pháp
     document.querySelectorAll('.sub-flyout-panel a').forEach(link => {
         link.onclick = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const cat = link.getAttribute('data-cat');
-            const lvl = link.getAttribute('data-level');
-
-            currentCategory = cat;
-            currentLevel = lvl;
+            currentCategory = link.getAttribute('data-cat');
+            currentLevel = link.getAttribute('data-level');
             isReviewingMistakes = false;
             mistakeList = [];
 
             showView('view-study');
-            document.getElementById('view-title').innerText = `${cat === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${lvl}`;
+            document.getElementById('view-title').innerText = `${currentCategory === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${currentLevel}`;
             filterAndLoadData();
 
-            // Tự động thu gọn menu ngay khi chọn xong
-            closeMenu();
+            if (window.innerWidth <= 768) closeMobile(); else floatingMenu.classList.add('hidden');
         };
     });
 
-    // Chọn Workout
     document.getElementById('card-workout').onclick = () => {
         showView('view-daily');
         document.getElementById('daily-setup-panel').classList.remove('hidden');
         document.getElementById('daily-quiz-panel').classList.add('hidden');
-        closeMenu();
+        if (window.innerWidth <= 768) closeMobile(); else floatingMenu.classList.add('hidden');
     };
 
-    // Chọn Thống Kê
     document.getElementById('card-stats').onclick = () => {
         renderUserStatsView();
         showView('view-stats');
-        closeMenu();
+        if (window.innerWidth <= 768) closeMobile(); else floatingMenu.classList.add('hidden');
     };
 
-    // Nhấn Logo về Trang chủ
     document.getElementById('brand-logo-btn').onclick = () => showView('view-home');
 }
 
@@ -216,7 +270,7 @@ function goToSection(type) {
 }
 
 // ==========================================
-// 2. WORKOUT NGỮ CẢNH: CHUỖI NHIỀU CÂU & BÁO CÁO UYỂN CHUYỂN
+// 2. WORKOUT NGỮ CẢNH: CHẾ ĐỘ MỞ RỘNG
 // ==========================================
 function getLevelRank(lvlStr) {
     if (!lvlStr) return 0;
@@ -269,39 +323,40 @@ function initWorkoutModule() {
 function generateWorkoutSet() {
     let pool = allData.filter(i => i.category === 'context_story' || i.category === 'sentence');
 
+    // Lọc theo chủ đề
     let topicPool = pool.filter(i => i.topic === workoutConfig.topic);
-    if (topicPool.length >= workoutConfig.count) {
-        pool = topicPool;
-    }
+    if (topicPool.length > 0) pool = topicPool; // Lấy nếu có, không thì lấy toàn bộ
 
+    // Thuật toán ôn lùi khóa cấp độ
     if (workoutConfig.level !== 'ALL') {
         const targetRank = getLevelRank(workoutConfig.level);
         let rankPool = pool.filter(i => getLevelRank(i.level) <= targetRank);
-        if (rankPool.length >= workoutConfig.count) {
-            pool = rankPool;
-        }
+        if (rankPool.length > 0) pool = rankPool;
     }
 
     let shuffled = shuffleArray(pool);
-    if (shuffled.length < workoutConfig.count) {
-        while (shuffled.length < workoutConfig.count) {
-            shuffled = shuffled.concat(shuffleArray(pool));
+    // Nhóm data nếu số lượng chọn lớn hơn số lượng trong bank
+    if (shuffled.length < workoutConfig.count && shuffled.length > 0) {
+        let tempArr = [];
+        while (tempArr.length < workoutConfig.count) {
+            tempArr = tempArr.concat(shuffleArray(pool));
         }
+        shuffled = tempArr;
     }
 
     currentWorkoutSet = shuffled.slice(0, workoutConfig.count);
 
     const formatNames = {
         'dialogue': '💬 Đoạn hội thoại thực tế',
-        'paragraph': '📝 Đoạn văn ngắn miêu tả',
-        'news': '📰 Bản tin thời sự',
+        'paragraph': '📝 Đoạn văn miêu tả bối cảnh',
+        'news': '📰 Bản tin bài báo',
         'report': '🎙️ Phóng sự thực tế'
     };
     const topicNames = {
-        'daily': 'Đời sống thường nhật',
+        'daily': 'Đời sống & Giao tiếp',
         'work': 'Công sở & Kinh doanh',
         'outing': 'Du lịch & Dã ngoại',
-        'study': 'Giảng đường & Học thuật'
+        'study': 'Học thuật'
     };
 
     document.getElementById('workout-theme-badge').innerText = 
@@ -346,29 +401,42 @@ window.checkSingleWorkoutItem = function(index) {
     const input = document.getElementById(`workout-input-${index}`);
     const fb = document.getElementById(`workout-feedback-${index}`);
     const row = document.getElementById(`workout-row-${index}`);
-    const val = input.value.trim().toLowerCase();
+    const rawVal = input.value.trim();
 
-    if (!val) {
+    if (!rawVal) {
         alert("Vui lòng nhập câu trả lời trước khi kiểm tra!");
         return;
     }
 
-    const expected = workoutConfig.mode === 'V2C' ? item.hanzi.toLowerCase() : item.meaning_vn.toLowerCase();
-    const pinyinExpected = (item.pinyin || '').toLowerCase();
-    const isCorrect = (val === expected || (workoutConfig.mode === 'V2C' && val === pinyinExpected));
+    let result;
+    if (workoutConfig.mode === 'V2C') {
+        result = evaluateAnswerQuality(rawVal, item.hanzi, item.pinyin);
+    } else {
+        const cleanVal = stripAllPunctuation(rawVal);
+        const cleanVn = stripAllPunctuation(item.meaning_vn);
+        const isVnMatch = (cleanVal === cleanVn || cleanVn.includes(cleanVal) || cleanVal.includes(cleanVn));
+        result = { isCorrect: isVnMatch, warning: null };
+    }
 
-    triggerDuckReaction(isCorrect);
-
+    triggerDuckReaction(result.isCorrect);
     fb.classList.remove('hidden');
-    if (isCorrect) {
+
+    if (result.isCorrect) {
         row.className = 'workout-sentence-row correct-row';
         fb.className = 'w-single-feedback correct';
-        fb.innerHTML = `<strong>✅ Chính xác!</strong> Chuẩn Hán tự: <strong>${item.hanzi}</strong> (${item.pinyin || ''})`;
+        let feedbackHtml = `<strong>✅ Chính xác!</strong> Đáp án chuẩn: <strong>${item.hanzi}</strong> (${item.pinyin || ''})`;
+        
+        if (result.warning) {
+            feedbackHtml += `<div style="margin-top: 8px; padding: 8px 12px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13px;">
+                💡 <strong>Khuyên dùng:</strong> ${result.warning}
+            </div>`;
+        }
+        fb.innerHTML = feedbackHtml;
         playSound('correct');
     } else {
         row.className = 'workout-sentence-row wrong-row';
         fb.className = 'w-single-feedback wrong';
-        fb.innerHTML = `<strong>❌ Cần đối chiếu:</strong><br>• Đáp án chuẩn: <strong>${item.hanzi}</strong><br>• Phiên âm: <em>${item.pinyin || ''}</em><br>• Dịch nghĩa: ${item.meaning_vn}<br>• <strong>Góc Lão Sư:</strong> ${item.goc_lao_su || 'Lưu ý trật tự từ và các hư từ.'}`;
+        fb.innerHTML = `<strong>❌ Cần đối chiếu:</strong><br>• Đáp án: <strong>${item.hanzi}</strong><br>• Phiên âm: <em>${item.pinyin || ''}</em><br>• Dịch nghĩa: ${item.meaning_vn}<br>• <strong>Góc Lão Sư:</strong> ${item.goc_lao_su || 'Hãy bám sát cấu trúc ngữ pháp.'}`;
         playSound('wrong');
     }
 };
@@ -379,21 +447,28 @@ function gradeEntireWorkout(showExplanations) {
         const input = document.getElementById(`workout-input-${idx}`);
         const fb = document.getElementById(`workout-feedback-${idx}`);
         const row = document.getElementById(`workout-row-${idx}`);
-        const val = (input ? input.value.trim().toLowerCase() : '');
+        const rawVal = input ? input.value.trim() : '';
 
-        const expected = workoutConfig.mode === 'V2C' ? item.hanzi.toLowerCase() : item.meaning_vn.toLowerCase();
-        const pinyinExpected = (item.pinyin || '').toLowerCase();
-        const isCorrect = (val === expected || (workoutConfig.mode === 'V2C' && val === pinyinExpected));
+        let result;
+        if (workoutConfig.mode === 'V2C') {
+            result = evaluateAnswerQuality(rawVal, item.hanzi, item.pinyin);
+        } else {
+            const cleanVal = stripAllPunctuation(rawVal);
+            const cleanVn = stripAllPunctuation(item.meaning_vn);
+            result = { isCorrect: (cleanVal === cleanVn || cleanVn.includes(cleanVal) || cleanVal.includes(cleanVn)), warning: null };
+        }
 
         sessionStats.total++;
-        if (isCorrect) {
+        if (result.isCorrect) {
             correctCount++;
             sessionStats.correct++;
             if (row) row.className = 'workout-sentence-row correct-row';
             if (fb && showExplanations) {
                 fb.classList.remove('hidden');
                 fb.className = 'w-single-feedback correct';
-                fb.innerHTML = `<strong>✅ Chính xác!</strong> (${item.hanzi})`;
+                let html = `<strong>✅ Chính xác!</strong> (${item.hanzi})`;
+                if(result.warning) html += `<br><small style="color:#854d0e;">💡 ${result.warning}</small>`;
+                fb.innerHTML = html;
             }
         } else {
             sessionStats.wrong++;
@@ -401,7 +476,7 @@ function gradeEntireWorkout(showExplanations) {
             if (fb && showExplanations) {
                 fb.classList.remove('hidden');
                 fb.className = 'w-single-feedback wrong';
-                fb.innerHTML = `<strong>❌ Đáp án:</strong> ${item.hanzi} (${item.pinyin || ''})<br>• <strong>Góc Lão Sư:</strong> ${item.goc_lao_su || 'Chú ý cấu trúc câu.'}`;
+                fb.innerHTML = `<strong>❌ Đáp án:</strong> ${item.hanzi} (${item.pinyin || ''})<br>• <strong>Góc Lão Sư:</strong> ${item.goc_lao_su || 'Lưu ý kết cấu câu.'}`;
             }
         }
     });
@@ -410,7 +485,7 @@ function gradeEntireWorkout(showExplanations) {
     updateStatsUI();
 
     if (showExplanations) {
-        alert(`🎉 Kết quả phiên luyện tập: Bạn làm đúng ${correctCount} / ${currentWorkoutSet.length} câu! Hãy kéo xem lại giải thích chi tiết phía dưới.`);
+        alert(`🎉 Bạn đã làm đúng ${correctCount} / ${currentWorkoutSet.length} câu! Hãy kéo lên xuống để xem giải thích chi tiết.`);
     }
 }
 
@@ -421,7 +496,7 @@ function triggerDuckReaction(isCorrect) {
 
     if (effectTimeout) clearTimeout(effectTimeout);
     duckContainer.className = '';
-    void duckContainer.offsetWidth;
+    void duckContainer.offsetWidth; // Trigger reflow
 
     if (isCorrect) {
         duckContainer.className = "duck-happy";
@@ -441,7 +516,7 @@ function triggerDuckReaction(isCorrect) {
 }
 
 // ==========================================
-// 3. TỪ VỰNG & NGỮ PHÁP
+// 3. TỪ VỰNG & NGỮ PHÁP (MODULE CHÍNH)
 // ==========================================
 function updateStatsUI() {
     const totalElem = document.getElementById('stat-total');
@@ -472,7 +547,7 @@ document.getElementById('btn-reset-user-stats').onclick = () => {
         saveUserStats(sessionStats);
         renderUserStatsView();
         updateStatsUI();
-        alert('Đã xóa dữ liệu thành công!');
+        alert('Dữ liệu đã được làm mới!');
     }
 };
 
@@ -480,8 +555,17 @@ function filterAndLoadData() {
     if (isReviewingMistakes) return;
 
     let filtered = allData.filter(item => item.category === currentCategory);
+    
+    // Thuật toán ÔN LÙI: Nếu chọn số lượng thẻ lớn mà cấp đó ít từ, tự động lấy các cấp dưới ghép vào
     if(currentLevel !== 'ALL') {
-        filtered = filtered.filter(item => item.level === currentLevel);
+        let exactMatch = filtered.filter(item => item.level === currentLevel);
+        if (currentBatchSize !== 'ALL' && exactMatch.length < currentBatchSize) {
+            let backupPool = filtered.filter(item => item.level !== currentLevel);
+            // Gộp cấp hiện tại + trộn cấp khác vào cho đủ số lượng
+            filtered = exactMatch.concat(shuffleArray(backupPool));
+        } else {
+            filtered = exactMatch;
+        }
     }
     
     let prioritized = shuffleArray(filtered);
@@ -498,6 +582,7 @@ function filterAndLoadData() {
 function loadStudyCard() {
     const container = document.getElementById('flashcard-container');
     const counterElem = document.getElementById('study-progress-counter');
+    
     if (counterElem) {
         counterElem.innerText = `Tiến độ: ${currentList.length === 0 ? 0 : (currentIndex + 1)} / ${currentList.length}`;
     }
@@ -505,7 +590,7 @@ function loadStudyCard() {
     updateStatsUI();
 
     if(currentList.length === 0 || currentIndex >= currentList.length) {
-        container.innerHTML = `<h3 style='text-align:center; padding:30px; color:#15803d;'>🎉 Bạn đã hoàn thành danh sách học tập này!</h3>`;
+        container.innerHTML = `<h3 style='text-align:center; padding:40px; color:#15803d; font-size:20px;'>🎉 Xin chúc mừng! Bạn đã hoàn thành xuất sắc danh sách học tập này.</h3>`;
         document.getElementById('btn-check').classList.add('hidden');
         document.getElementById('btn-next').classList.add('hidden');
         return;
@@ -516,18 +601,18 @@ function loadStudyCard() {
         <div class="card-front">
             <div class="card-top-info">
                 <span id="level-badge" class="level-badge">${item.level}</span>
-                <div class="question-header">${currentCategory === 'word' ? 'HÃY GÕ HÁN TỰ CHO TỪ:' : 'HÃY DỊCH HOẶC GÕ CÂU:'}</div>
+                <div class="question-header">${currentCategory === 'word' ? 'TỪ VỰNG - GÕ HÁN TỰ / PINYIN:' : 'NGỮ PHÁP - DỊCH HOẶC GÕ CÂU:'}</div>
             </div>
             <p class="meaning-text">${item.meaning_vn}</p>
             
             <div class="tools-wrapper">
-                <button id="btn-hint" class="btn-tool">💡 Gợi ý Pinyin</button>
-                <button id="btn-audio" class="btn-tool">🔊 Nghe phát âm</button>
+                <button id="btn-hint" class="btn-tool">💡 Bật mí Pinyin</button>
+                <button id="btn-audio" class="btn-tool">🔊 Phát âm bản xứ</button>
                 <span id="hint-display" class="hint-text hidden">(${item.pinyin})</span>
             </div>
 
             <div class="input-container">
-                <input type="text" id="user-input" placeholder="Nhập câu trả lời..." autocomplete="off">
+                <input type="text" id="user-input" placeholder="Nhập đáp án của bạn..." autocomplete="off">
             </div>
             
             <div id="answer-reveal-box" class="hidden">
@@ -537,23 +622,24 @@ function loadStudyCard() {
         </div>
         
         <div id="explanation-box" class="hidden">
+            <div id="punc-warning-container"></div>
             <div class="academic-info">
                 <span class="info-badge">Hán Việt: <strong>${item.han_viet || 'N/A'}</strong></span>
                 <span class="info-badge">Bộ thủ: <strong>${item.radical || 'N/A'}</strong></span>
-                <span class="info-badge">Từ loại: <strong>${item.word_type || 'N/A'}</strong></span>
+                <span class="info-badge">Phân loại: <strong>${item.word_type || 'N/A'}</strong></span>
             </div>
             <div class="expansion-box">
                 <strong>🌐 Mở rộng ý nghĩa:</strong>
-                <p>${item.expansion || 'Đang cập nhật...'}</p>
+                <p style="margin-top: 4px;">${item.expansion || 'Đang cập nhật từ điển...'}</p>
             </div>
             <div class="explanation-grid">
                 <div class="example-box">
-                    <strong>📖 Ví dụ:</strong>
-                    <div>${(item.examples && item.examples.length) ? item.examples.map(ex => `${ex.cn} (${ex.py}) - <em>${ex.vn}</em>`).join('<br>') : 'Chưa có ví dụ.'}</div>
+                    <strong>📖 Ví dụ thực tế:</strong>
+                    <div style="margin-top: 6px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `${ex.cn} (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
                 </div>
                 <div class="teacher-corner">
                     <strong>👨‍🏫 Góc Lão Sư:</strong>
-                    <p>${item.goc_lao_su || 'Chú ý ngữ cảnh sử dụng.'}</p>
+                    <p style="margin-top: 6px;">${item.goc_lao_su || 'Hãy chú trọng vào trật tự từ vựng.'}</p>
                 </div>
             </div>
         </div>
@@ -566,7 +652,7 @@ function loadStudyCard() {
     document.getElementById('btn-audio').onclick = () => {
         const utterance = new SpeechSynthesisUtterance(item.hanzi);
         utterance.lang = 'zh-CN';
-        utterance.rate = 0.8;
+        utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
     };
 
@@ -583,24 +669,32 @@ function loadStudyCard() {
 
     document.getElementById('btn-check').classList.remove('hidden');
     document.getElementById('btn-next').classList.add('hidden');
-    document.getElementById('progress-fill').style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
+    document.getElementById('progress-fill').style.width = `${((currentIndex) / currentList.length) * 100}%`;
 }
 
 document.getElementById('btn-check').addEventListener('click', () => {
     const item = currentList[currentIndex];
     const inputElem = document.getElementById('user-input');
     if(!inputElem) return;
-    const val = inputElem.value.trim().toLowerCase();
     
     sessionStats.total++;
-    let isCorrect = (val === item.hanzi.toLowerCase() || val === item.pinyin.toLowerCase());
-    
-    triggerDuckReaction(isCorrect);
+    const result = evaluateAnswerQuality(inputElem.value, item.hanzi, item.pinyin);
 
-    if(isCorrect) {
+    triggerDuckReaction(result.isCorrect);
+
+    const warnContainer = document.getElementById('punc-warning-container');
+    if (warnContainer) warnContainer.innerHTML = '';
+
+    if(result.isCorrect) {
         sessionStats.correct++;
         document.getElementById('hanzi-display').style.color = "#16a34a";
         playSound('correct');
+
+        if (result.warning && warnContainer) {
+            warnContainer.innerHTML = `<div style="margin-bottom: 12px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fde047; border-radius: 10px; color: #854d0e; font-size: 13.5px; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                💡 <strong>Lời khuyên:</strong> ${result.warning}
+            </div>`;
+        }
     } else {
         sessionStats.wrong++;
         document.getElementById('hanzi-display').style.color = "#dc2626";
@@ -614,6 +708,9 @@ document.getElementById('btn-check').addEventListener('click', () => {
     document.getElementById('btn-check').classList.add('hidden');
     document.getElementById('btn-next').classList.remove('hidden');
     document.getElementById('btn-next').focus();
+    
+    // Cập nhật thanh tiến độ full xanh khi qua câu
+    document.getElementById('progress-fill').style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
 });
 
 document.getElementById('btn-next').addEventListener('click', () => {
@@ -623,7 +720,7 @@ document.getElementById('btn-next').addEventListener('click', () => {
 
 document.getElementById('btn-inline-review').onclick = () => {
     if (mistakeList.length === 0) {
-        alert("Tuyệt vời! Bạn chưa có câu nào làm sai để ôn tập.");
+        alert("Thật tuyệt vời! Bạn hoàn toàn chưa có câu nào làm sai để phải ôn tập.");
         return;
     }
     isReviewingMistakes = true;

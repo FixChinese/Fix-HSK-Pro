@@ -2,46 +2,49 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIX HSK 3.0 Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FIX HSK 3.0 Pro - Hệ Thống Đào Tạo Tiếng Trung</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- THANH ĐIỀU HƯỚNG NẰM TRÊN CÙNG (GỌN GÀNG, KHÔNG CHIẾM DIỆN TÍCH) -->
+    <!-- LỚP PHỦ NỀN MỜ CHO MOBILE -->
+    <div id="menu-overlay-backdrop" class="menu-overlay-backdrop"></div>
+
     <header id="top-navbar">
         <div class="nav-left">
-            <!-- NÚT MENU THẺ ☰ DUY NHẤT -->
-            <div class="menu-container" id="menu-container">
+            <div class="menu-wrapper" id="menu-wrapper">
                 <button id="btn-toggle-menu" class="hamburger-btn" aria-label="Mở menu thẻ">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </button>
 
-                <!-- KHUNG BẢNG THẺ SỔ XUỐNG DẠNG NỔI (FLOATING MENU) -->
+                <!-- BẢNG THẺ MENU THẢ NỔI -->
                 <div id="floating-nav-card" class="floating-menu hidden">
+                    <div class="floating-menu-header">
+                        <span class="menu-header-title">DANH MỤC HỌC TẬP</span>
+                        <button id="btn-close-floating-menu" class="mobile-close-btn" aria-label="Đóng menu">✕</button>
+                    </div>
+
                     <div class="nav-user-badge">
                         <span class="u-icon">👤</span>
                         <div class="u-text">
-                            <small>HỌC VIÊN</small>
-                            <input type="text" id="current-username" value="Fix Chinese" title="Nhấn để đổi tên user">
+                            <small>HỌC VIÊN HIỆN TẠI</small>
+                            <input type="text" id="current-username" value="Fix Chinese" title="Nhấn để đổi tên học viên" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="nav-cards-list">
-                        <!-- THẺ 1: TRANG CHỦ -->
                         <div class="nav-card-item" id="card-home">
                             <span class="c-icon">🏠</span>
                             <span class="c-title">Trang Chủ Hệ Thống</span>
                         </div>
 
-                        <!-- THẺ 2: TỪ VỰNG (TRƯỢT CẤP CON SANG PHẢI) -->
                         <div class="nav-card-item has-sub" id="card-vocab">
                             <span class="c-icon">📚</span>
                             <span class="c-title">Từ Vựng</span>
                             <span class="c-arrow">›</span>
 
-                            <!-- MENU CON TRƯỢT SANG PHẢI -->
                             <div class="sub-flyout-panel">
                                 <div class="flyout-col">
                                     <h4>SƠ CẤP</h4>
@@ -65,13 +68,11 @@
                             </div>
                         </div>
 
-                        <!-- THẺ 3: NGỮ PHÁP (TRƯỢT CẤP CON SANG PHẢI) -->
                         <div class="nav-card-item has-sub" id="card-grammar">
                             <span class="c-icon">✍️</span>
                             <span class="c-title">Ngữ pháp & câu văn</span>
                             <span class="c-arrow">›</span>
 
-                            <!-- MENU CON TRƯỢT SANG PHẢI -->
                             <div class="sub-flyout-panel">
                                 <div class="flyout-col">
                                     <h4>SƠ CẤP</h4>
@@ -95,13 +96,11 @@
                             </div>
                         </div>
 
-                        <!-- THẺ 4: WORKOUT -->
                         <div class="nav-card-item" id="card-workout">
                             <span class="c-icon">🎯</span>
                             <span class="c-title">Workout Ngữ Cảnh</span>
                         </div>
 
-                        <!-- THẺ 5: THỐNG KÊ -->
                         <div class="nav-card-item" id="card-stats">
                             <span class="c-icon">📊</span>
                             <span class="c-title">Thống Kê Cá Nhân</span>
@@ -110,7 +109,6 @@
                 </div>
             </div>
 
-            <!-- LOGO THƯƠNG HIỆU -->
             <div class="brand-badge" id="brand-logo-btn">
                 <span class="logo-fix">FIX</span>
                 <span class="logo-sub">HSK 3.0 Pro</span>
@@ -122,51 +120,49 @@
         </div>
     </header>
 
-    <!-- TOÀN BỘ 100% DIỆN TÍCH DÀNH CHO BÀI TẬP VÀ NỘI DUNG -->
     <main id="app-workspace">
-        
-        <!-- 1. TRANG CHỦ TỔNG QUAN -->
+        <!-- TRANG CHỦ -->
         <section id="view-home" class="app-view">
             <div class="home-hero-card">
                 <div class="home-badge">🌟 Chào mừng đến với FIX HSK 3.0 Pro</div>
                 <h2>Hệ Thống Đào Tạo Tiếng Trung Khoa Học & Chuyên Sâu</h2>
                 <p class="home-desc">
-                    Tối ưu không gian học tập tuyệt đối. Di chuột hoặc nhấn vào nút <strong>☰</strong> ở góc trên bên trái bất kỳ lúc nào để chuyển đổi tức thì giữa các thẻ bài học!
+                    Môi trường học tập không giới hạn không gian. Nhấn vào nút <strong>☰</strong> ở góc trên bên trái bất kỳ lúc nào để chuyển đổi tức thì giữa các phân hệ học thuật!
                 </p>
 
                 <div class="home-cards-row">
                     <div class="h-card" onclick="goToSection('vocab')">
                         <div class="h-icon">📚</div>
-                        <h3>Từ Vựng</h3>
-                        <p>Cô lập ký tự, bộ thủ, Hán Việt và mở rộng từ vựng chuẩn HSK 3.0.</p>
-                        <span class="h-link">Khám phá ngay ➔</span>
+                        <h3>Từ Vựng Độc Lập</h3>
+                        <p>Cô lập ký tự, phân tích âm Hán Việt, bộ thủ và mở rộng ý nghĩa ngữ cảnh.</p>
+                        <span class="h-link">Bắt đầu học ➔</span>
                     </div>
 
                     <div class="h-card" onclick="goToSection('grammar')">
                         <div class="h-icon">✍️</div>
-                        <h3>Ngữ pháp & Câu văn</h3>
-                        <p>Làm chủ cấu trúc câu và phân tích bản chất 'Góc Lão Sư'.</p>
-                        <span class="h-link">Khám phá ngay ➔</span>
+                        <h3>Ngữ Pháp & Câu Văn</h3>
+                        <p>Làm chủ cấu trúc câu, phân tích tư duy khác biệt qua Góc Lão Sư.</p>
+                        <span class="h-link">Bắt đầu học ➔</span>
                     </div>
 
                     <div class="h-card" onclick="goToSection('workout')">
                         <div class="h-icon">🎯</div>
                         <h3>Workout Ngữ Cảnh</h3>
-                        <p>Luyện tập chuỗi hội thoại, báo chí, phóng sự thực tế linh hoạt.</p>
-                        <span class="h-link">Khám phá ngay ➔</span>
+                        <p>Luyện tập chuỗi hội thoại, bản tin, bài báo thực tế với cơ chế chấm thông minh.</p>
+                        <span class="h-link">Luyện tập ngay ➔</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. PHIÊN HỌC TỪ VỰNG & CÂU VĂN -->
+        <!-- VIEW HỌC TỪ VỰNG & CÂU VĂN -->
         <section id="view-study" class="app-view hidden">
             <div class="top-bar">
                 <h1 id="view-title">Học từ vựng HSK 3</h1>
                 <div class="controls-group">
                     <span id="study-progress-counter" class="study-counter-pill">Tiến độ: 1 / 50</span>
-                    <button id="btn-config-session" class="btn-secondary">⚙️ Cài đặt số từ</button>
-                    <button id="btn-shuffle" class="btn-secondary">🔀 Trộn thẻ</button>
+                    <button id="btn-config-session" class="btn-secondary">⚙️ Số lượng thẻ</button>
+                    <button id="btn-shuffle" class="btn-secondary">🔀 Trộn bài</button>
                 </div>
             </div>
 
@@ -178,7 +174,7 @@
                 <div class="stat-pill blue">🎯 Chính xác: <strong id="stat-accuracy">0%</strong></div>
             </div>
 
-            <div class="progress-track"><div id="progress-fill" style="width: 0%;"></div></div>
+            <div class="progress-track"><div id="progress-fill"></div></div>
 
             <div id="flashcard-container"></div>
 
@@ -188,18 +184,17 @@
             </div>
         </section>
 
-        <!-- 3. WORKOUT NGỮ CẢNH: CHUỖI NHIỀU CÂU CUỘN DỌC -->
+        <!-- VIEW WORKOUT NGỮ CẢNH -->
         <section id="view-daily" class="app-view hidden">
             <div class="top-bar">
                 <h1>🎯 Workout Ngữ Cảnh Chuyên Sâu</h1>
             </div>
             
-            <!-- THIẾT LẬP ĐỀ BÀI -->
             <div class="panel-box" id="daily-setup-panel">
                 <h3>Tùy chỉnh bài luyện tập ngữ cảnh thực chiến:</h3>
                 <div class="config-grid">
                     <div>
-                        <label>1. Cấp độ ôn lùi (Khóa từ cấp độ này trở xuống):</label>
+                        <label>1. Cấp độ trọng tâm (Bao trùm từ cấp độ này trở xuống):</label>
                         <select id="daily-level" class="form-select">
                             <option value="ALL">Toàn bộ HSK 3.0 (1-9 & Cao cấp)</option>
                             <option value="HSK 1">HSK 1</option>
@@ -217,126 +212,127 @@
                     <div>
                         <label>2. Định dạng nội dung bài tập:</label>
                         <select id="daily-format" class="form-select">
-                            <option value="dialogue" selected>💬 Đoạn hội thoại đối đáp hai người</option>
-                            <option value="paragraph">📝 Đoạn văn ngắn miêu tả hoàn cảnh</option>
-                            <option value="news">📰 Bản tin thời sự / Trích đoạn bài báo</option>
-                            <option value="report">🎙️ Phóng sự ghi chép đời sống thực tế</option>
+                            <option value="dialogue" selected>💬 Đoạn hội thoại đối đáp thực tế</option>
+                            <option value="paragraph">📝 Đoạn văn miêu tả bối cảnh</option>
+                            <option value="news">📰 Bản tin thời sự / Trích đoạn báo chí</option>
+                            <option value="report">🎙️ Phóng sự / Ghi chép đời sống</option>
                         </select>
                     </div>
                     <div>
                         <label>3. Chủ đề ngữ cảnh:</label>
                         <select id="daily-topic" class="form-select">
-                            <option value="daily" selected>☕ Đời sống & Giao tiếp thường nhật</option>
-                            <option value="work">💼 Công sở & Kinh doanh</option>
+                            <option value="daily" selected>☕ Đời sống thường nhật & Giao tiếp</option>
+                            <option value="work">💼 Công sở, Kinh doanh & Đàm phán</option>
                             <option value="outing">✈️ Du lịch, Dã ngoại & Trải nghiệm</option>
-                            <option value="study">📚 Giảng đường & Học thuật</option>
+                            <option value="study">📚 Giảng đường, Học thuật & Thi cử</option>
                         </select>
                     </div>
                     <div>
-                        <label>4. Hình thức kiểm tra:</label>
+                        <label>4. Hình thức luyện tập:</label>
                         <select id="daily-mode" class="form-select">
-                            <option value="V2C">Việt ➔ Trung (Dịch và luyện viết Hán tự)</option>
-                            <option value="C2V">Trung ➔ Việt (Đọc hiểu ý nghĩa ngữ cảnh)</option>
+                            <option value="V2C">Việt ➔ Trung (Dịch và gõ chữ Hán/Pinyin)</option>
+                            <option value="C2V">Trung ➔ Việt (Đọc hiểu ý nghĩa câu)</option>
                         </select>
                     </div>
                     <div>
-                        <label>5. Số lượng câu trong bài tập:</label>
+                        <label>5. Số lượng câu trong phiên:</label>
                         <select id="daily-count" class="form-select">
-                            <option value="5" selected>5 câu (Nhanh & Tinh gọn)</option>
-                            <option value="10">10 câu (Tiêu chuẩn)</option>
+                            <option value="5">5 câu (Nhanh & Tinh gọn)</option>
+                            <option value="10" selected>10 câu (Tiêu chuẩn)</option>
                             <option value="15">15 câu (Nâng cao)</option>
-                            <option value="20">20 câu (Thử thách chuyên sâu)</option>
+                            <option value="20">20 câu (Thử thách)</option>
+                            <option value="30">30 câu (Chuyên sâu)</option>
+                            <option value="50">50 câu (Cường độ cao)</option>
+                            <option value="100">100 câu (Toàn bộ đề bài)</option>
                         </select>
                     </div>
                 </div>
-                <button id="btn-start-daily" class="btn btn-primary" style="margin-top: 15px;">Khởi tạo bài luyện tập ➔</button>
+                <button id="btn-start-daily" class="btn btn-primary" style="margin-top: 15px;">Khởi tạo đề bài ➔</button>
             </div>
 
-            <!-- VÙNG LÀM BÀI WORKOUT (CUỘN XEM & ĐIỀN CÂU) -->
             <div id="daily-quiz-panel" class="panel-box hidden">
                 <div class="workout-header-card">
                     <div id="workout-theme-badge" class="context-banner">💬 Đoạn hội thoại • Đời sống</div>
-                    <div class="workout-instruction">Bạn có thể kiểm tra nhanh từng câu hoặc điền hết rồi bấm Hoàn thành ở dưới cùng:</div>
+                    <div class="workout-instruction">Hãy hoàn thiện các câu bên dưới. Bạn có thể kiểm tra từng câu lập tức hoặc điền hết rồi bấm Hoàn thành ở dưới cùng:</div>
                 </div>
 
                 <div id="workout-items-list" class="workout-items-container"></div>
 
                 <div class="workout-bottom-actions">
                     <button id="btn-workout-submit-all" class="btn btn-primary">Hoàn thành bài tập ➔</button>
-                    <button id="btn-workout-reconfigure" class="btn-secondary">⚙️ Đổi cấu hình đề bài</button>
+                    <button id="btn-workout-reconfigure" class="btn-secondary">⚙️ Tạo đề bài mới</button>
                 </div>
             </div>
         </section>
 
-        <!-- 4. VIEW THỐNG KÊ -->
+        <!-- VIEW THỐNG KÊ -->
         <section id="view-stats" class="app-view hidden">
             <div class="top-bar"><h1>📊 Thống kê cá nhân hóa</h1></div>
             <div class="panel-box">
                 <div class="user-stats-card">
                     <h3>👤 Hồ sơ học tập: <span id="stats-username-display" style="color: #16a34a;">Fix Chinese</span></h3>
                     <div class="stats-grid-box">
-                        <div class="s-box"><span>Tổng số câu đã thực hiện:</span> <strong id="user-total-learned">0</strong></div>
+                        <div class="s-box"><span>Tổng số câu đã xử lý:</span> <strong id="user-total-learned">0</strong></div>
                         <div class="s-box"><span>Số câu trả lời đúng:</span> <strong id="user-total-correct" style="color: #16a34a;">0</strong></div>
                         <div class="s-box"><span>Số câu trả lời sai:</span> <strong id="user-total-wrong" style="color: #dc2626;">0</strong></div>
                         <div class="s-box"><span>Tỷ lệ chính xác:</span> <strong id="user-total-acc">0%</strong></div>
                     </div>
-                    <button id="btn-reset-user-stats" class="btn-secondary" style="margin-top: 20px;">🔄 Làm mới thống kê của user này</button>
+                    <button id="btn-reset-user-stats" class="btn-secondary" style="margin-top: 20px;">🔄 Xóa trắng dữ liệu người dùng này</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- MODAL THÔNG BÁO UYỂN CHUYỂN KHI BẤM HOÀN THÀNH WORKOUT -->
+    <!-- MODAL ĐƯA RA QUYẾT ĐỊNH CHẤM BÀI UYỂN CHUYỂN -->
     <div id="workout-decision-modal" class="modal-overlay hidden">
-        <div class="modal-content workout-modal-box">
-            <div class="modal-duck-icon">🎯</div>
-            <h2 class="modal-title">Bạn đã hoàn thành phiên luyện tập!</h2>
-            <p class="modal-subtext">
-                Bạn muốn chấm điểm chi tiết ngay bây giờ để xem phân tích Góc Lão Sư, hay muốn lưu tiến độ và tiếp tục thử thách?
+        <div class="modal-content">
+            <div style="font-size: 34px; margin-bottom: 10px;">🎯</div>
+            <h2 style="font-size: 19px; color: #14532d; margin-bottom: 8px;">Hoàn tất phiên luyện tập!</h2>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 18px; line-height: 1.5;">
+                Bạn muốn chấm điểm chi tiết để xem phân tích Lão Sư, hay lưu tiến độ và nhận ngay chuỗi câu mới?
             </p>
-            <div class="workout-decision-options">
+            <div>
                 <button id="btn-decide-grade" class="decision-btn primary-decision">
-                    <span class="d-icon">📝</span>
-                    <div class="d-text">
+                    <span style="font-size: 22px;">📝</span>
+                    <div class="d-text-block">
                         <strong>Chấm điểm & Xem giải thích chi tiết</strong>
-                        <small>Xem đáp án mẫu, phiên âm và phân tích ngữ pháp từng câu</small>
+                        <small>Kiểm tra đáp án chuẩn, Pinyin và phân tích ngữ pháp</small>
                     </div>
                 </button>
                 <button id="btn-decide-continue" class="decision-btn secondary-decision">
-                    <span class="d-icon">🚀</span>
-                    <div class="d-text">
+                    <span style="font-size: 22px;">🚀</span>
+                    <div class="d-text-block">
                         <strong>Lưu tiến độ & Tiếp tục bài mới</strong>
-                        <small>Cập nhật số điểm vào hồ sơ và tạo chuỗi tình huống mới ngay</small>
+                        <small>Cộng điểm vào hệ thống và tạo chuỗi thử thách mới</small>
                     </div>
                 </button>
                 <button id="btn-decide-review" class="decision-btn outline-decision">
-                    <span class="d-icon">✏️</span>
-                    <div class="d-text">
-                        <strong>Ở lại kiểm tra và chỉnh sửa câu chữ</strong>
-                        <small>Quay lại danh sách để soát lại các câu trước khi chính thức chấm</small>
+                    <span style="font-size: 22px;">✏️</span>
+                    <div class="d-text-block">
+                        <strong>Ở lại xem xét và chỉnh sửa câu chữ</strong>
+                        <small>Quay lại rà soát câu trả lời trước khi chính thức chấm</small>
                     </div>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL CẤU HÌNH SỐ TỪ -->
+    <!-- MODAL CẤU HÌNH SỐ LƯỢNG TỪ -->
     <div id="session-config-modal" class="modal-overlay hidden">
-        <div class="modal-content" id="modal-inner-content">
-            <h2>⚙️ Cấu hình Phiên học</h2>
-            <p>Chọn số lượng muốn học trong phiên:</p>
-            <div class="batch-options-grid">
-                <button class="batch-btn" data-batch="25">25 mục</button>
-                <button class="batch-btn" data-batch="50">50 mục</button>
-                <button class="batch-btn" data-batch="75">75 mục</button>
-                <button class="batch-btn" data-batch="100">100 mục</button>
-                <button class="batch-btn" data-batch="150">150 mục</button>
-                <button class="batch-btn" data-batch="ALL">Toàn bộ</button>
+        <div class="modal-content" id="modal-inner-content" style="width: 360px;">
+            <h2 style="font-size: 18px; color: #14532d; margin-bottom: 10px;">⚙️ Cấu hình Phiên học</h2>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">Mở rộng giới hạn lượng từ học trong một phiên:</p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <button class="batch-btn btn-secondary" data-batch="10">10 mục</button>
+                <button class="batch-btn btn-secondary" data-batch="25">25 mục</button>
+                <button class="batch-btn btn-secondary" data-batch="50">50 mục</button>
+                <button class="batch-btn btn-secondary" data-batch="100">100 mục</button>
+                <button class="batch-btn btn-secondary" data-batch="ALL" style="grid-column: span 2; background: #dcfce7;">Toàn bộ kho dữ liệu</button>
             </div>
         </div>
     </div>
 
-    <!-- MASCOT VỊT HOẠT HÌNH -->
+    <!-- MASCOT VỊT (HIỆU ỨNG TƯƠNG TÁC) -->
     <div id="mascot-wrapper">
         <div id="water-splash" class="hidden">
             <div class="water-drop"></div><div class="water-drop"></div><div class="water-drop"></div>
@@ -345,7 +341,7 @@
             <span class="flying-heart">❤️</span><span class="flying-heart">💖</span><span class="flying-heart">💗</span>
         </div>
         <div id="duck-container" class="duck-idle">
-            <svg viewBox="0 0 140 140" width="80" height="80">
+            <svg viewBox="0 0 140 140" width="85" height="85">
                 <ellipse cx="70" cy="95" rx="38" ry="32" fill="#ffe600" stroke="#222" stroke-width="3"/>
                 <circle cx="45" cy="92" r="10" fill="#ff99bb" opacity="0.7"/>
                 <circle cx="95" cy="92" r="10" fill="#ff99bb" opacity="0.7"/>
