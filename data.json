@@ -193,7 +193,7 @@
     "examples": [
       { "cn": "这里的环境非常安静。", "py": "Zhèlǐ de huánjìng fēicháng ānjìng.", "vn": "Môi trường ở đây rất yên tĩnh." }
     ],
-    "goc_lao_su": "Cảnh báo dịch Hán Việt: Người Việt hay dùng 'hoàn cảnh' để chỉ cảnh ngộ khó khăn, tiếng Trung '环境' thuần túy là môi trường không gian xung quanh."
+    "goc_lao_su": "Người Việt hay nhầm từ này với gia cảnh. Tiếng Trung '环境' thuần túy chỉ không gian vật lý và không khí xung quanh."
   },
   {
     "id": "hsk3_w_03",
@@ -235,7 +235,7 @@
     "hanzi": "今天天气很好。",
     "pinyin": "Jīntiān tiānqì hěn hǎo.",
     "meaning_vn": "Thời tiết hôm nay rất tốt.",
-    "goc_lao_su": "Cấu trúc vị ngữ tính từ: Chủ ngữ + Phó từ chỉ mức độ (很) + Tính từ. Không chèn '是' vào câu này."
+    "goc_lao_su": "Cấu trúc vị ngữ tính từ: Chủ ngữ + Phó từ chỉ mức độ (很) + Tính từ. Tuyệt đối không dùng động từ '是' (là) trước tính từ."
   },
   {
     "id": "hsk1_s_02",
@@ -244,8 +244,8 @@
     "topic": "daily",
     "hanzi": "你想喝茶吗？",
     "pinyin": "Nǐ xiǎng hē chá ma?",
-    "meaning_vn": "Bạn muốn uống trà không?",
-    "goc_lao_su": "Câu hỏi chữ '吗' đặt ở cuối câu trần thuật. Không đảo ngữ hay thêm trợ động từ như tiếng Anh."
+    "meaning_vn": "Bạn có muốn uống trà không?",
+    "goc_lao_su": "Trong câu hỏi 'Có... không', tiếng Trung chỉ cần đặt trợ từ '吗' cuối câu, giữ nguyên trật tự câu trần thuật."
   },
   {
     "id": "hsk2_s_01",
@@ -255,7 +255,7 @@
     "hanzi": "虽然很忙，但是他很高兴。",
     "pinyin": "Suīrán hěn máng, dànshì tā hěn gāoxìng.",
     "meaning_vn": "Tuy rất bận, nhưng anh ấy rất vui.",
-    "goc_lao_su": "Cặp liên từ chuyển ngoặt: 虽然……但是…… (Tuy... nhưng...). Vế sau có thể dùng '但是' hoặc '可是'."
+    "goc_lao_su": "Cặp liên từ chuyển ngoặt kinh điển: 虽然……但是…… (Tuy... nhưng...)."
   },
   {
     "id": "hsk2_s_02",
@@ -265,7 +265,7 @@
     "hanzi": "我们明天上午开会，请准时参加。",
     "pinyin": "Wǒmen míngtiān shàngwǔ kāihuì, qǐng zhǔnshí cānjiā.",
     "meaning_vn": "Sáng mai chúng ta họp, xin hãy tham gia đúng giờ.",
-    "goc_lao_su": "Trật tự thời gian từ lớn đến nhỏ: Ngày (明天) -> Buổi (上午). Trạng ngữ chỉ thời gian đứng trước động từ chính."
+    "goc_lao_su": "Quy tắc trật tự thời gian: Từ lớn đến nhỏ (Ngày -> Buổi). Trạng ngữ thời gian đứng trước động từ chính (开会)."
   },
   {
     "id": "hsk3_s_01",
@@ -275,7 +275,7 @@
     "hanzi": "通过这次合作，大家积累了丰富的经验。",
     "pinyin": "Tōngguò zhè cì hézuò, dàjiā jīlěile fēngfù de jīngyàn.",
     "meaning_vn": "Thông qua lần hợp tác này, mọi người đã tích lũy được kinh nghiệm phong phú.",
-    "goc_lao_su": "Giới từ '通过' đứng đầu câu biểu thị phương thức hoặc con đường dẫn đến thành quả."
+    "goc_lao_su": "Giới từ '通过' đứng đầu vế câu, tạo thành trạng ngữ biểu thị phương thức, điều kiện đạt được kết quả."
   },
   {
     "id": "hsk3_s_02",
@@ -285,7 +285,7 @@
     "hanzi": "关于这个项目，你有什么具体的建议吗？",
     "pinyin": "Guānyú zhège xiàngmù, nǐ yǒu shénme jùtǐ de jiànyì ma?",
     "meaning_vn": "Về dự án này, bạn có kiến nghị cụ thể nào không?",
-    "goc_lao_su": "Cụm giới từ '关于...' luôn đưa lên đầu câu để xác định phạm vi hoặc đối tượng mà câu nói muốn hướng tới."
+    "goc_lao_su": "Cụm giới từ '关于...' luôn đưa lên đầu câu để nhấn mạnh và nêu rõ đối tượng chuẩn bị đề cập."
   },
   {
     "id": "hsk3_s_03",
@@ -295,7 +295,7 @@
     "hanzi": "除了汉语以外，他还会说一点儿英语。",
     "pinyin": "Chúle hànyǔ yǐwài, tā hái huì shuō yìdiǎnr yīngyǔ.",
     "meaning_vn": "Ngoài tiếng Trung ra, anh ấy còn biết nói một chút tiếng Anh.",
-    "goc_lao_su": "Cấu trúc bổ sung phạm vi: 除了……以外，还…… (ngoài... ra, còn...). Trợ từ '还' nhấn mạnh vế phía sau."
+    "goc_lao_su": "Cấu trúc bổ sung phạm vi: 除了……以外，还…… (ngoài... ra, còn...). Nhấn mạnh vế phía sau '还' (hái)."
   },
   {
     "id": "hsk3_s_04",
@@ -305,7 +305,7 @@
     "hanzi": "只要认真练习，就能取得好成绩。",
     "pinyin": "Zhǐyào rènzhēn liànxí, jiù néng qǔdé hǎo chéngjì.",
     "meaning_vn": "Chỉ cần chăm chỉ luyện tập, thì sẽ đạt được thành tích tốt.",
-    "goc_lao_su": "Cặp liên từ điều kiện đủ: 只要……就…… (chỉ cần... thì...). Điều kiện ở vế một xảy ra là vế hai sẽ đạt kết quả."
+    "goc_lao_su": "Liên từ điều kiện đủ: 只要……就…… (chỉ cần... thì...). Điều kiện ở vế một xảy ra là vế hai sẽ đạt kết quả."
   },
   {
     "id": "hsk3_s_05",
@@ -315,7 +315,7 @@
     "hanzi": "周末去爬山不仅能锻炼身体，而且能放松心情。",
     "pinyin": "Zhōumò qù páshān bùjǐn néng duànliàn shēntǐ, érqiě néng fàngsōng xīnqíng.",
     "meaning_vn": "Cuối tuần đi leo núi không chỉ rèn luyện sức khỏe, mà còn có thể thư giãn tâm trạng.",
-    "goc_lao_su": "Cấu trúc tăng tiến: 不仅……而且…… (không những... mà còn...). Bổ trợ nghĩa mạnh hơn cho vế sau."
+    "goc_lao_su": "Cấu trúc tăng tiến: 不仅……而且…… (không những... mà còn...). Hai vế bổ trợ và làm mạnh ý cho nhau."
   },
   {
     "id": "hsk3_s_06",
@@ -325,6 +325,6 @@
     "hanzi": "你昨天买的衣服怎么样？",
     "pinyin": "Nǐ zuótiān mǎi de yīfu zěnmeyàng?",
     "meaning_vn": "Bộ quần áo hôm qua bạn mua như thế nào?",
-    "goc_lao_su": "Định ngữ chỉ câu: Cụm '你昨天买的' bổ nghĩa cho danh từ '衣服' (quần áo). Tiếng Trung định ngữ đứng TRƯỚC danh từ trung tâm."
+    "goc_lao_su": "Cấu trúc chữ 的 (de) định ngữ: '你昨天买的' đóng vai trò định ngữ, bổ nghĩa cho danh từ chính '衣服' phía sau."
   }
 ]

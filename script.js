@@ -13,7 +13,7 @@ let currentUser = localStorage.getItem('hsk_current_user') || 'Fix Chinese';
 // CẤU HÌNH WORKOUT
 let currentWorkoutSet = [];
 let workoutConfig = {
-    level: 'HSK 3',
+    level: 'HSK 1',
     format: 'dialogue',
     topic: 'daily',
     mode: 'V2C',
@@ -41,7 +41,7 @@ function playSound(type) {
     }
 }
 
-// XÓA DẤU CÂU VÀ KHOẢNG TRẮNG ĐỂ ĐỐI CHIẾU NỘI DUNG TỪ VỰNG
+// XÓA DẤU CÂU VÀ KHOẢNG TRẮNG ĐỂ ĐỐI CHIẾU
 function stripAllPunctuation(str) {
     if (!str) return '';
     return str.toString()
@@ -51,7 +51,6 @@ function stripAllPunctuation(str) {
         .trim();
 }
 
-// ĐÁNH GIÁ CHẤT LƯỢNG CÂU VÀ ĐƯA RA KHUYÊN BẢO SƯ PHẠM
 function evaluateAnswerQuality(userInput, targetHanzi, targetPinyin) {
     const rawInput = (userInput || '').trim();
     const cleanInput = stripAllPunctuation(rawInput);
@@ -60,9 +59,7 @@ function evaluateAnswerQuality(userInput, targetHanzi, targetPinyin) {
 
     const isBaseCorrect = (cleanInput === cleanTarget || (cleanPinyin && cleanInput === cleanPinyin));
 
-    if (!isBaseCorrect) {
-        return { isCorrect: false, warning: null };
-    }
+    if (!isBaseCorrect) return { isCorrect: false, warning: null };
 
     let warningMsg = null;
     const targetHasQuestion = /[?？]/.test(targetHanzi);
@@ -89,13 +86,8 @@ function shuffleArray(array) {
     return arr;
 }
 
-// ==========================================
-// 1. TÁCH BIỆT BỘ ĐẾM: PHIÊN HỌC & TRỌN ĐỜI
-// ==========================================
-// Bộ đếm trọn đời (Lưu trữ và chỉ xem ở View Thống Kê)
+// TÁCH BIỆT BỘ ĐẾM
 let lifetimeStats = JSON.parse(localStorage.getItem(`hsk_stats_${currentUser}`)) || { total: 0, correct: 0, wrong: 0 };
-
-// Bộ đếm phiên học hiện tại (BẮT BUỘC RESET VỀ 0 MỖI KHI BẬT BÀI MỚI)
 let sessionStats = { total: 0, correct: 0, wrong: 0 };
 
 function saveLifetimeStats() {
@@ -114,6 +106,13 @@ function updateSessionStatsUI() {
     const accElem = document.getElementById('stat-accuracy');
     const acc = sessionStats.total === 0 ? 0 : Math.round((sessionStats.correct / sessionStats.total) * 100);
     if (accElem) accElem.innerText = `${acc}%`;
+
+    // Hiển thị nút ôn tập nếu có câu sai
+    const btnReview = document.getElementById('btn-inline-review');
+    if (btnReview) {
+        if (mistakeList.length > 0) btnReview.classList.remove('hidden');
+        else btnReview.classList.add('hidden');
+    }
 }
 
 function renderUserStatsView() {
@@ -137,7 +136,7 @@ fetch('data.json')
     .catch(err => console.error("Lỗi nạp file data.json:", err));
 
 // ==========================================
-// 2. MENU THẢ NỔI VÀ KHÓA CUỘN MOBILE
+// MENU THẢ NỔI VÀ KHÓA CUỘN MOBILE
 // ==========================================
 function initSmartMenu() {
     const menuWrapper = document.getElementById('menu-wrapper');
@@ -158,7 +157,7 @@ function initSmartMenu() {
         if (window.innerWidth > 768) {
             hoverTimeout = setTimeout(() => {
                 floatingMenu.classList.add('hidden');
-            }, 300);
+            }, 350); // Tăng thời gian chờ an toàn
         }
     }
 
@@ -173,7 +172,7 @@ function initSmartMenu() {
         floatingMenu.classList.remove('mobile-active');
         backdrop.classList.remove('active');
         document.body.classList.remove('menu-open-mobile');
-        setTimeout(() => floatingMenu.classList.add('hidden'), 300);
+        setTimeout(() => floatingMenu.classList.add('hidden'), 350);
         document.querySelectorAll('.nav-card-item.has-sub').forEach(el => el.classList.remove('mobile-expanded'));
     }
 
@@ -213,8 +212,7 @@ function initSmartMenu() {
             currentCategory = link.getAttribute('data-cat');
             currentLevel = link.getAttribute('data-level');
             isReviewingMistakes = false;
-            mistakeList = [];
-
+            
             showView('view-study');
             document.getElementById('view-title').innerText = `${currentCategory === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${currentLevel}`;
             filterAndLoadData();
@@ -289,7 +287,7 @@ function goToSection(type) {
 }
 
 // ==========================================
-// 3. WORKOUT THỰC CHIẾN
+// WORKOUT THỰC CHIẾN
 // ==========================================
 function getLevelRank(lvlStr) {
     if (!lvlStr) return 0;
@@ -342,11 +340,9 @@ function initWorkoutModule() {
 function generateWorkoutSet() {
     let pool = allData.filter(i => i.category === 'sentence');
 
-    // Lọc theo chủ đề
     let topicPool = pool.filter(i => i.topic === workoutConfig.topic);
     if (topicPool.length > 0) pool = topicPool;
 
-    // Lọc theo cấp độ ôn lùi (HSK N chỉ lấy từ cấp N trở xuống)
     if (workoutConfig.level !== 'ALL') {
         const targetRank = getLevelRank(workoutConfig.level);
         let rankPool = pool.filter(i => getLevelRank(i.level) <= targetRank);
@@ -355,7 +351,6 @@ function generateWorkoutSet() {
 
     pool = shuffleArray(pool);
 
-    // Chuẩn hóa đúng số lượng câu người dùng lựa chọn
     if (pool.length > 0 && pool.length < workoutConfig.count) {
         let tempArr = [...pool];
         while (tempArr.length < workoutConfig.count) {
@@ -552,7 +547,7 @@ function triggerDuckReaction(isCorrect) {
 }
 
 // ==========================================
-// 4. BÀI HỌC FLASHCARD (CHÍNH XÁC CẤP ĐỘ 100%)
+// 4. BÀI HỌC FLASHCARD 
 // ==========================================
 document.getElementById('btn-reset-user-stats').onclick = () => {
     if(confirm(`Bạn có chắc muốn làm mới dữ liệu thống kê của [${currentUser}] không?`)) {
@@ -563,20 +558,21 @@ document.getElementById('btn-reset-user-stats').onclick = () => {
     }
 };
 
+document.getElementById('btn-refresh').onclick = () => {
+    filterAndLoadData(); // Nút làm mới bài
+};
+
 function filterAndLoadData() {
     if (isReviewingMistakes) return;
 
-    // RESET BỘ ĐẾM PHIÊN VỀ 0 MỖI KHI ĐỔI BÀI
+    // LUÔN RESET BỘ ĐẾM KHI VÀO PHIÊN MỚI
     sessionStats = { total: 0, correct: 0, wrong: 0 };
     mistakeList = [];
     updateSessionStatsUI();
 
-    // LỌC CHÍNH XÁC 100% CẤP ĐỘ - TUYỆT ĐỐI KHÔNG LẪN CẤP ĐỘ KHÁC
     let filtered = allData.filter(item => item.category === currentCategory && item.level === currentLevel);
-
     filtered = shuffleArray(filtered);
 
-    // NẾU CHỌN SỐ LƯỢNG THẺ LỚN, HỆ THỐNG SẼ TỔ HỢP TỪ VỰNG TRONG ĐÚNG CẤP ĐỘ ĐÓ
     if (currentBatchSize !== 'ALL' && filtered.length > 0) {
         let tempArr = [...filtered];
         while (tempArr.length < currentBatchSize) {
@@ -627,14 +623,10 @@ function loadStudyCard() {
                 <input type="text" id="user-input" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
             </div>
             
-            <div id="answer-reveal-box" class="hidden">
-                <div id="hanzi-display" class="hanzi-large">${item.hanzi}</div>
-                <div id="pinyin-display" class="pinyin-sub">${item.pinyin}</div>
-            </div>
+            <div id="answer-reveal-box" class="hidden"></div>
         </div>
         
         <div id="explanation-box" class="hidden">
-            <div id="punc-warning-container"></div>
             <div class="academic-info">
                 <span class="info-badge">Hán Việt: <strong>${item.han_viet || 'N/A'}</strong></span>
                 <span class="info-badge">Bộ thủ: <strong>${item.radical || 'N/A'}</strong></span>
@@ -642,16 +634,16 @@ function loadStudyCard() {
             </div>
             <div class="expansion-box">
                 <strong>🌐 Mở rộng ý nghĩa & Ngữ dụng:</strong>
-                <p style="margin-top: 4px;">${item.expansion || 'Đang cập nhật...'}</p>
+                <p style="margin-top: 6px;">${item.expansion || 'Đang cập nhật...'}</p>
             </div>
             <div class="explanation-grid">
                 <div class="example-box">
                     <strong>📖 Câu ví dụ thực tế:</strong>
-                    <div style="margin-top: 6px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `${ex.cn} (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
+                    <div style="margin-top: 8px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
                 </div>
                 <div class="teacher-corner">
                     <strong>👨‍🏫 Góc Lão Sư:</strong>
-                    <p style="margin-top: 6px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
+                    <p style="margin-top: 8px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
                 </div>
             </div>
         </div>
@@ -689,32 +681,23 @@ document.getElementById('btn-check').addEventListener('click', () => {
     const inputElem = document.getElementById('user-input');
     if(!inputElem) return;
     
-    // Ghi nhận cả phiên học lẫn lịch sử trọn đời
+    const userVal = inputElem.value;
+    inputElem.disabled = true; // Khóa ô nhập liệu lại
+    
     sessionStats.total++;
     lifetimeStats.total++;
     
-    const result = evaluateAnswerQuality(inputElem.value, item.hanzi, item.pinyin);
+    const result = evaluateAnswerQuality(userVal, item.hanzi, item.pinyin);
 
     triggerDuckReaction(result.isCorrect);
-
-    const warnContainer = document.getElementById('punc-warning-container');
-    if (warnContainer) warnContainer.innerHTML = '';
 
     if(result.isCorrect) {
         sessionStats.correct++;
         lifetimeStats.correct++;
-        document.getElementById('hanzi-display').style.color = "#16a34a";
         playSound('correct');
-
-        if (result.warning && warnContainer) {
-            warnContainer.innerHTML = `<div style="margin-bottom: 12px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13.5px; text-align: left;">
-                💡 <strong>Lời khuyên:</strong> ${result.warning}
-            </div>`;
-        }
     } else {
         sessionStats.wrong++;
         lifetimeStats.wrong++;
-        document.getElementById('hanzi-display').style.color = "#dc2626";
         playSound('wrong');
         if (!mistakeList.some(m => m.id === item.id)) mistakeList.push(item);
     }
@@ -722,7 +705,26 @@ document.getElementById('btn-check').addEventListener('click', () => {
     saveLifetimeStats();
     updateSessionStatsUI();
     
-    document.getElementById('answer-reveal-box').classList.remove('hidden');
+    // BUILD KHU VỰC HIỂN THỊ ĐÁP ÁN SO SÁNH
+    let hanziiBtn = '';
+    if(currentCategory === 'word') {
+        hanziiBtn = `<a href="https://hanzii.net/search/word/${encodeURIComponent(item.hanzi)}" target="_blank" class="btn-tool" style="display:inline-block; margin-top:12px; text-decoration:none;">✍️ Xem hướng dẫn viết nét trên Hanzii</a>`;
+    }
+
+    let warningHtml = result.warning ? `<div style="margin-top: 12px; padding: 10px 14px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 14px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
+
+    const revealBox = document.getElementById('answer-reveal-box');
+    revealBox.innerHTML = `
+        <div style="font-size: 15px; color: #64748b; margin-bottom: 8px;">
+            Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Trống]'}</strong>
+        </div>
+        <div class="hanzi-large">${item.hanzi}</div>
+        <div class="pinyin-sub">${item.pinyin}</div>
+        ${warningHtml}
+        ${hanziiBtn}
+    `;
+
+    revealBox.classList.remove('hidden');
     document.getElementById('explanation-box').classList.remove('hidden');
     document.getElementById('btn-check').classList.add('hidden');
     document.getElementById('btn-next').classList.remove('hidden');
