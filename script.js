@@ -626,7 +626,6 @@ if (checkBtnElem) {
         const fill = document.getElementById('progress-fill');
         if (fill) fill.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
 
-        // TỰ ĐỘNG CUỘN NHẸ XUỐNG ĐỂ THẤY NGAY KẾT QUẢ NGAY PHÍA DƯỚI TRÊN DI ĐỘNG
         revealBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 }
@@ -711,7 +710,7 @@ function initModalEvents() {
     const btnReview = document.getElementById('btn-decide-review');
     if (btnReview) {
         btnReview.onclick = () => {
-            document.getElementById('workout-decision-modal'].classList.add('hidden');
+            document.getElementById('workout-decision-modal').classList.add('hidden');
         };
     }
 }

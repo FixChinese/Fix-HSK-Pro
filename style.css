@@ -194,12 +194,11 @@ body.menu-open-mobile { overflow: hidden !important; }
 @keyframes burstHeartsUp { 0% { transform: translateY(8px) scale(0.5); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-25px) scale(1.2); opacity: 0; } }
 .hidden { display: none !important; }
 
-/* MOBILE RESPONSIVE ĐẶC BIỆT (GIẢI QUYẾT TRIỆT ĐỂ MENU & GIAO DIỆN) */
+/* MOBILE RESPONSIVE ĐẶC BIỆT */
 @media (max-width: 768px) {
     #top-navbar { padding: 0 12px; height: 52px; }
     #app-workspace { padding: 10px 8px; }
 
-    /* Lớp phủ màn hình mờ KHÔNG CHẶN CLICK VÀO MENU */
     .menu-overlay-backdrop { 
         display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
         background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(2px); 
@@ -207,7 +206,6 @@ body.menu-open-mobile { overflow: hidden !important; }
     }
     .menu-overlay-backdrop.active { opacity: 1; pointer-events: auto; }
 
-    /* Menu trượt di động hiển thị sắc nét, đè lên trên cùng */
     .floating-menu { 
         position: fixed !important; top: 0 !important; left: 0 !important; 
         width: 82vw !important; max-width: 280px !important; height: 100vh !important; 
@@ -228,7 +226,6 @@ body.menu-open-mobile { overflow: hidden !important; }
     .floating-menu-header { display: flex !important; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0; margin-bottom: 10px; }
     .mobile-close-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 15px; font-weight: bold; display: flex; align-items: center; justify-content: center; color: #475569; cursor: pointer; }
 
-    /* Menu con (flyout) mở rộng trực tiếp ngay trên mobile thay vì ẩn */
     .sub-flyout-panel { 
         position: static !important; box-shadow: none !important; border: 1px solid #dcfce7 !important; 
         border-radius: 10px !important; background: #f0fdf4 !important; margin-top: 8px !important; 
@@ -238,7 +235,6 @@ body.menu-open-mobile { overflow: hidden !important; }
     .sub-flyout-panel::before { display: none; }
     .nav-card-item.has-sub.mobile-expanded .sub-flyout-panel { display: flex !important; }
 
-    /* Giao diện học compact gọn gàng trên mobile */
     .home-cards-row, .explanation-grid { grid-template-columns: 1fr; }
     .dual-pane-reveal { flex-direction: column; gap: 10px; }
     .stats-grid-box { grid-template-columns: 1fr; }
