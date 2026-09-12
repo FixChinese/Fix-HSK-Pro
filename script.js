@@ -161,8 +161,16 @@ function initSmartMenu() {
         toggleBtn.onclick = (e) => {
             e.stopPropagation();
             if (window.innerWidth <= 768) {
-                const isActive = floatingMenu.classList.toggle('mobile-active');
-                if (backdrop) backdrop.classList.toggle('active', isActive);
+                const isMobileActive = floatingMenu.classList.contains('mobile-active');
+                if (!isMobileActive) {
+                    floatingMenu.classList.remove('hidden');
+                    floatingMenu.classList.add('mobile-active');
+                    if (backdrop) backdrop.classList.add('active');
+                } else {
+                    floatingMenu.classList.remove('mobile-active');
+                    floatingMenu.classList.add('hidden');
+                    if (backdrop) backdrop.classList.remove('active');
+                }
             } else {
                 floatingMenu.classList.toggle('hidden');
             }
@@ -172,6 +180,7 @@ function initSmartMenu() {
     if (closeBtn) {
         closeBtn.onclick = () => {
             floatingMenu.classList.remove('mobile-active');
+            floatingMenu.classList.add('hidden');
             if (backdrop) backdrop.classList.remove('active');
         };
     }
@@ -179,6 +188,7 @@ function initSmartMenu() {
     if (backdrop) {
         backdrop.onclick = () => {
             floatingMenu.classList.remove('mobile-active');
+            floatingMenu.classList.add('hidden');
             backdrop.classList.remove('active');
         };
     }
@@ -203,6 +213,7 @@ function initSmartMenu() {
             filterAndLoadData();
             if (window.innerWidth <= 768) {
                 floatingMenu.classList.remove('mobile-active');
+                floatingMenu.classList.add('hidden');
                 if (backdrop) backdrop.classList.remove('active');
             } else {
                 floatingMenu.classList.add('hidden');
@@ -217,6 +228,7 @@ function initSmartMenu() {
     if (cardHome) cardHome.onclick = () => { 
         showView('view-home'); 
         floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
     
@@ -226,6 +238,7 @@ function initSmartMenu() {
         document.getElementById('daily-setup-panel').classList.remove('hidden'); 
         document.getElementById('daily-quiz-panel').classList.add('hidden'); 
         floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
     
@@ -234,6 +247,7 @@ function initSmartMenu() {
         renderUserStatsView(); 
         showView('view-stats'); 
         floatingMenu.classList.remove('mobile-active');
+        floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
     };
 }
@@ -370,7 +384,6 @@ window.filterAndLoadData = function() {
     let filtered = allData.filter(item => item.category === currentCategory && item.level === currentLevel);
     filtered = shuffleArray(filtered);
 
-    // Lấy chuẩn xác dữ liệu thực tế không lặp lại bù trừ
     if (currentBatchSize !== 'ALL' && filtered.length > 0) {
         currentList = filtered.slice(0, currentBatchSize);
     } else { 
