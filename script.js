@@ -166,10 +166,12 @@ function initSmartMenu() {
                     floatingMenu.classList.remove('hidden');
                     floatingMenu.classList.add('mobile-active');
                     if (backdrop) backdrop.classList.add('active');
+                    document.body.classList.add('menu-open-mobile');
                 } else {
                     floatingMenu.classList.remove('mobile-active');
                     floatingMenu.classList.add('hidden');
                     if (backdrop) backdrop.classList.remove('active');
+                    document.body.classList.remove('menu-open-mobile');
                 }
             } else {
                 floatingMenu.classList.toggle('hidden');
@@ -182,6 +184,7 @@ function initSmartMenu() {
             floatingMenu.classList.remove('mobile-active');
             floatingMenu.classList.add('hidden');
             if (backdrop) backdrop.classList.remove('active');
+            document.body.classList.remove('menu-open-mobile');
         };
     }
 
@@ -190,6 +193,7 @@ function initSmartMenu() {
             floatingMenu.classList.remove('mobile-active');
             floatingMenu.classList.add('hidden');
             backdrop.classList.remove('active');
+            document.body.classList.remove('menu-open-mobile');
         };
     }
 
@@ -215,6 +219,7 @@ function initSmartMenu() {
                 floatingMenu.classList.remove('mobile-active');
                 floatingMenu.classList.add('hidden');
                 if (backdrop) backdrop.classList.remove('active');
+                document.body.classList.remove('menu-open-mobile');
             } else {
                 floatingMenu.classList.add('hidden');
             }
@@ -230,6 +235,7 @@ function initSmartMenu() {
         floatingMenu.classList.remove('mobile-active');
         floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
+        document.body.classList.remove('menu-open-mobile');
     };
     
     const cardWorkout = document.getElementById('card-workout');
@@ -240,6 +246,7 @@ function initSmartMenu() {
         floatingMenu.classList.remove('mobile-active');
         floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
+        document.body.classList.remove('menu-open-mobile');
     };
     
     const cardStats = document.getElementById('card-stats');
@@ -249,6 +256,7 @@ function initSmartMenu() {
         floatingMenu.classList.remove('mobile-active');
         floatingMenu.classList.add('hidden'); 
         if (backdrop) backdrop.classList.remove('active'); 
+        document.body.classList.remove('menu-open-mobile');
     };
 }
 
@@ -349,16 +357,16 @@ function generateWorkoutSet() {
         const placeholderText = (workoutConfig.mode === 'V2C') ? 'Nhập Hán tự hoặc câu tiếng Trung tương ứng...' : 'Nhập nghĩa tiếng Việt hoặc dịch nghĩa...';
         
         html += `
-            <div class="workout-item-card" data-index="${idx}" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:14px;">
-                <div class="wi-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <span class="wi-num" style="font-size:12px; font-weight:800; color:#15803d; background:#dcfce7; padding:4px 10px; border-radius:6px;">Câu ${idx + 1} (${item.level})</span>
-                    <span class="wi-topic" style="font-size:13px; font-weight:700; color:#64748b;">Chủ đề: ${item.topic}</span>
+            <div class="workout-item-card" data-index="${idx}" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:12px;">
+                <div class="wi-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span class="wi-num" style="font-size:11.5px; font-weight:800; color:#15803d; background:#dcfce7; padding:3px 8px; border-radius:6px;">Câu ${idx + 1} (${item.level})</span>
+                    <span class="wi-topic" style="font-size:12px; font-weight:700; color:#64748b;">Chủ đề: ${item.topic}</span>
                 </div>
-                <div class="wi-prompt" style="font-size:16px; font-weight:800; color:#0f172a; margin-bottom:12px; line-height:1.5;"><strong>Yêu cầu:</strong> ${promptText}</div>
+                <div class="wi-prompt" style="font-size:15px; font-weight:800; color:#0f172a; margin-bottom:10px; line-height:1.4;"><strong>Yêu cầu:</strong> ${promptText}</div>
                 <div class="wi-input-row">
-                    <input type="text" class="workout-user-input form-control" style="width:100%; padding:12px 14px; border:2px solid #cbd5e1; border-radius:8px; font-size:16px; color:#14532d; font-weight:600;" placeholder="${placeholderText}" autocomplete="off">
+                    <input type="text" class="workout-user-input form-control" style="width:100%; padding:10px 12px; border:2px solid #cbd5e1; border-radius:8px; font-size:15px; color:#14532d; font-weight:600;" placeholder="${placeholderText}" autocomplete="off">
                 </div>
-                <div class="wi-feedback hidden" style="margin-top:12px; padding:14px; border-radius:8px; font-size:14.5px; line-height:1.5;"></div>
+                <div class="wi-feedback hidden" style="margin-top:10px; padding:12px; border-radius:8px; font-size:14px; line-height:1.4;"></div>
             </div>
         `;
     });
@@ -405,12 +413,12 @@ function loadStudyCard() {
     if(currentList.length === 0 || currentIndex >= currentList.length) {
         container.innerHTML = `
             <div class="end-session-box">
-                <div style="font-size: 50px; margin-bottom: 10px;">🎉</div>
-                <h3>Bạn đã hoàn thành xuất sắc bài học này!</h3>
-                <p style="color: #64748b; margin-bottom: 25px; font-size: 15px;">Hãy chọn bước tiếp theo để duy trì nhịp độ học tập nhé.</p>
-                <div class="end-actions">
-                    <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 12px 24px;">🔄 Học lại bộ mới</button>
-                    <button onclick="document.getElementById('session-config-modal').classList.remove('hidden')" class="btn-secondary" style="width: auto; padding: 12px 24px;">⚙️ Đổi số lượng</button>
+                <div style="font-size: 45px; margin-bottom: 8px;">🎉</div>
+                <h3 style="color: #15803d; font-size: 20px; font-weight: 900; margin-bottom: 12px;">Bạn đã hoàn thành xuất sắc bài học này!</h3>
+                <p style="color: #64748b; margin-bottom: 20px; font-size: 14px;">Hãy chọn bước tiếp theo để duy trì nhịp độ học tập nhé.</p>
+                <div class="end-actions" style="display:flex; gap:10px; justify-content:center;">
+                    <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 10px 18px; font-size:14px;">🔄 Học lại bộ mới</button>
+                    <button onclick="document.getElementById('session-config-modal').classList.remove('hidden')" class="btn-secondary" style="width: auto; padding: 10px 18px; font-size:14px;">⚙️ Đổi số lượng</button>
                 </div>
             </div>
         `;
@@ -502,7 +510,7 @@ if (checkBtnElem) {
         const revealBox = document.getElementById('answer-reveal-box');
         const expBox = document.getElementById('explanation-box');
 
-        let warningHtml = result.warning ? `<div style="margin-top: 15px; padding: 12px 16px; background: #fffbeb; border: 1px solid #fde047; border-radius: 10px; color: #854d0e; font-size: 14.5px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
+        let warningHtml = result.warning ? `<div style="margin-top: 10px; padding: 10px 12px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13.5px; text-align: left;">💡 <strong>Lời khuyên Lão sư:</strong> ${result.warning}</div>` : '';
 
         if (currentCategory === 'word') {
             let drawAreaHtml = '';
@@ -514,9 +522,9 @@ if (checkBtnElem) {
                 drawAreaHtml = `
                     <div class="reveal-right">
                         <div id="draw-cover" class="draw-cover-layer">
-                            <span style="font-size:24px; margin-bottom:5px;">✍️</span>
-                            <h4>Bạn có biết cách viết?</h4>
-                            <p>Bấm để xem bút thuận</p>
+                            <span style="font-size:20px; margin-bottom:2px;">✍️</span>
+                            <h4>Xem bút thuận</h4>
+                            <p>Bấm để xem</p>
                         </div>
                         <div id="hanzi-drawing-board">${charDivs}</div>
                     </div>
@@ -527,7 +535,7 @@ if (checkBtnElem) {
                 revealBox.innerHTML = `
                     <div class="dual-pane-reveal">
                         <div class="reveal-left">
-                            <div style="font-size: 14px; color: #64748b; margin-bottom: 12px;">Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Bỏ trống]'}</strong></div>
+                            <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Bạn đã nhập: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 16px;">${userVal || '[Bỏ trống]'}</strong></div>
                             <div class="hanzi-large">${item.hanzi}</div>
                             <div class="pinyin-sub">${item.pinyin}</div>
                             ${warningHtml}
@@ -550,16 +558,16 @@ if (checkBtnElem) {
                     </div>
                     <div class="expansion-box">
                         <strong style="color: #b45309;">🌐 Đa tầng Nghĩa & Ngữ dụng:</strong>
-                        <div style="margin-top: 10px;">${formattedExpansion}</div>
+                        <div style="margin-top: 8px;">${formattedExpansion}</div>
                     </div>
                     <div class="explanation-grid">
                         <div class="example-box">
                             <strong style="color: #1d4ed8;">📖 Ví dụ thực tế:</strong>
-                            <div style="margin-top: 8px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
+                            <div style="margin-top: 6px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
                         </div>
                         <div class="teacher-corner">
                             <strong style="color: #047857;">👨‍🏫 Góc Lão Sư:</strong>
-                            <p style="margin-top: 8px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
+                            <p style="margin-top: 6px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
                         </div>
                     </div>
                 `;
@@ -575,7 +583,7 @@ if (checkBtnElem) {
                         for(let i=0; i<item.hanzi.length; i++) {
                             let char = item.hanzi.charAt(i);
                             let writer = HanziWriter.create(`char-target-${i}`, char, {
-                                width: 80, height: 80, padding: 5, strokeColor: '#15803d', delayBetweenStrokes: 100, showOutline: true
+                                width: 65, height: 65, padding: 4, strokeColor: '#15803d', delayBetweenStrokes: 100, showOutline: true
                             });
                             hanziiWriters.push(writer);
                         }
@@ -588,7 +596,7 @@ if (checkBtnElem) {
             if (revealBox) {
                 revealBox.innerHTML = `
                     <div class="grammar-reveal-box">
-                        <div style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Bạn đã dịch: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 18px;">${userVal || '[Bỏ trống]'}</strong></div>
+                        <div style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Bạn đã dịch: <strong style="color: ${result.isCorrect ? '#16a34a' : '#dc2626'}; font-size: 16px;">${userVal || '[Bỏ trống]'}</strong></div>
                         <div class="g-sentence-large">${item.hanzi}</div>
                         <div class="g-pinyin">${item.pinyin}</div>
                         ${warningHtml}
@@ -617,6 +625,9 @@ if (checkBtnElem) {
         }
         const fill = document.getElementById('progress-fill');
         if (fill) fill.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
+
+        // TỰ ĐỘNG CUỘN NHẸ XUỐNG ĐỂ THẤY NGAY KẾT QUẢ NGAY PHÍA DƯỚI TRÊN DI ĐỘNG
+        revealBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 }
 
@@ -700,7 +711,7 @@ function initModalEvents() {
     const btnReview = document.getElementById('btn-decide-review');
     if (btnReview) {
         btnReview.onclick = () => {
-            document.getElementById('workout-decision-modal').classList.add('hidden');
+            document.getElementById('workout-decision-modal'].classList.add('hidden');
         };
     }
 }
