@@ -14,8 +14,11 @@ let timerInterval = null;
 let secondsElapsed = 0;
 let isTimerRunning = false;
 
+/* Thống kê bài làm */
+let stats = { correct: 0, wrong: 0 };
+
 /* =========================================================
-   CHƯƠNG 1: LOGIC LOGO HOME & ĐIỀU HƯỚNG CƠ BẢN
+   ĐIỀU HƯỚNG CƠ BẢN
 ========================================================= */
 function goHome() {
     document.getElementById('workspace-view').classList.remove('active');
@@ -26,7 +29,7 @@ function goHome() {
 }
 
 /* =========================================================
-   CHƯƠNG 2 & 7: LAZY FETCHING JSON THEO MENU
+   LAZY FETCHING JSON THEO MENU
 ========================================================= */
 async function loadModule(moduleType, level) {
     document.getElementById('home-view').classList.remove('active');
@@ -34,7 +37,6 @@ async function loadModule(moduleType, level) {
     
     document.getElementById('config-panel').style.display = 'block';
     document.getElementById('testing-area').style.display = 'none';
-    document.getElementById('result-area').style.display = 'none';
     
     let title = moduleType === 'vocab' ? 'Từ vựng' : 
                 moduleType === 'grammar' ? 'Ngữ pháp' : 
@@ -43,11 +45,12 @@ async function loadModule(moduleType, level) {
                 moduleType === 'stats' ? 'Thống kê' : 'Nghe hiểu';
     
     document.getElementById('module-title').innerText = `Cấu hình bài tập: ${title} HSK ${level}`;
+    document.getElementById('test-main-title').innerText = `Học ${title.toLowerCase()}`;
+    document.getElementById('hsk-badge-display').innerText = `HSK ${level}`;
     
-    // Nếu vào Thống kê hoặc Workout chưa có file JSon, dừng load file
     if (moduleType === 'workout' || moduleType === 'stats') {
-        alert("Tính năng đang phát triển chuyên sâu. Vui lòng chọn Từ vựng/Đọc hiểu/Nghe hiểu.");
-        return;
+        alert("Tính năng đang được phát triển chuyên sâu. Hệ thống sẽ load thư viện mặc định để trải nghiệm giao diện.");
+        level = 1; // Fallback demo
     }
 
     try {
@@ -63,41 +66,46 @@ async function loadModule(moduleType, level) {
 }
 
 /* =========================================================
-   CHƯƠNG 5: ĐỘNG CƠ HỌC THUẬT & KHỞI TẠO BÀI TẬP
+   ĐỘNG CƠ HỌC THUẬT & KHỞI TẠO BÀI TẬP
 ========================================================= */
 function checkErrorLedgerStatus() {
     let reviewBtn = document.getElementById('review-btn');
+    let statReviewBtn = document.getElementById('stat-review');
+    
     if (errorLedger.length > 0) {
         reviewBtn.style.display = 'inline-block';
         reviewBtn.innerText = `Ôn tập câu sai (${errorLedger.length})`;
+        statReviewBtn.style.display = 'inline-block';
+        statReviewBtn.innerText = `Cần ôn ${errorLedger.length} câu`;
     } else {
         reviewBtn.style.display = 'none';
+        statReviewBtn.style.display = 'none';
     }
 }
 
 function startTest() {
-    if (currentData.length === 0) {
-        alert("Chưa có dữ liệu, vui lòng chọn menu khác.");
-        return;
-    }
+    if (currentData.length === 0) { alert("Chưa có dữ liệu."); return; }
     isReviewMode = false;
     let limitInput = parseInt(document.getElementById('question-limit').value);
     let limit = isNaN(limitInput) || limitInput < 1 ? 20 : limitInput;
     
-    // Vá lỗi Batch Size: Cảnh báo nếu thiếu câu, không nhân bản
     if (limit > currentData.length) {
-        alert(`Hệ thống chỉ tìm thấy ${currentData.length} câu trong CSDL cấp độ này.`);
         limit = currentData.length;
     }
     
-    currentSessionData = currentData.slice(0, limit);
+    // Trộn ngẫu nhiên (Shuffle) trước khi cắt
+    let shuffledData = [...currentData].sort(() => 0.5 - Math.random());
+    currentSessionData = shuffledData.slice(0, limit);
+    
+    stats.correct = 0; stats.wrong = 0;
     initializeTestArea();
 }
 
 function startReview() {
     if (errorLedger.length === 0) return;
     isReviewMode = true;
-    currentSessionData = [...errorLedger]; 
+    currentSessionData = [...errorLedger].sort(() => 0.5 - Math.random()); 
+    stats.correct = 0; stats.wrong = 0;
     initializeTestArea();
 }
 
@@ -109,10 +117,20 @@ function initializeTestArea() {
     loadQuestion();
 }
 
+function updateStatsUI() {
+    document.getElementById('stat-progress').innerText = `${currentIndex + 1} / ${currentSessionData.length}`;
+    document.getElementById('stat-correct').innerText = stats.correct;
+    document.getElementById('stat-wrong').innerText = stats.wrong;
+    
+    let totalAnswered = stats.correct + stats.wrong;
+    let ratio = totalAnswered === 0 ? 0 : Math.round((stats.correct / totalAnswered) * 100);
+    document.getElementById('stat-ratio').innerText = `${ratio}%`;
+}
+
 function loadQuestion() {
     if (currentIndex >= currentSessionData.length) {
         stopTimer();
-        alert(`Hoàn thành xuất sắc!\nThời gian: ${document.getElementById('time-display').innerText}`);
+        alert(`Hoàn thành bài tập!\nĐúng: ${stats.correct}\nSai: ${stats.wrong}\nThời gian: ${document.getElementById('time-display').innerText}`);
         document.getElementById('testing-area').style.display = 'none';
         document.getElementById('config-panel').style.display = 'block';
         checkErrorLedgerStatus();
@@ -121,12 +139,12 @@ function loadQuestion() {
     
     isWaitingForNext = false; 
     currentQuestion = currentSessionData[currentIndex];
+    updateStatsUI();
     
     let mode = document.getElementById('study-mode').value;
     let displayElem = document.getElementById('question-display');
     let passageElem = document.getElementById('passage-display');
     
-    // Đọc hiểu đoạn văn (nếu có passage_cn trong data tương lai)
     if (currentQuestion.passage_cn) {
         passageElem.style.display = 'block';
         passageElem.innerText = currentQuestion.passage_cn;
@@ -142,6 +160,7 @@ function loadQuestion() {
         displayElem.innerText = "🔊 Đang phát âm thanh..."; 
     }
     
+    document.getElementById('pinyin-hint-display').style.display = 'none';
     let inputElem = document.getElementById('answer-input');
     inputElem.value = '';
     inputElem.focus();
@@ -149,15 +168,28 @@ function loadQuestion() {
     document.getElementById('result-area').style.display = 'none';
 }
 
+// Bật mí Pinyin & Audio
+function showPinyinHint() {
+    let hintBox = document.getElementById('pinyin-hint-display');
+    hintBox.innerText = `Pinyin: ${currentQuestion.pinyin || 'Không có dữ liệu pinyin'}`;
+    hintBox.style.display = 'block';
+}
+
+function playAudioHint() {
+    let msg = new SpeechSynthesisUtterance();
+    msg.text = currentQuestion.hanzi || currentQuestion.word;
+    msg.lang = 'zh-CN';
+    window.speechSynthesis.speak(msg);
+}
+
 /* =========================================================
-   THUẬT TOÁN KHỬ NHIỄU, CHẤM ĐIỂM ĐA NGHĨA & PHÍM ENTER
+   THUẬT TOÁN KHỬ NHIỄU, CHẤM ĐIỂM
 ========================================================= */
 function sanitizeString(str) {
     if (!str) return "";
     return str.replace(/[.,!?;:。，！？；：]/g, '').trim().toLowerCase();
 }
 
-// Logic Phím Enter 1 Chạm
 document.getElementById('answer-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault(); 
@@ -185,31 +217,52 @@ function checkAnswer() {
     }
     
     isWaitingForNext = true; 
-    showResult(isCorrect);
+    showResult(isCorrect, rawInput);
 }
 
 /* =========================================================
-   CHƯƠNG 6: GIAO DIỆN GRID 6:4 VÀ ĐIỀU KHIỂN MASCOT
+   GIAO DIỆN GRID 6:4 VÀ THÔNG TIN HỌC THUẬT (HÌNH 4)
 ========================================================= */
-function showResult(isCorrect) {
-    document.getElementById('testing-area').style.display = 'none';
+function showResult(isCorrect, rawInput) {
     let resultArea = document.getElementById('result-area');
-    resultArea.style.display = 'grid';
+    resultArea.style.display = 'block';
     
-    // Tự động kéo khung nhìn (Giao diện Compact)
-    resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    resultArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
     
-    let statusBadge = document.getElementById('result-status');
-    statusBadge.innerText = isCorrect ? "CHÍNH XÁC" : "CHƯA CHÍNH XÁC";
-    statusBadge.style.backgroundColor = isCorrect ? "#10b981" : "#ef4444";
-    statusBadge.style.color = "white";
+    // Status Banner
+    let statusBanner = document.getElementById('status-banner');
+    let statusIcon = document.getElementById('status-icon');
+    let statusText = document.getElementById('status-text');
     
+    if (isCorrect) {
+        statusBanner.className = 'status-banner correct';
+        statusIcon.className = 'fa-solid fa-check';
+        statusText.innerText = 'Chính xác';
+        stats.correct++;
+    } else {
+        statusBanner.className = 'status-banner wrong';
+        statusIcon.className = 'fa-solid fa-xmark';
+        statusText.innerText = 'Chưa chính xác';
+        stats.wrong++;
+    }
+    updateStatsUI();
+    
+    document.getElementById('user-input-echo').innerText = rawInput;
+    
+    // Grid 6:4
     document.getElementById('correct-hanzi').innerText = currentQuestion.hanzi || currentQuestion.word;
-    document.getElementById('correct-pinyin').innerText = currentQuestion.pinyin;
-    document.getElementById('correct-meaning').innerText = currentQuestion.vietnamese || currentQuestion.meaning || currentQuestion.translation;
+    document.getElementById('correct-pinyin').innerText = currentQuestion.pinyin || '';
     
+    // Thông tin học thuật mở rộng
+    document.getElementById('hanviet-text').innerText = currentQuestion.hanviet || 'Đang cập nhật';
+    document.getElementById('pos-text').innerText = currentQuestion.type || 'Từ vựng';
+    
+    let meaning = currentQuestion.vietnamese || currentQuestion.meaning || currentQuestion.translation || '';
+    let example = currentQuestion.example || 'Chưa có ví dụ đa tầng nghĩa cho từ này.';
+    document.getElementById('usage-text').innerHTML = `<strong>Nghĩa chính:</strong> ${meaning}<br><br><strong>Ví dụ:</strong> ${example}`;
+    
+    // Mascot
     let mascot = document.getElementById('mascot');
-    
     if (isCorrect) {
         mascot.className = 'mascot-duck correct';
         if (sfxEnabled) spawnHearts();
@@ -232,12 +285,12 @@ function showResult(isCorrect) {
 
 function nextQuestion() {
     currentIndex++;
-    document.getElementById('testing-area').style.display = 'block';
     loadQuestion();
+    document.getElementById('testing-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* =========================================================
-   CHƯƠNG 4: VẬT THỂ TƯƠNG TÁC (ĐỒNG HỒ, NÓN PHÁO)
+   VẬT THỂ TƯƠNG TÁC (ĐỒNG HỒ, NÓN PHÁO)
 ========================================================= */
 function formatTime(totalSeconds) {
     let h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
@@ -261,7 +314,7 @@ function stopTimer() {
 }
 
 document.getElementById('timer-btn').addEventListener('click', () => {
-    if (confirm('Bạn muốn Reset/Dừng thời gian?')) {
+    if (confirm('Bạn muốn Reset thời gian?')) {
         stopTimer();
         secondsElapsed = 0;
         document.getElementById('time-display').innerHTML = formatTime(0);
@@ -271,7 +324,6 @@ document.getElementById('timer-btn').addEventListener('click', () => {
     }
 });
 
-// Nút Cấu Hình Nón Pháo
 document.getElementById('sfx-btn').addEventListener('click', function() {
     sfxEnabled = !sfxEnabled;
     let icon = this.querySelector('i');
@@ -284,7 +336,6 @@ document.getElementById('sfx-btn').addEventListener('click', function() {
     }
 });
 
-// Thuật toán bắn Trái Tim tản cực rộng (DOM Injection)
 function spawnHearts() {
     const container = document.getElementById('effects-container');
     const mascotBox = document.getElementById('mascot').getBoundingClientRect();
@@ -296,7 +347,6 @@ function spawnHearts() {
         heart.style.left = (mascotBox.left + 20) + 'px'; 
         heart.style.top = (mascotBox.top + 20) + 'px';
         
-        // Bắn lan rộng: x từ -400px đến 100px, y lên cao từ -200px đến -600px
         let tx = (Math.random() * 500 - 400) + 'px';  
         let ty = ((Math.random() * -400) - 200) + 'px'; 
         
@@ -308,8 +358,7 @@ function spawnHearts() {
     }
 }
 
-// Bút Thuận Khối 40% (Chuẩn bị nhúng Hanzi Writer)
 document.getElementById('writer-btn').addEventListener('click', () => {
     let container = document.getElementById('hanzi-writer-container');
-    container.innerHTML = `<p style="color: #6366f1; margin-top: 15px; font-weight:bold; font-size:1.5rem">Đang vẽ nét: ${currentQuestion.hanzi || currentQuestion.word}</p>`;
+    container.innerHTML = `<p style="color: #6366f1; margin-top: 15px; font-weight:bold; font-size:1.5rem">Đang mô phỏng nét: ${currentQuestion.hanzi || currentQuestion.word}</p>`;
 });

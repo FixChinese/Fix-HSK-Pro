@@ -12,46 +12,66 @@
         
         <!-- Header: Hamburger, Logo FIX, Timer -->
         <header class="top-bar">
-            <!-- Cụm Menu Điều Hướng (Đã Fix Cầu nối Hover) -->
+            <!-- Cụm Menu Điều Hướng (Menu Flyout Trái -> Phải) -->
             <nav class="main-nav">
                 <div class="hamburger">
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <ul class="nav-menu">
-                    <li class="nav-item">Từ vựng
-                        <ul class="dropdown">
+                    <!-- Thẻ 1 -->
+                    <li class="nav-item">Từ vựng <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
                             <li onclick="loadModule('vocab', 1)">HSK 1</li><li onclick="loadModule('vocab', 2)">HSK 2</li>
                             <li onclick="loadModule('vocab', 3)">HSK 3</li><li onclick="loadModule('vocab', 4)">HSK 4</li>
                             <li onclick="loadModule('vocab', 5)">HSK 5</li><li onclick="loadModule('vocab', 6)">HSK 6</li>
-                            <li onclick="loadModule('vocab', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('vocab', '7_9')">HSK 7</li><li onclick="loadModule('vocab', '7_9')">HSK 8</li><li onclick="loadModule('vocab', '7_9')">HSK 9</li>
                         </ul>
                     </li>
-                    <li class="nav-item">Ngữ pháp
-                        <ul class="dropdown">
+                    <!-- Thẻ 2 -->
+                    <li class="nav-item">Ngữ pháp <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
                             <li onclick="loadModule('grammar', 1)">HSK 1</li><li onclick="loadModule('grammar', 2)">HSK 2</li>
                             <li onclick="loadModule('grammar', 3)">HSK 3</li><li onclick="loadModule('grammar', 4)">HSK 4</li>
                             <li onclick="loadModule('grammar', 5)">HSK 5</li><li onclick="loadModule('grammar', 6)">HSK 6</li>
-                            <li onclick="loadModule('grammar', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('grammar', '7_9')">HSK 7</li><li onclick="loadModule('grammar', '7_9')">HSK 8</li><li onclick="loadModule('grammar', '7_9')">HSK 9</li>
                         </ul>
                     </li>
-                    <li class="nav-item">Đọc hiểu
-                        <ul class="dropdown">
+                    <!-- Thẻ 3 -->
+                    <li class="nav-item">Đọc hiểu <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
                             <li onclick="loadModule('reading', 1)">HSK 1</li><li onclick="loadModule('reading', 2)">HSK 2</li>
                             <li onclick="loadModule('reading', 3)">HSK 3</li><li onclick="loadModule('reading', 4)">HSK 4</li>
                             <li onclick="loadModule('reading', 5)">HSK 5</li><li onclick="loadModule('reading', 6)">HSK 6</li>
-                            <li onclick="loadModule('reading', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('reading', '7_9')">HSK 7</li><li onclick="loadModule('reading', '7_9')">HSK 8</li><li onclick="loadModule('reading', '7_9')">HSK 9</li>
                         </ul>
                     </li>
-                    <li class="nav-item">Nghe hiểu
-                        <ul class="dropdown">
+                    <!-- Thẻ 4 -->
+                    <li class="nav-item">Nghe hiểu <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
                             <li onclick="loadModule('listening', 1)">HSK 1</li><li onclick="loadModule('listening', 2)">HSK 2</li>
                             <li onclick="loadModule('listening', 3)">HSK 3</li><li onclick="loadModule('listening', 4)">HSK 4</li>
                             <li onclick="loadModule('listening', 5)">HSK 5</li><li onclick="loadModule('listening', 6)">HSK 6</li>
-                            <li onclick="loadModule('listening', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('listening', '7_9')">HSK 7</li><li onclick="loadModule('listening', '7_9')">HSK 8</li><li onclick="loadModule('listening', '7_9')">HSK 9</li>
                         </ul>
                     </li>
-                    <li class="nav-item" onclick="loadModule('workout', 1)">Workout</li>
-                    <li class="nav-item" onclick="loadModule('stats', 1)">Thống kê</li>
+                    <!-- Thẻ 5 -->
+                    <li class="nav-item">Workout <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
+                            <li onclick="loadModule('workout', 1)">HSK 1</li><li onclick="loadModule('workout', 2)">HSK 2</li>
+                            <li onclick="loadModule('workout', 3)">HSK 3</li><li onclick="loadModule('workout', 4)">HSK 4</li>
+                            <li onclick="loadModule('workout', 5)">HSK 5</li><li onclick="loadModule('workout', 6)">HSK 6</li>
+                            <li onclick="loadModule('workout', '7_9')">HSK 7</li><li onclick="loadModule('workout', '7_9')">HSK 8</li><li onclick="loadModule('workout', '7_9')">HSK 9</li>
+                        </ul>
+                    </li>
+                    <!-- Thẻ 6 -->
+                    <li class="nav-item">Thống kê <i class="fa-solid fa-chevron-right arrow"></i>
+                        <ul class="dropdown flyout-right">
+                            <li onclick="loadModule('stats', 1)">HSK 1</li><li onclick="loadModule('stats', 2)">HSK 2</li>
+                            <li onclick="loadModule('stats', 3)">HSK 3</li><li onclick="loadModule('stats', 4)">HSK 4</li>
+                            <li onclick="loadModule('stats', 5)">HSK 5</li><li onclick="loadModule('stats', 6)">HSK 6</li>
+                            <li onclick="loadModule('stats', '7_9')">HSK 7</li><li onclick="loadModule('stats', '7_9')">HSK 8</li><li onclick="loadModule('stats', '7_9')">HSK 9</li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
 
@@ -66,32 +86,15 @@
             </div>
         </header>
 
-        <!-- Main View: Giao diện Trang chủ (6 thẻ Gamification chống chết click) -->
+        <!-- Main View: Giao diện Trang chủ -->
         <main id="home-view" class="view-section active">
             <div class="grid-menu">
-                <div class="card hover-fireflies" onclick="loadModule('vocab', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-book-open"></i></div><h3>Từ vựng</h3>
-                    <div class="firefly f1"></div><div class="firefly f2"></div>
-                </div>
-                <div class="card hover-ripple" onclick="loadModule('grammar', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-pen-nib"></i></div><h3>Ngữ pháp</h3>
-                </div>
-                <div class="card hover-page-turn" onclick="loadModule('reading', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-book-reader"></i></div><h3>Đọc hiểu</h3>
-                    <div class="page-fold"></div>
-                </div>
-                <div class="card hover-equalizer" onclick="loadModule('listening', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-headphones"></i></div><h3>Nghe hiểu</h3>
-                    <div class="equalizer"><span></span><span></span><span></span><span></span></div>
-                </div>
-                <div class="card hover-sparks" onclick="loadModule('workout', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-dumbbell"></i></div><h3>Workout</h3>
-                    <div class="spark-border"></div>
-                </div>
-                <div class="card hover-matrix" onclick="loadModule('stats', 1)">
-                    <div class="card-icon"><i class="fa-solid fa-chart-column"></i></div><h3>Thống kê</h3>
-                    <div class="matrix-bg"></div>
-                </div>
+                <div class="card hover-fireflies" onclick="loadModule('vocab', 1)"><div class="card-icon"><i class="fa-solid fa-book-open"></i></div><h3>Từ vựng</h3><div class="firefly f1"></div><div class="firefly f2"></div></div>
+                <div class="card hover-ripple" onclick="loadModule('grammar', 1)"><div class="card-icon"><i class="fa-solid fa-pen-nib"></i></div><h3>Ngữ pháp</h3></div>
+                <div class="card hover-page-turn" onclick="loadModule('reading', 1)"><div class="card-icon"><i class="fa-solid fa-book-reader"></i></div><h3>Đọc hiểu</h3><div class="page-fold"></div></div>
+                <div class="card hover-equalizer" onclick="loadModule('listening', 1)"><div class="card-icon"><i class="fa-solid fa-headphones"></i></div><h3>Nghe hiểu</h3><div class="equalizer"><span></span><span></span><span></span><span></span></div></div>
+                <div class="card hover-sparks" onclick="loadModule('workout', 1)"><div class="card-icon"><i class="fa-solid fa-dumbbell"></i></div><h3>Workout</h3><div class="spark-border"></div></div>
+                <div class="card hover-matrix" onclick="loadModule('stats', 1)"><div class="card-icon"><i class="fa-solid fa-chart-column"></i></div><h3>Thống kê</h3><div class="matrix-bg"></div></div>
             </div>
         </main>
 
@@ -100,12 +103,12 @@
             
             <!-- Bảng cấu hình Bài tập -->
             <div class="config-panel" id="config-panel">
-                <h2 id="module-title">Lựa chọn Cấu hình Bài tập</h2>
+                <h2 id="module-title" class="config-title">Cấu hình bài tập</h2>
                 <div class="config-controls">
                     <input type="number" id="question-limit" value="20" min="1" title="Số lượng câu hỏi">
                     <select id="study-mode">
-                        <option value="zh-vi">Trung ➔ Việt (Đọc hiểu Hán tự)</option>
                         <option value="vi-zh">Việt ➔ Trung (Phản xạ Pinyin/Hán)</option>
+                        <option value="zh-vi">Trung ➔ Việt (Đọc hiểu Hán tự)</option>
                         <option value="au-vi">Audio ➔ Việt (Nghe hiểu âm thanh)</option>
                     </select>
                     <button class="btn primary" onclick="startTest()">Bắt đầu</button>
@@ -113,40 +116,102 @@
                 </div>
             </div>
 
-            <!-- Khu vực Đang làm bài (Vở Ô ly) -->
+            <!-- Khu vực Đang làm bài (Giao diện chuẩn Hình 4) -->
             <div id="testing-area" style="display: none;">
-                <!-- Dành cho module đọc hiểu đoạn văn -->
-                <div id="passage-display" class="passage-box" style="display: none;"></div>
-                <div class="question-box" id="question-display"></div>
-                <input type="text" id="answer-input" class="tian-zi-ge" placeholder="Nhập đáp án (Ấn Enter)" autocomplete="off">
-            </div>
-
-            <!-- Khu vực Kết quả (Grid 6:4) -->
-            <div id="result-area" class="result-grid" style="display: none;">
-                <!-- Khối Trái 60% -->
-                <div class="result-left">
-                    <div id="result-status" class="badge"></div>
-                    <div id="correct-hanzi" class="massive-text"></div>
-                    <div id="correct-pinyin" class="large-text"></div>
-                    <div id="correct-meaning" class="normal-text"></div>
+                
+                <!-- Thanh Header Thống kê & Nút điều khiển -->
+                <div class="test-header">
+                    <h2 class="test-title" id="test-main-title">Học từ vựng</h2>
+                    <div class="test-actions">
+                        <button class="action-btn" onclick="goHome()"><i class="fa-solid fa-gear"></i> Cấu hình</button>
+                        <button class="action-btn" onclick="startTest()"><i class="fa-solid fa-shuffle"></i> Trộn bài</button>
+                        <button class="action-btn" onclick="startTest()"><i class="fa-solid fa-rotate-right"></i> Làm mới</button>
+                    </div>
                 </div>
-                <!-- Khối Phải 40% -->
-                <div class="result-right">
-                    <button class="writer-cta-btn" id="writer-btn">
-                        <i class="fa-solid fa-pen-fancy"></i> Xem bút thuận
-                    </button>
-                    <div id="hanzi-writer-container"></div>
+
+                <!-- Bảng Thống kê Nhanh (Badges) -->
+                <div class="stats-bar">
+                    <span class="stat-badge bg-gray">Tiến độ: <strong id="stat-progress">1 / 20</strong></span>
+                    <span class="stat-badge bg-green">Đúng: <strong id="stat-correct">0</strong></span>
+                    <span class="stat-badge bg-red">Sai: <strong id="stat-wrong">0</strong></span>
+                    <span class="stat-badge bg-blue">Tỷ lệ: <strong id="stat-ratio">0%</strong></span>
+                    <span class="stat-badge bg-orange" id="stat-review" style="display:none;">Ôn tập</span>
+                </div>
+
+                <!-- Thẻ Bài tập (Card) -->
+                <div class="question-card">
+                    <div class="card-top">
+                        <span class="hsk-badge" id="hsk-badge-display">HSK 1</span>
+                        <span class="card-instruction">TỪ VỰNG - GÕ HÁN TỰ / PINYIN:</span>
+                    </div>
+
+                    <!-- Hiển thị Đoạn văn (nếu có) -->
+                    <div id="passage-display" class="passage-text" style="display:none;"></div>
+                    
+                    <!-- Hiển thị Câu hỏi chính -->
+                    <div class="main-question" id="question-display">Ở, đang</div>
+                    
+                    <!-- Các nút gợi ý -->
+                    <div class="hint-buttons">
+                        <button class="hint-btn" onclick="showPinyinHint()"><i class="fa-solid fa-lightbulb" style="color:#fbbf24;"></i> Bật mí Pinyin</button>
+                        <button class="hint-btn" onclick="playAudioHint()"><i class="fa-solid fa-volume-high" style="color:#94a3b8;"></i> Nghe phát âm</button>
+                    </div>
+                    <div id="pinyin-hint-display" style="display:none; color:#10b981; font-size:1.2rem; font-weight:bold; margin-bottom:15px;"></div>
+
+                    <!-- Ô Nhập liệu -->
+                    <input type="text" id="answer-input" class="tian-zi-ge" placeholder="Nhập đáp án (Ấn Enter)" autocomplete="off">
+
+                    <!-- Khu vực Trả Kết quả (Chỉ hiện sau khi Enter) -->
+                    <div id="result-area" class="result-section" style="display: none;">
+                        <div class="status-banner" id="status-banner">
+                            <i class="fa-solid fa-xmark" id="status-icon"></i> <span id="status-text">Chưa chính xác</span>
+                        </div>
+                        <div class="user-echo">Bạn đã nhập: <strong id="user-input-echo">zai</strong></div>
+                        
+                        <!-- Grid 6:4 -->
+                        <div class="result-grid">
+                            <div class="result-left">
+                                <div id="correct-hanzi" class="massive-text">在</div>
+                                <div id="correct-pinyin" class="large-text">zài</div>
+                            </div>
+                            <div class="result-right">
+                                <button class="writer-cta-btn" id="writer-btn">
+                                    <i class="fa-solid fa-pen-fancy" style="color:#fbbf24;"></i> Xem bút thuận
+                                </button>
+                                <div id="hanzi-writer-container"></div>
+                            </div>
+                        </div>
+
+                        <!-- Cụm Học thuật chuyên sâu -->
+                        <div class="academic-info">
+                            <div class="info-row">
+                                <span class="info-label">Hán Việt:</span> <span id="hanviet-text" class="info-value">Đang cập nhật</span>
+                            </div>
+                            <div class="info-box border-green">
+                                <strong style="color:#10b981;">Bộ thủ:</strong> <span id="radical-text">Đang cập nhật... Hình ảnh mầm cây vươn lên...</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Từ loại:</span> <span id="pos-text" class="info-value">Giới từ / Phó từ</span>
+                            </div>
+                            <div class="info-box bg-yellow">
+                                <strong style="color:#d97706;"><i class="fa-solid fa-globe"></i> Đa tầng Nghĩa & Ngữ dụng:</strong>
+                                <div id="usage-text" style="margin-top:10px; line-height:1.6;">
+                                    Đang cập nhật...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Nút Âm thanh & Pháo giấy (Góc trái dưới - Thiết kế Circle Bo tròn) -->
+    <!-- Nút Âm thanh & Pháo giấy -->
     <div class="sfx-toggle" id="sfx-btn" title="Bật/Tắt Âm thanh & Pháo">
         <i class="fa-solid fa-party-horn"></i>
     </div>
 
-    <!-- Mascot Chú Vịt (Thiết kế thon, nhí nhảnh) & Mây mưa -->
+    <!-- Mascot Chú Vịt & Mây mưa -->
     <div id="effects-container"></div>
     <div class="mascot-duck" id="mascot">
         <div class="cloud-rain" id="duck-rain"></div>
