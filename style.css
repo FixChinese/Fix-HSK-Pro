@@ -121,31 +121,37 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .big-green-btn:hover { background: #059669; }
 
 /* =========================================================
-   CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHỤC DỰNG BỐ CỤC ẢNH 1)
+   CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHÂN CHIA TRÁI PHẢI)
 ========================================================= */
-.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative; margin-top: 20px;}
+.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative; margin-top: 10px;}
 .user-echo { color: #6b7280; font-size: 1.1rem; margin-bottom: 20px; }
-.wrong-text { color: #ef4444; font-weight: bold; }
-.correct-text { color: #10b981; font-weight: bold; }
+.wrong-text { color: #ef4444; font-weight: bold;}
+.correct-text { color: #10b981; font-weight: bold;}
 
 /* ĐÚNG / SAI Banner */
 .status-banner { display: inline-block; padding: 10px 40px; border-radius: 30px; font-weight: bold; font-size: 1.5rem; color: white; margin-bottom: 20px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 .status-banner.wrong { background: #ef4444; } .status-banner.correct { background: #10b981; }
 
-.hanzi-result-group { margin: 10px 0 20px 0; }
-.massive-text { font-size: 6rem; font-weight: bold; color: #10b981; line-height: 1; margin-bottom: 10px;}
-.large-text { font-size: 2rem; color: #10b981; font-weight: bold; margin-bottom: 15px;}
-.vietnamese-highlight-text { font-size: 2.2rem; color: #f59e0b; font-weight: bold; margin-top: 10px; background: #fffbeb; padding: 10px 20px; border-radius: 15px; display: inline-block;} 
+/* BỐ CỤC CHIA TRÁI - PHẢI */
+.result-split { display: grid; grid-template-columns: 6fr 4fr; gap: 20px; align-items: center;}
+@media (max-width: 768px) { .result-split { grid-template-columns: 1fr; } }
 
+.result-split-left { display: flex; flex-direction: column; align-items: center; justify-content: center;}
+.massive-text { font-size: 6rem; font-weight: bold; color: #10b981; line-height: 1; margin-bottom: 10px;}
+.large-text { font-size: 2.5rem; color: #10b981; font-weight: bold; }
+.vietnamese-highlight-text { font-size: 2rem; color: #f59e0b; font-weight: bold; margin-top: 10px; background: #fffbeb; padding: 10px 20px; border-radius: 15px;} 
+
+.result-split-right { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px dashed #cbd5e1;}
 .writer-cta-btn { background: white; border: 2px solid #10b981; color: #10b981; padding: 10px 25px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; margin-bottom: 15px;}
 .writer-cta-btn:hover { background: #ecfdf5; }
 .writer-container-multi { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap;}
-.hanzi-char-box { width: 90px; height: 90px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
+.hanzi-char-box { width: 90px; height: 90px; background: white; border: 1px solid #cbd5e1; border-radius: 8px;}
 
 /* 3 Badges Hán Việt/Bộ thủ/Từ loại */
 .badge-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
 .info-badge { border: 1px solid #10b981; color: #10b981; padding: 8px 20px; border-radius: 20px; font-weight: bold; background: white; }
 
+/* Các hộp thông tin (Vàng, Xanh dương, Xanh lá) */
 .info-box { padding: 25px; border-radius: 12px; margin-bottom: 20px; text-align: left; line-height: 1.6; font-size: 1.1rem;}
 .box-title { font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.15rem;}
 

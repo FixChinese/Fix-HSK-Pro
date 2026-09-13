@@ -6,6 +6,7 @@
     <title>FIX HSK 3.0 PRO - Thực Chiến Chuyên Sâu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Nhúng thư viện Bút thuận Hanzi Writer -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body class="noselect">
@@ -13,6 +14,7 @@
         
         <!-- HEADER -->
         <header class="top-bar">
+            <!-- Menu Điều hướng (Trượt phải mượt mà) -->
             <nav class="main-nav" id="main-navigation">
                 <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
                 <ul class="nav-menu">
@@ -149,20 +151,23 @@
                     <!-- KHU VỰC KẾT QUẢ -->
                     <div id="result-area" style="display: none; margin-top: 20px;">
                         
-                        <!-- Layout Standard (Từ vựng, Ngữ pháp) -->
+                        <!-- Layout Standard -->
                         <div id="standard-result-layout">
                             <div class="result-main-box">
                                 <div class="status-banner" id="status-banner"></div>
                                 <div class="user-echo">Bạn đã nhập: <strong id="user-input-echo"></strong></div>
                                 
-                                <div class="hanzi-result-group">
-                                    <div id="correct-hanzi" class="massive-text"></div>
-                                    <div id="correct-vietnamese-highlight" class="vietnamese-highlight-text"></div>
-                                    <div id="correct-pinyin" class="large-text"></div>
+                                <div class="result-split">
+                                    <div class="result-split-left">
+                                        <div id="correct-hanzi" class="massive-text"></div>
+                                        <div id="correct-pinyin" class="large-text"></div>
+                                        <div id="correct-vietnamese-highlight" class="vietnamese-highlight-text"></div>
+                                    </div>
+                                    <div class="result-split-right">
+                                        <button id="writer-btn" class="writer-cta-btn">✍️ Xem hướng dẫn viết nét</button>
+                                        <div id="hanzi-writer-container" class="writer-container-multi"></div>
+                                    </div>
                                 </div>
-                                
-                                <button id="writer-btn" class="writer-cta-btn">✍️ Xem hướng dẫn viết nét</button>
-                                <div id="hanzi-writer-container" class="writer-container-multi"></div>
                             </div>
 
                             <div class="badge-row">
