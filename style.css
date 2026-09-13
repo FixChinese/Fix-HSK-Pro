@@ -70,7 +70,7 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .btn.warning { background: #f59e0b; } 
 
 /* =========================================================
-   CHƯƠNG 4: CHÚ VỊT VIDEO 1 GỐC & SFX
+   CHƯƠNG 4: CHÚ VỊT & SFX
 ========================================================= */
 .sfx-toggle { position: fixed; bottom: 30px; left: 30px; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #f59e0b; box-shadow: 0 8px 25px rgba(0,0,0,0.15); cursor: pointer; border: 2px solid #fde68a; transition: 0.3s; }
 .sfx-toggle:hover { transform: scale(1.1); }
@@ -151,7 +151,7 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .badge-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
 .info-badge { border: 1px solid #10b981; color: #10b981; padding: 8px 20px; border-radius: 20px; font-weight: bold; background: white; }
 
-/* Các hộp thông tin (Vàng, Xanh dương, Xanh lá) */
+/* Các hộp thông tin */
 .info-box { padding: 25px; border-radius: 12px; margin-bottom: 20px; text-align: left; line-height: 1.6; font-size: 1.1rem;}
 .box-title { font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.15rem;}
 
@@ -164,12 +164,11 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .green-box { background: #ecfdf5; border-left: 5px solid #10b981; color: #065f46; height: 100%; margin-bottom: 0;}
 .green-box .box-title { color: #059669; }
 
-/* Nút Ôn tập dưới cùng */
 .btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1.1rem; width: 100%; max-width: 500px; display: block; margin: 0 auto;}
 .btn-review-bottom:hover { background: #fee2e2; }
 
 /* =========================================================
-   CHƯƠNG 7: MA TRẬN 3 TẦNG (WORKOUT NGỮ CẢNH) & THỐNG KÊ
+   CHƯƠNG 7: MA TRẬN 3 TẦNG & THỐNG KÊ
 ========================================================= */
 .matrix-3-tier { text-align: left; margin-top: 20px; }
 .tier { padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid; background: #f8fafc; }
@@ -179,7 +178,6 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .tier-label { display: block; font-size: 1rem; color: #6b7280; margin-bottom: 8px; }
 .tier-content { font-size: 1.3rem; font-weight: bold; color: #111827; }
 
-/* Thống kê Dashboard */
 .stats-dashboard { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .dashboard-title { font-size: 2rem; color: #111827; margin-bottom: 30px; text-align: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 20px;}
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }

@@ -13,18 +13,45 @@ let stats = { correct: 0, wrong: 0 };
 let currentModuleType = '';
 
 /* =========================================================
-   HÀM QUÉT DỮ LIỆU THÔNG MINH (CHỐNG LỖI VIẾT HOA/THƯỜNG)
+   SIÊU THUẬT TOÁN QUÉT DỮ LIỆU JSON (AUTO MAPPER)
+   Không phân biệt viết hoa/viết thường/dấu tiếng Việt
 ========================================================= */
+const KEYS_VN = ['vietnamese', 'meaning', 'translation', 'vn', 'nghia', 'ynghia', 'tiengviet', 'nghiatiengviet'];
+const KEYS_HZ = ['hanzi', 'word', 'chinese', 'tu', 'tuvung', 'chuhan', 'hantu'];
+const KEYS_PY = ['pinyin', 'phienam', 'pa'];
+const KEYS_HV = ['hanviet', 'hv', 'amhanviet'];
+const KEYS_RADICAL = ['radical', 'bo', 'bothu'];
+const KEYS_POS = ['type', 'pos', 'tuloai', 'loaitu'];
+const KEYS_EX = ['example', 'vidu', 'cauvidu'];
+const KEYS_LAOSU = ['goc_lao_su', 'note', 'explain', 'goclaosu', 'giaithich', 'ghichu'];
+
 function getSafeValue(obj, possibleKeys, fallback = "") {
-    if (!obj) return fallback;
+    if (!obj) return fallback === 'ERR_MAIN_FIELD' ? "Dữ liệu trống" : fallback;
+    
+    // Nếu JSON của ngài Khánh bị xuất ra dạng Mảng [Từ, Pinyin, Nghĩa...]
+    if (Array.isArray(obj)) {
+        if (possibleKeys === KEYS_HZ) return obj[0] !== undefined ? obj[0] : (fallback === 'ERR_MAIN_FIELD' ? "Lỗi: Mảng thiếu Cột 1" : fallback);
+        if (possibleKeys === KEYS_PY) return obj[1] !== undefined ? obj[1] : fallback;
+        if (possibleKeys === KEYS_VN) return obj[2] !== undefined ? obj[2] : (fallback === 'ERR_MAIN_FIELD' ? "Lỗi: Mảng thiếu Cột 3" : fallback);
+        return fallback === 'ERR_MAIN_FIELD' ? "Dữ liệu trống" : fallback;
+    }
+
+    if (typeof obj !== 'object') return possibleKeys === KEYS_HZ ? obj : fallback;
+
     let keysObj = Object.keys(obj);
     for (let pKey of possibleKeys) {
-        let lowerPKey = pKey.toLowerCase();
-        let foundKey = keysObj.find(k => k.toLowerCase() === lowerPKey);
+        let normPKey = pKey.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\s_]/g, '').toLowerCase();
+        let foundKey = keysObj.find(k => k.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\s_]/g, '').toLowerCase() === normPKey);
         if (foundKey && obj[foundKey] !== null && obj[foundKey] !== "") {
             return obj[foundKey];
         }
     }
+    
+    // DEBUG MODE: Hiển thị thẳng tên các Cột đang có trong file JSON ra màn hình để bắt bệnh!
+    if (fallback === 'ERR_MAIN_FIELD') {
+        return `[LỖI TÊN CỘT] File JSON đang dùng các cột: [ ${keysObj.join(" | ")} ] -> Hãy sửa lại hoặc chụp ảnh này!`;
+    }
+    
     return fallback;
 }
 
@@ -73,9 +100,7 @@ async function loadModule(moduleType, level) {
     if(moduleType === 'workout') title = 'Workout Ngữ cảnh';
 
     let levelText = level ? ` HSK ${level}` : '';
-    // Nếu level là chuỗi '7_9', điều chỉnh lại Text hiển thị
     if (level === '7_9') levelText = ' HSK 7-9';
-    
     document.getElementById('module-title').innerText = `Cấu hình bài tập: ${title}${levelText}`;
     document.getElementById('test-main-title').innerText = title;
     
@@ -84,7 +109,7 @@ async function loadModule(moduleType, level) {
     document.getElementById('hsk-badge-display').innerText = badgeText;
 
     try {
-        // PHÁ CACHE TRÌNH DUYỆT BẰNG THỜI GIAN THỰC
+        // ÉP DUYỆT TRÌNH XÓA CACHE ĐỂ LẤY FILE JSON MỚI NHẤT
         let timestamp = new Date().getTime();
         let url = (moduleType === 'workout') 
             ? `data/context_workout.json?t=${timestamp}` 
@@ -104,7 +129,7 @@ async function loadModule(moduleType, level) {
         checkErrorLedgerStatus(); 
     } catch (error) {
         let errorMsgLevel = level === '7_9' ? '7_9' : level;
-        alert(`Không tải được dữ liệu. Bạn hãy F5 tải lại trang hoặc kiểm tra file data/hsk${errorMsgLevel}.json có trên Github chưa nhé.`);
+        alert(`Không tải được dữ liệu. Bạn hãy F5 tải lại trang web hoặc kiểm tra xem file data/hsk${errorMsgLevel}.json đã lên Github chưa nhé.`);
         currentData = [];
     }
 }
@@ -118,9 +143,9 @@ function renderStatsDashboard() {
         errorLedger.forEach(item => {
             let div = document.createElement('div');
             div.className = 'error-item';
-            let word = getSafeValue(item, ['hanzi', 'word', 'chinese', 'tu'], 'Câu hỏi');
-            let pinyin = getSafeValue(item, ['pinyin', 'phienam'], '');
-            let meaning = getSafeValue(item, ['vietnamese', 'meaning', 'translation', 'vn', 'situation'], '');
+            let word = getSafeValue(item, KEYS_HZ, 'Câu hỏi');
+            let pinyin = getSafeValue(item, KEYS_PY, '');
+            let meaning = getSafeValue(item, KEYS_VN, '');
             div.innerHTML = `${word} <span style="color:#ef4444; float:right;">Cần ôn</span><span class="error-item-pinyin">${pinyin} - ${meaning}</span>`;
             listContainer.appendChild(div);
         });
@@ -199,12 +224,12 @@ function loadQuestion() {
     let hintGroup = document.getElementById('hint-buttons-group');
     let instructionText = document.getElementById('instruction-text');
     
-    // GỌI HÀM QUÉT DỮ LIỆU ĐỂ CHẮC CHẮN 100% CÓ DATA
-    let vnFallbackText = getSafeValue(currentQuestion, ['vietnamese', 'meaning', 'translation', 'vn', 'nghia'], 'Dữ liệu tiếng Việt đang trống');
-    let hzFallbackText = getSafeValue(currentQuestion, ['hanzi', 'word', 'chinese', 'tu'], 'Dữ liệu tiếng Trung đang trống');
+    // GỌI HÀM QUÉT DỮ LIỆU ĐỂ CHẮC CHẮN 100% HIỂN THỊ
+    let vnFallbackText = getSafeValue(currentQuestion, KEYS_VN, 'ERR_MAIN_FIELD');
+    let hzFallbackText = getSafeValue(currentQuestion, KEYS_HZ, 'ERR_MAIN_FIELD');
 
     if (currentModuleType === 'workout') {
-        displayElem.innerText = getSafeValue(currentQuestion, ['situation'], vnFallbackText);
+        displayElem.innerText = getSafeValue(currentQuestion, ['situation', 'tinhhuong', 'ngucanh', 'vietnamese', 'ynghia'], 'ERR_MAIN_FIELD');
         hintGroup.style.display = 'none'; 
         instructionText.innerText = "(Gõ tiếng Trung)";
     } else {
@@ -233,13 +258,13 @@ function loadQuestion() {
 
 function showPinyinHint() {
     let hintBox = document.getElementById('pinyin-hint-display');
-    let py = getSafeValue(currentQuestion, ['pinyin', 'phienam'], 'Không có dữ liệu');
+    let py = getSafeValue(currentQuestion, KEYS_PY, 'Không có dữ liệu Pinyin');
     hintBox.innerText = `Pinyin: ${py}`;
     hintBox.style.display = 'block';
 }
 function playAudioHint() {
-    let hz = getSafeValue(currentQuestion, ['hanzi', 'word', 'chinese', 'tu'], '');
-    if(hz) {
+    let hz = getSafeValue(currentQuestion, KEYS_HZ, '');
+    if(hz && hz !== "Đang cập nhật") {
         let msg = new SpeechSynthesisUtterance(hz);
         msg.lang = 'zh-CN'; window.speechSynthesis.speak(msg);
     }
@@ -262,17 +287,17 @@ function checkAnswer() {
     
     if (userAnswer !== "") {
         if (currentModuleType === 'workout') {
-            let sgk = sanitizeString(getSafeValue(currentQuestion, ['text_sgk', 'hanzi'], ''));
-            let native = sanitizeString(getSafeValue(currentQuestion, ['text_native'], ''));
+            let sgk = sanitizeString(getSafeValue(currentQuestion, ['text_sgk', 'hanzi', 'tuvung', 'chinese'], ''));
+            let native = sanitizeString(getSafeValue(currentQuestion, ['text_native', 'khaungu', 'native'], ''));
             isCorrect = (userAnswer === sgk || userAnswer === native);
         } else {
             if (mode === 'zh-vi') {
-                let vn = getSafeValue(currentQuestion, ['vietnamese', 'meaning', 'translation', 'vn'], "");
+                let vn = getSafeValue(currentQuestion, KEYS_VN, "");
                 let arr = vn.split(/[,;]/).map(i => sanitizeString(i));
                 isCorrect = arr.some(k => k !== "" && (userAnswer.includes(k) || k.includes(userAnswer)));
             } else {
-                let hz = sanitizeString(getSafeValue(currentQuestion, ['hanzi', 'word', 'chinese'], ""));
-                let py = sanitizeString(getSafeValue(currentQuestion, ['pinyin', 'phienam'], ""));
+                let hz = sanitizeString(getSafeValue(currentQuestion, KEYS_HZ, ""));
+                let py = sanitizeString(getSafeValue(currentQuestion, KEYS_PY, ""));
                 isCorrect = (userAnswer === hz || userAnswer === py);
             }
         }
@@ -311,39 +336,43 @@ function showResult(isCorrect, rawInput) {
         woStatus.innerHTML = isCorrect ? '<i class="fa-solid fa-check"></i> ĐÚNG' : '<i class="fa-solid fa-xmark"></i> SAI';
 
         document.getElementById('wo-user').innerText = rawInput || "(Để trống)";
-        document.getElementById('wo-sgk').innerText = getSafeValue(currentQuestion, ['text_sgk', 'hanzi'], 'Đang cập nhật');
-        document.getElementById('wo-native').innerText = getSafeValue(currentQuestion, ['text_native'], 'Đang cập nhật');
-        document.getElementById('wo-explain').innerHTML = getSafeValue(currentQuestion, ['goc_lao_su', 'note'], 'Giao tiếp bản xứ.');
+        document.getElementById('wo-sgk').innerText = getSafeValue(currentQuestion, ['text_sgk', 'hanzi', 'tuvung', 'chinese'], 'Đang cập nhật');
+        document.getElementById('wo-native').innerText = getSafeValue(currentQuestion, ['text_native', 'khaungu', 'native'], 'Đang cập nhật');
+        document.getElementById('wo-explain').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, 'Giao tiếp bản xứ.');
     } else {
         document.getElementById('standard-result-layout').style.display = 'block';
         document.getElementById('workout-result-layout').style.display = 'none';
         
-        let hanziChar = getSafeValue(currentQuestion, ['hanzi', 'word', 'chinese'], "Đang tải");
+        let hanziChar = getSafeValue(currentQuestion, KEYS_HZ, "Đang tải");
         document.getElementById('correct-hanzi').innerText = hanziChar;
-        document.getElementById('correct-pinyin').innerText = getSafeValue(currentQuestion, ['pinyin', 'phienam'], "Đang tải");
+        document.getElementById('correct-pinyin').innerText = getSafeValue(currentQuestion, KEYS_PY, "Đang tải");
         
         let mode = document.getElementById('study-mode').value;
         let vietHighlight = document.getElementById('correct-vietnamese-highlight');
         if (mode === 'zh-vi') {
             vietHighlight.style.display = 'inline-block';
-            vietHighlight.innerText = getSafeValue(currentQuestion, ['vietnamese', 'meaning', 'translation', 'vn'], "Đang tải...");
+            vietHighlight.innerText = getSafeValue(currentQuestion, KEYS_VN, "Đang tải...");
         } else {
             vietHighlight.style.display = 'none';
         }
         
-        document.getElementById('hanviet-text').innerText = getSafeValue(currentQuestion, ['hanviet', 'hv'], "Đang cập nhật");
-        document.getElementById('radical-text').innerText = getSafeValue(currentQuestion, ['radical', 'bothu', 'bo'], "Đang cập nhật");
-        document.getElementById('pos-text').innerText = getSafeValue(currentQuestion, ['type', 'tuloai', 'pos'], "Đang cập nhật");
+        document.getElementById('hanviet-text').innerText = getSafeValue(currentQuestion, KEYS_HV, "Đang cập nhật");
+        document.getElementById('radical-text').innerText = getSafeValue(currentQuestion, KEYS_RADICAL, "Đang cập nhật");
+        document.getElementById('pos-text').innerText = getSafeValue(currentQuestion, KEYS_POS, "Đang cập nhật");
         
-        document.getElementById('usage-text').innerHTML = getSafeValue(currentQuestion, ['vietnamese', 'meaning', 'translation', 'vn'], "Đang cập nhật");
-        document.getElementById('example-text').innerHTML = getSafeValue(currentQuestion, ['example', 'vidu'], "Đang cập nhật");
-        document.getElementById('laosu-text').innerHTML = getSafeValue(currentQuestion, ['goc_lao_su', 'note', 'explain'], "Đang cập nhật");
+        document.getElementById('usage-text').innerHTML = getSafeValue(currentQuestion, KEYS_VN, "Đang cập nhật");
+        document.getElementById('example-text').innerHTML = getSafeValue(currentQuestion, KEYS_EX, "Đang cập nhật");
+        document.getElementById('laosu-text').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, "Đang cập nhật");
 
         document.getElementById('hanzi-writer-container').innerHTML = '';
         document.getElementById('writer-btn').onclick = function() {
             let container = document.getElementById('hanzi-writer-container');
             container.innerHTML = '';
-            if(hanziChar && hanziChar.length > 0) {
+            if(typeof HanziWriter === 'undefined') {
+                container.innerHTML = "<p style='color:red;'>Lỗi mạng: Không tải được thư viện vẽ chữ.</p>";
+                return;
+            }
+            if(hanziChar && hanziChar.length > 0 && hanziChar !== "Đang tải") {
                 for(let i=0; i<hanziChar.length; i++) {
                     let char = hanziChar.charAt(i);
                     if(/[\u4e00-\u9fa5]/.test(char)) {
