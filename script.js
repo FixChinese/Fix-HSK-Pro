@@ -30,6 +30,13 @@ function goHome() {
     document.getElementById('time-display').innerHTML = formatTime(0);
 }
 
+// Hàm hiện lại bảng Cấu hình (Sửa lỗi out trang)
+function showConfig() {
+    document.getElementById('testing-area').style.display = 'none';
+    document.getElementById('config-panel').style.display = 'block';
+    stopTimer();
+}
+
 async function loadModule(moduleType, level) {
     currentModuleType = moduleType;
     document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
@@ -95,17 +102,11 @@ function renderStatsDashboard() {
 
 function checkErrorLedgerStatus() {
     let reviewBtnTop = document.getElementById('review-btn');
-    let reviewBtnBottom = document.getElementById('review-btn-bottom');
-    let reviewCount = document.getElementById('review-count-bottom');
-    
     if (errorLedger.length > 0) {
         reviewBtnTop.style.display = 'inline-block';
         reviewBtnTop.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> Ôn tập câu sai (${errorLedger.length})`;
-        reviewBtnBottom.style.display = 'block';
-        reviewCount.innerText = errorLedger.length;
     } else {
         reviewBtnTop.style.display = 'none';
-        reviewBtnBottom.style.display = 'none';
     }
 }
 
@@ -171,14 +172,18 @@ function loadQuestion() {
         instructionText.innerText = "(Gõ tiếng Trung)";
     } else {
         hintGroup.style.display = 'flex';
+        // Tích hợp Fallback lấy dữ liệu tiếng Việt an toàn 100%
+        let vietnameseData = currentQuestion.vietnamese || currentQuestion.meaning || currentQuestion.translation || currentQuestion.situation || "Đang cập nhật dữ liệu...";
+        let hanziData = currentQuestion.hanzi || currentQuestion.word || "Đang cập nhật...";
+
         if (mode === 'vi-zh') { 
-            displayElem.innerText = currentQuestion.meaning || currentQuestion.vietnamese;
+            displayElem.innerText = vietnameseData;
             instructionText.innerText = "(Gõ Pinyin/Hán)";
         } else if (mode === 'zh-vi') { 
-            displayElem.innerText = currentQuestion.hanzi || currentQuestion.word;
+            displayElem.innerText = hanziData;
             instructionText.innerText = "(Gõ Tiếng Việt)";
         } else if (mode === 'zh-zh') { 
-            displayElem.innerText = currentQuestion.hanzi || currentQuestion.word;
+            displayElem.innerText = hanziData;
             instructionText.innerText = "(Nhìn Hán, gõ Pinyin ra Hán)";
         }
     }
@@ -187,7 +192,10 @@ function loadQuestion() {
     let inputElem = document.getElementById('answer-input');
     inputElem.value = ''; inputElem.focus();
     
-    document.getElementById('check-btn').style.display = 'block';
+    // Nút Check luôn giữ nguyên chữ (Không bao giờ đổi thành Tiếp tục)
+    let btn = document.getElementById('check-btn');
+    btn.innerText = "Kiểm tra đáp án";
+    
     document.getElementById('result-area').style.display = 'none';
     document.getElementById('hanzi-writer-container').innerHTML = ''; 
 }
@@ -204,14 +212,17 @@ function playAudioHint() {
 
 function sanitizeString(str) { return (!str) ? "" : str.replace(/[.,!?;:。，！？；：]/g, '').trim().toLowerCase(); }
 
-function triggerEnter() { if (!isWaitingForNext) { checkAnswer(); } }
+// Logic Trigger Nút Xanh To
+function triggerEnter() { 
+    if (!isWaitingForNext) { checkAnswer(); } else { nextQuestion(); }
+}
 document.getElementById('answer-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') { e.preventDefault(); triggerEnter(); }
 });
 
 function checkAnswer() {
     let rawInput = document.getElementById('answer-input').value;
-    if (rawInput.trim() === '') return; 
+    // Cho phép người dùng ấn Enter để nộp bài trống (Bỏ lệnh return nếu input rỗng)
     let userAnswer = sanitizeString(rawInput);
     let mode = document.getElementById('study-mode').value;
     let isCorrect = false;
@@ -219,16 +230,16 @@ function checkAnswer() {
     if (currentModuleType === 'workout') {
         let sgk = sanitizeString(currentQuestion.text_sgk || currentQuestion.hanzi);
         let native = sanitizeString(currentQuestion.text_native);
-        isCorrect = (userAnswer === sgk || userAnswer === native);
+        isCorrect = (userAnswer === sgk || userAnswer === native) && userAnswer !== "";
     } else {
         if (mode === 'zh-vi') {
             let vn = currentQuestion.vietnamese || currentQuestion.meaning || currentQuestion.translation || "";
             let arr = vn.split(/[,;]/).map(i => sanitizeString(i));
-            isCorrect = arr.some(k => k !== "" && (userAnswer.includes(k) || k.includes(userAnswer)));
+            isCorrect = arr.some(k => k !== "" && (userAnswer.includes(k) || k.includes(userAnswer))) && userAnswer !== "";
         } else {
             let hz = sanitizeString(currentQuestion.hanzi || currentQuestion.word);
             let py = sanitizeString(currentQuestion.pinyin);
-            isCorrect = (userAnswer === hz || userAnswer === py);
+            isCorrect = (userAnswer === hz || userAnswer === py) && userAnswer !== "";
         }
     }
     
@@ -237,15 +248,14 @@ function checkAnswer() {
 }
 
 function showResult(isCorrect, rawInput) {
-    // Ẩn nút Check ban đầu
-    document.getElementById('check-btn').style.display = 'none';
-    
     let resultArea = document.getElementById('result-area');
     resultArea.style.display = 'block';
     
+    // Nút Check vẫn giữ nguyên chữ "Kiểm tra đáp án", ấn lần nữa sẽ gọi triggerEnter -> nextQuestion
+    
     // Giao diện người dùng nhập (chuẩn Ảnh 1)
     let echo = document.getElementById('user-input-echo');
-    echo.innerText = rawInput;
+    echo.innerText = rawInput || "(Để trống)";
     echo.className = isCorrect ? 'correct-text' : 'wrong-text';
 
     if (isCorrect) { stats.correct++; } else { stats.wrong++; }
@@ -254,7 +264,7 @@ function showResult(isCorrect, rawInput) {
     if (currentModuleType === 'workout') {
         document.getElementById('standard-result-layout').style.display = 'none';
         document.getElementById('workout-result-layout').style.display = 'block';
-        document.getElementById('wo-user').innerText = rawInput;
+        document.getElementById('wo-user').innerText = rawInput || "(Không nhập)";
         document.getElementById('wo-sgk').innerText = currentQuestion.text_sgk || currentQuestion.hanzi || 'N/A';
         document.getElementById('wo-native').innerText = currentQuestion.text_native || 'N/A';
         document.getElementById('wo-explain').innerHTML = currentQuestion.goc_lao_su || 'Giao tiếp bản xứ.';
@@ -262,29 +272,50 @@ function showResult(isCorrect, rawInput) {
         document.getElementById('standard-result-layout').style.display = 'block';
         document.getElementById('workout-result-layout').style.display = 'none';
         
-        let hanziChar = currentQuestion.hanzi || currentQuestion.word;
+        let hanziChar = currentQuestion.hanzi || currentQuestion.word || "";
         document.getElementById('correct-hanzi').innerText = hanziChar;
         document.getElementById('correct-pinyin').innerText = currentQuestion.pinyin || '';
         
-        // 3 Badges Ảnh 1
-        document.getElementById('hanviet-text').innerText = currentQuestion.hanviet || 'N/A';
-        document.getElementById('radical-text').innerText = currentQuestion.radical || 'N/A';
-        document.getElementById('pos-text').innerText = currentQuestion.type || 'N/A';
+        // Logic Mode Hỏi Trung -> Gõ Việt (Hiện Nghĩa tiếng Việt thật to)
+        let mode = document.getElementById('study-mode').value;
+        let vTextDisplay = document.getElementById('correct-vietnamese-highlight');
+        if (mode === 'zh-vi') {
+            vTextDisplay.style.display = 'block';
+            vTextDisplay.innerText = currentQuestion.vietnamese || currentQuestion.meaning || currentQuestion.translation || 'Đang cập nhật...';
+        } else {
+            vTextDisplay.style.display = 'none';
+        }
+        
+        // 3 Badges Ảnh 1 (Fallback dữ liệu chống N/A)
+        document.getElementById('hanviet-text').innerText = currentQuestion.hanviet || 'Đang cập nhật...';
+        document.getElementById('radical-text').innerText = currentQuestion.radical || 'Đang cập nhật...';
+        document.getElementById('pos-text').innerText = currentQuestion.type || 'Đang cập nhật...';
         
         // Nghĩa và Ví dụ
-        let meaning = currentQuestion.vietnamese || currentQuestion.meaning || 'Chưa có nghĩa.';
+        let meaning = currentQuestion.vietnamese || currentQuestion.meaning || 'Đang cập nhật...';
         document.getElementById('usage-text').innerHTML = meaning;
-        document.getElementById('example-text').innerHTML = currentQuestion.example || 'N/A';
-        document.getElementById('laosu-text').innerHTML = currentQuestion.goc_lao_su || 'N/A';
+        document.getElementById('example-text').innerHTML = currentQuestion.example || 'Đang cập nhật...';
+        document.getElementById('laosu-text').innerHTML = currentQuestion.goc_lao_su || 'Đang cập nhật...';
 
-        // Lệnh vẽ Bút Thuận HanziWriter (Khi ấn nút)
+        // Lệnh vẽ Bút Thuận HanziWriter MỚI (Hỗ trợ Đa Chữ Hán)
         document.getElementById('hanzi-writer-container').innerHTML = '';
         document.getElementById('writer-btn').onclick = function() {
-            document.getElementById('hanzi-writer-container').innerHTML = '';
+            let container = document.getElementById('hanzi-writer-container');
+            container.innerHTML = '';
             if(hanziChar && hanziChar.length > 0) {
-                HanziWriter.create('hanzi-writer-container', hanziChar.charAt(0), {
-                    width: 140, height: 140, padding: 5, strokeAnimationSpeed: 1, delayBetweenStrokes: 100
-                }).loopCharacterAnimation();
+                for(let i=0; i<hanziChar.length; i++) {
+                    let char = hanziChar.charAt(i);
+                    // Chỉ vẽ các ký tự là chữ Hán
+                    if(/[\u4e00-\u9fa5]/.test(char)) {
+                        let div = document.createElement('div');
+                        div.id = 'writer-char-' + i;
+                        div.className = 'hanzi-char-box';
+                        container.appendChild(div);
+                        HanziWriter.create(div.id, char, {
+                            width: 100, height: 100, padding: 5, strokeAnimationSpeed: 1, delayBetweenStrokes: 100
+                        }).loopCharacterAnimation();
+                    }
+                }
             }
         };
     }
@@ -300,12 +331,13 @@ function showResult(isCorrect, rawInput) {
         if (!errorLedger.some(i => i.id === currentQuestion.id)) errorLedger.push(currentQuestion);
     }
     localStorage.setItem('hskErrorLedger', JSON.stringify(errorLedger));
-    checkErrorLedgerStatus(); // Cập nhật nút ôn tập dưới cùng
+    
+    // Cập nhật thẻ ôn tập nếu có câu sai
+    checkErrorLedgerStatus(); 
 
     setTimeout(() => { mascot.className = 'mascot-duck'; }, 1500);
     
-    // Auto Cuộn
-    document.getElementById('next-btn-bottom').focus(); // Chuyển focus sang nút Enter mới
+    // Auto Cuộn xuống khối kết quả để xem rõ
     resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -313,11 +345,6 @@ function nextQuestion() {
     currentIndex++; loadQuestion();
     document.getElementById('testing-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
-// Lắng nghe sự kiện Enter phụ cho nút Bottom
-document.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && isWaitingForNext) { e.preventDefault(); nextQuestion(); }
-});
 
 function formatTime(totalSeconds) {
     let h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');

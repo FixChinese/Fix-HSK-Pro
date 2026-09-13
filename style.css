@@ -38,7 +38,6 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .nav-item:hover { color: var(--primary-color); background: #f0fdf4; }
 .arrow { color: #9ca3af; font-size: 0.8rem; }
 
-/* Flyout Sang Phải */
 .flyout-right {
     position: absolute; top: 0; left: 100%; background: white; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transform: translateX(-10px); width: 180px; border: 1px solid #f3f4f6; display: flex; flex-direction: column;
@@ -53,14 +52,14 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .flyout-right li:hover::after { transform: scaleX(1); }
 
 /* =========================================================
-   CHƯƠNG 3: TRANG CHỦ & CẤU HÌNH (Sửa lỗi Ảnh 2)
+   CHƯƠNG 3: TRANG CHỦ & CẤU HÌNH
 ========================================================= */
 .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 10; }
 .card { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 30px; text-align: center; position: relative; cursor: pointer; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
 .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
 .card-icon { font-size: 3rem; margin-bottom: 15px; color: var(--primary-color); }
 
-/* Cấu hình bài tập GỌN GÀNG */
+/* Cấu hình bài tập */
 .config-panel { background: white; padding: 40px; border-radius: 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
 .config-title { font-size: 2rem; margin-bottom: 20px; color: #111827; }
 .config-controls { display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; }
@@ -72,13 +71,11 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .btn.warning { background: #f59e0b; } 
 
 /* =========================================================
-   CHƯƠNG 4: CHÚ VỊT VIDEO 1 GỐC & SFX ĐẸP
+   CHƯƠNG 4: CHÚ VỊT VIDEO 1 GỐC & SFX
 ========================================================= */
-/* Fix lỗi Icon trắng xóa Ảnh 2 */
 .sfx-toggle { position: fixed; bottom: 30px; left: 30px; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #f59e0b; box-shadow: 0 8px 25px rgba(0,0,0,0.15); cursor: pointer; border: 2px solid #fde68a; transition: 0.3s; }
 .sfx-toggle:hover { transform: scale(1.1); }
 
-/* Mascot Gốc Video 1 */
 .mascot-duck { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 70px; height: 70px; }
 .duck-head { width: 100%; height: 100%; background: #fbbf24; border-radius: 50%; position: relative; transition: 0.3s; animation: breathe 2s infinite alternate; border: 3px solid #f59e0b; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
 .duck-eye { position: absolute; top: 20px; width: 10px; height: 10px; background: #111; border-radius: 50%; animation: blink 4s infinite; transition: 0.3s;}
@@ -92,7 +89,6 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 @keyframes breathe { to { transform: translateY(-5px); } }
 @keyframes blink { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
 
-/* Pháo Trái tim */
 .heart-particle { position: fixed; color: #ef4444; font-size: 26px; animation: floatHeart 1.5s ease-out forwards; z-index: 9998; pointer-events: none;}
 @keyframes floatHeart { 0% { transform: translate(0, 0) scale(0.5); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; } }
 
@@ -119,29 +115,31 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .hint-buttons { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
 .hint-btn { padding: 10px 20px; border: 1px solid #e5e7eb; background: white; border-radius: 20px; cursor: pointer; color: #4b5563; font-weight: 600; }
 
-.tian-zi-ge { width: 100%; max-width: 500px; padding: 20px; font-size: 1.8rem; text-align: center; border: 3px solid #94a3b8; border-radius: 15px; margin: 0 auto 30px auto; background-image: linear-gradient(to right, transparent 49%, #cbd5e1 50%, transparent 51%), linear-gradient(to bottom, transparent 49%, #cbd5e1 50%, transparent 51%); background-size: 80px 80px; outline: none; }
+.tian-zi-ge { width: 100%; max-width: 500px; padding: 20px; font-size: 1.8rem; text-align: center; border: 3px solid #94a3b8; border-radius: 15px; margin: 0 auto 30px auto; background-image: linear-gradient(to right, transparent 49%, #cbd5e1 50%, transparent 51%), linear-gradient(to bottom, transparent 49%, #cbd5e1 50%, transparent 51%); background-size: 80px 80px; outline: none; transition: 0.3s;}
+.tian-zi-ge:focus { border-color: var(--primary-color); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
 
-/* Nút Xanh To Chuẩn Ảnh 1 */
+/* Nút Xanh To Cố định (Không đổi text) */
 .big-green-btn { width: 100%; max-width: 500px; background: #10b981; color: white; padding: 18px; font-size: 1.3rem; font-weight: bold; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); display: block; margin: 0 auto; transition: 0.2s;}
 .big-green-btn:hover { background: #059669; }
 
 /* =========================================================
    CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHỤC DỰNG 100% ẢNH 1)
 ========================================================= */
-/* Khung nét đứt Xanh lá */
-.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative;}
+.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative; margin-top: 30px;}
 .user-echo { color: #6b7280; font-size: 1.1rem; margin-bottom: 10px; }
 .wrong-text { color: #ef4444; border-bottom: 2px dashed #ef4444; }
 .correct-text { color: #10b981; border-bottom: 2px dashed #10b981; }
 
-.massive-text { font-size: 6rem; font-weight: bold; color: #1f2937; margin: 10px 0; line-height: 1; }
-.large-text { font-size: 2rem; color: #10b981; font-weight: bold; margin-bottom: 20px; }
+.hanzi-result-group { margin: 10px 0 20px 0; }
+.massive-text { font-size: 6rem; font-weight: bold; color: #10b981; line-height: 1; margin-bottom: 10px;}
+.large-text { font-size: 2rem; color: #10b981; font-weight: bold; }
+.vietnamese-highlight-text { font-size: 2.2rem; color: #f59e0b; font-weight: bold; margin-bottom: 10px; display: none;} /* Ẩn mặc định, chỉ hiện khi Hỏi Trung */
 
-/* Nút Bút thuận & Container */
+/* Nút Bút thuận & Container chữ đa nét */
 .writer-cta-btn { background: white; border: 2px solid #10b981; color: #10b981; padding: 10px 25px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
 .writer-cta-btn:hover { background: #ecfdf5; }
-#hanzi-writer-container { display: flex; justify-content: center; margin-top: 15px; }
-#hanzi-writer-container svg { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
+.writer-container-multi { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;}
+.hanzi-char-box { width: 100px; height: 100px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
 
 /* 3 Badges Hán Việt/Bộ thủ/Từ loại */
 .badge-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
@@ -161,7 +159,7 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .green-box .box-title { color: #059669; }
 
 /* Nút Ôn tập dưới cùng (Ảnh 1) */
-.btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; max-width: 500px; display: block; margin: 0 auto; transition: 0.2s; font-size: 1.1rem;}
+.btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1.1rem;}
 .btn-review-bottom:hover { background: #fee2e2; }
 
 /* =========================================================
