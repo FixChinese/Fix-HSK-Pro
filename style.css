@@ -1,5 +1,5 @@
 /* =========================================================
-   CHƯƠNG 1: TỔNG QUAN & THƯƠNG HIỆU
+   CHƯƠNG 1: TỔNG QUAN
 ========================================================= */
 :root {
     --bg-color: #f0fdf4; --primary-color: #10b981; --secondary-color: #0ea5e9;
@@ -53,53 +53,56 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .flyout-right li:hover::after { transform: scaleX(1); }
 
 /* =========================================================
-   CHƯƠNG 3: GAMIFICATION TRANG CHỦ
+   CHƯƠNG 3: TRANG CHỦ & CẤU HÌNH (Sửa lỗi Ảnh 2)
 ========================================================= */
 .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 10; }
 .card { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 30px; text-align: center; position: relative; cursor: pointer; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
 .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
 .card-icon { font-size: 3rem; margin-bottom: 15px; color: var(--primary-color); }
 
+/* Cấu hình bài tập GỌN GÀNG */
+.config-panel { background: white; padding: 40px; border-radius: 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.config-title { font-size: 2rem; margin-bottom: 20px; color: #111827; }
+.config-controls { display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.config-controls input, .config-controls select, .btn { padding: 14px 20px; border-radius: 12px; border: 1px solid #d1d5db; font-size: 1.1rem; outline: none; font-weight: 500;}
+.config-controls input { width: 100px; text-align: center;}
+.btn { cursor: pointer; font-weight: bold; color: white; border: none; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--primary-color); } 
+.btn.warning { background: #f59e0b; } 
+
 /* =========================================================
-   CHƯƠNG 4: CHÚ VỊT VIDEO 1 (GỐC ĐẸP NHẤT) & SFX
+   CHƯƠNG 4: CHÚ VỊT VIDEO 1 GỐC & SFX ĐẸP
 ========================================================= */
-.sfx-toggle { position: fixed; bottom: 30px; left: 30px; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #f59e0b; box-shadow: 0 8px 25px rgba(0,0,0,0.15); cursor: pointer; border: 1px solid #f59e0b; }
+/* Fix lỗi Icon trắng xóa Ảnh 2 */
+.sfx-toggle { position: fixed; bottom: 30px; left: 30px; z-index: 9999; width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: #f59e0b; box-shadow: 0 8px 25px rgba(0,0,0,0.15); cursor: pointer; border: 2px solid #fde68a; transition: 0.3s; }
+.sfx-toggle:hover { transform: scale(1.1); }
 
+/* Mascot Gốc Video 1 */
 .mascot-duck { position: fixed; bottom: 30px; right: 30px; z-index: 9999; width: 70px; height: 70px; }
-.duck-head { width: 100%; height: 100%; background: #fbbf24; border-radius: 50%; position: relative; transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); animation: breathe 2s infinite alternate; border: 3px solid #f59e0b; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-.duck-eye { position: absolute; top: 20px; width: 10px; height: 10px; background: #111; border-radius: 50%; animation: blink 4s infinite; }
+.duck-head { width: 100%; height: 100%; background: #fbbf24; border-radius: 50%; position: relative; transition: 0.3s; animation: breathe 2s infinite alternate; border: 3px solid #f59e0b; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
+.duck-eye { position: absolute; top: 20px; width: 10px; height: 10px; background: #111; border-radius: 50%; animation: blink 4s infinite; transition: 0.3s;}
 .duck-eye.left { left: 15px; } .duck-eye.right { right: 15px; }
-.duck-beak { position: absolute; top: 35px; left: 20px; width: 30px; height: 15px; background: #ea580c; border-radius: 10px; }
+.duck-beak { position: absolute; top: 35px; left: 20px; width: 30px; height: 15px; background: #ea580c; border-radius: 10px; transition: 0.3s;}
 
-/* Trạng thái đúng sai ĐƠN GIẢN, LÀM NỔI BẬT NÉT DỄ THƯƠNG (Không mây mưa) */
-.mascot-duck.correct .duck-head { transform: translateY(-30px) rotate(15deg); background: #fcd34d; }
-.mascot-duck.wrong .duck-head { transform: translateY(15px); background: #f87171; border-color: #dc2626;}
-.mascot-duck.wrong .duck-beak { background: #b91c1c; }
+.mascot-duck.correct .duck-head { transform: translateY(-20px) rotate(10deg); background: #fcd34d;}
+.mascot-duck.wrong .duck-head { transform: translateY(10px); background: #fca5a5; border-color: #ef4444; }
+.mascot-duck.wrong .duck-beak { background: #b91c1c; border-radius: 50%; width: 20px; left: 25px;}
 
 @keyframes breathe { to { transform: translateY(-5px); } }
 @keyframes blink { 0%, 96%, 98% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
 
 /* Pháo Trái tim */
-.heart-particle { position: fixed; color: #ef4444; font-size: 26px; animation: floatHeart 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; z-index: 9998; pointer-events: none;}
+.heart-particle { position: fixed; color: #ef4444; font-size: 26px; animation: floatHeart 1.5s ease-out forwards; z-index: 9998; pointer-events: none;}
 @keyframes floatHeart { 0% { transform: translate(0, 0) scale(0.5); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; } }
 
 /* =========================================================
-   CHƯƠNG 5: GIAO DIỆN LÀM BÀI CHUẨN VIDEO 1
+   CHƯƠNG 5: KHU VỰC CÂU HỎI
 ========================================================= */
-.config-panel { background: white; padding: 40px; border-radius: 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-.config-title { font-size: 2rem; margin-bottom: 20px; color: #111827; }
-.config-controls { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-.config-controls input, .config-controls select, .btn { padding: 14px 25px; border-radius: 12px; border: 1px solid #d1d5db; font-size: 1.1rem; outline: none; font-weight: 500;}
-.btn { cursor: pointer; font-weight: bold; color: white; border: none; transition: 0.2s;}
-.btn:hover { transform: translateY(-2px); }
-.btn.primary { background: var(--primary-color); } 
-.btn.warning { background: #f59e0b; } 
-
 .test-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 .test-title { font-size: 1.8rem; font-weight: bold; }
 .test-actions { display: flex; gap: 10px; }
-.action-btn { padding: 8px 15px; border: 1px solid #e5e7eb; background: white; border-radius: 8px; cursor: pointer; color: #4b5563; font-weight: bold; transition: 0.2s;}
-.action-btn:hover { background: #f3f4f6; }
+.action-btn { padding: 8px 15px; border: 1px solid #e5e7eb; background: white; border-radius: 8px; cursor: pointer; color: #4b5563; font-weight: bold; }
 
 .stats-bar { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px;}
 .stat-badge { padding: 5px 15px; border-radius: 20px; font-size: 0.95rem; font-weight: 500; border: 1px solid;}
@@ -112,42 +115,57 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .card-top { margin-bottom: 20px; text-align: left; }
 .hsk-badge { background: #dcfce7; color: #059669; padding: 5px 15px; border-radius: 15px; font-weight: bold; }
 
-.main-question { font-size: 3.5rem; font-weight: bold; color: #111827; margin: 20px 0 30px 0; }
+.main-question { font-size: 4rem; font-weight: bold; color: #111827; margin: 20px 0 30px 0; }
 .hint-buttons { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
 .hint-btn { padding: 10px 20px; border: 1px solid #e5e7eb; background: white; border-radius: 20px; cursor: pointer; color: #4b5563; font-weight: 600; }
 
-.tian-zi-ge { width: 100%; max-width: 500px; padding: 20px; font-size: 1.8rem; text-align: center; border: 3px solid #94a3b8; border-radius: 15px; margin: 0 auto 30px auto; background-image: linear-gradient(to right, transparent 49%, #cbd5e1 50%, transparent 51%), linear-gradient(to bottom, transparent 49%, #cbd5e1 50%, transparent 51%); background-size: 80px 80px; outline: none; transition: 0.3s;}
-.tian-zi-ge:focus { border-color: var(--primary-color); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+.tian-zi-ge { width: 100%; max-width: 500px; padding: 20px; font-size: 1.8rem; text-align: center; border: 3px solid #94a3b8; border-radius: 15px; margin: 0 auto 30px auto; background-image: linear-gradient(to right, transparent 49%, #cbd5e1 50%, transparent 51%), linear-gradient(to bottom, transparent 49%, #cbd5e1 50%, transparent 51%); background-size: 80px 80px; outline: none; }
 
-/* Nút Xanh To Khổng Lồ Chuẩn Video 1 */
-.big-green-btn { width: 100%; max-width: 500px; background: #10b981; color: white; padding: 18px; font-size: 1.3rem; font-weight: bold; border: none; border-radius: 15px; cursor: pointer; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); transition: 0.3s;}
-.big-green-btn:hover { background: #059669; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.6);}
-.big-green-btn.next { background: #3b82f6; box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); }
-.big-green-btn.next:hover { background: #2563eb; }
-
-/* Kết quả Chuẩn V5 */
-.result-section { border-top: 2px dashed #d1d5db; padding-top: 30px; text-align: center; margin-top: 20px;}
-.status-banner { display: inline-flex; align-items: center; padding: 8px 25px; border-radius: 20px; font-weight: bold; font-size: 1.2rem; color: white; margin-bottom: 15px; }
-.status-banner.wrong { background: #ef4444; } .status-banner.correct { background: #10b981; }
-.user-echo { color: #6b7280; margin-bottom: 20px; font-size: 1.1rem;}
-
-.answer-box { margin-bottom: 30px; background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px solid #e5e7eb;}
-.massive-text { font-size: 4.5rem; font-weight: bold; color: #10b981; margin-bottom: 5px; }
-.large-text { font-size: 2rem; color: #4b5563; font-weight: bold;}
-.normal-text { font-size: 1.3rem; color: #1f2937; margin-top: 10px; font-weight: bold;}
-
-/* Khung Bút Thuận Vẽ Nét */
-.writer-box { background: white; padding: 20px; border-radius: 15px; border: 1px dashed #cbd5e1; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
-#hanzi-writer-container { width: 160px; height: 160px; background: #f8fafc; border: 2px solid #e5e7eb; margin-top: 15px; border-radius: 10px; display: flex; justify-content: center; align-items: center;}
-
-/* Góc Lão Sư */
-.academic-info { text-align: left; }
-.info-box { padding: 20px; border-radius: 15px; margin-bottom: 15px; line-height: 1.6; font-size: 1.1rem;}
-.border-blue { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; }
-.bg-yellow { background: #fffbeb; border: 1px solid #fde68a; color: #92400e;}
+/* Nút Xanh To Chuẩn Ảnh 1 */
+.big-green-btn { width: 100%; max-width: 500px; background: #10b981; color: white; padding: 18px; font-size: 1.3rem; font-weight: bold; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); display: block; margin: 0 auto; transition: 0.2s;}
+.big-green-btn:hover { background: #059669; }
 
 /* =========================================================
-   CHƯƠNG 6: MA TRẬN 3 TẦNG (WORKOUT NGỮ CẢNH)
+   CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHỤC DỰNG 100% ẢNH 1)
+========================================================= */
+/* Khung nét đứt Xanh lá */
+.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative;}
+.user-echo { color: #6b7280; font-size: 1.1rem; margin-bottom: 10px; }
+.wrong-text { color: #ef4444; border-bottom: 2px dashed #ef4444; }
+.correct-text { color: #10b981; border-bottom: 2px dashed #10b981; }
+
+.massive-text { font-size: 6rem; font-weight: bold; color: #1f2937; margin: 10px 0; line-height: 1; }
+.large-text { font-size: 2rem; color: #10b981; font-weight: bold; margin-bottom: 20px; }
+
+/* Nút Bút thuận & Container */
+.writer-cta-btn { background: white; border: 2px solid #10b981; color: #10b981; padding: 10px 25px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
+.writer-cta-btn:hover { background: #ecfdf5; }
+#hanzi-writer-container { display: flex; justify-content: center; margin-top: 15px; }
+#hanzi-writer-container svg { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
+
+/* 3 Badges Hán Việt/Bộ thủ/Từ loại */
+.badge-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+.info-badge { border: 1px solid #10b981; color: #10b981; padding: 8px 20px; border-radius: 20px; font-weight: bold; background: white; }
+
+/* Các hộp thông tin (Vàng, Xanh dương, Xanh lá) */
+.info-box { padding: 25px; border-radius: 12px; margin-bottom: 20px; text-align: left; line-height: 1.6; font-size: 1.1rem;}
+.box-title { font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.15rem;}
+
+.yellow-box { background: #fffbeb; border-left: 5px solid #f59e0b; color: #92400e; }
+.yellow-box .box-title { color: #d97706; }
+
+.grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.blue-box { background: #eff6ff; border-left: 5px solid #3b82f6; color: #1e3a8a; height: 100%; margin-bottom: 0;}
+.blue-box .box-title { color: #2563eb; }
+.green-box { background: #ecfdf5; border-left: 5px solid #10b981; color: #065f46; height: 100%; margin-bottom: 0;}
+.green-box .box-title { color: #059669; }
+
+/* Nút Ôn tập dưới cùng (Ảnh 1) */
+.btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; max-width: 500px; display: block; margin: 0 auto; transition: 0.2s; font-size: 1.1rem;}
+.btn-review-bottom:hover { background: #fee2e2; }
+
+/* =========================================================
+   CHƯƠNG 7: MA TRẬN 3 TẦNG (WORKOUT NGỮ CẢNH) & THỐNG KÊ
 ========================================================= */
 .matrix-3-tier { text-align: left; margin-top: 20px; }
 .tier { padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid; background: #f8fafc; }
@@ -157,9 +175,7 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .tier-label { display: block; font-size: 1rem; color: #6b7280; margin-bottom: 8px; }
 .tier-content { font-size: 1.3rem; font-weight: bold; color: #111827; }
 
-/* =========================================================
-   CHƯƠNG 7: THỐNG KÊ CÁ NHÂN (DASHBOARD)
-========================================================= */
+/* Thống kê Dashboard */
 .stats-dashboard { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .dashboard-title { font-size: 2rem; color: #111827; margin-bottom: 30px; text-align: center; border-bottom: 2px solid #f3f4f6; padding-bottom: 20px;}
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -169,8 +185,5 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .error-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-weight: bold; border-left: 4px solid #ef4444;}
 .error-item-pinyin { display: block; color: #6b7280; font-size: 0.9rem; font-weight: normal; margin-top: 5px;}
 
-@media (max-width: 768px) {
-    .stats-grid { grid-template-columns: 1fr; }
-}
-
+@media (max-width: 768px) { .grid-2-cols { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

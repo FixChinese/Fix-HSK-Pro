@@ -6,7 +6,6 @@
     <title>FIX HSK 3.0 PRO - Thực Chiến Chuyên Sâu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Thư viện vẽ nét bút thuận -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body class="noselect">
@@ -18,7 +17,6 @@
             <nav class="main-nav" id="main-navigation">
                 <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
                 <ul class="nav-menu">
-                    <!-- 4 Thẻ đầu CÓ thẻ con HSK -->
                     <li class="nav-item">Từ vựng <i class="fa-solid fa-chevron-right arrow"></i>
                         <ul class="dropdown flyout-right">
                             <li onclick="loadModule('vocab', 1)">HSK 1</li><li onclick="loadModule('vocab', 2)">HSK 2</li>
@@ -51,7 +49,6 @@
                             <li onclick="loadModule('listening', '7_9')">HSK 7-9</li>
                         </ul>
                     </li>
-                    <!-- 2 Thẻ cuối KHÔNG CÓ thẻ con -->
                     <li class="nav-item" onclick="loadModule('workout', null)">Workout Ngữ cảnh</li>
                     <li class="nav-item" onclick="loadModule('stats', null)">Thống kê cá nhân</li>
                 </ul>
@@ -66,7 +63,7 @@
             </div>
         </header>
 
-        <!-- MÀN HÌNH CHÍNH (6 Thẻ Gamification) -->
+        <!-- MÀN HÌNH CHÍNH -->
         <main id="home-view" class="view-section active">
             <div class="grid-menu">
                 <div class="card hover-fireflies" onclick="loadModule('vocab', 1)"><div class="card-icon"><i class="fa-solid fa-book-open"></i></div><h3>Từ vựng</h3></div>
@@ -89,16 +86,14 @@
                     </div>
                     <div class="error-ledger-box">
                         <h3><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> Danh sách Từ/Câu cần ôn tập (Sai >2 lần)</h3>
-                        <div id="error-ledger-list" class="error-list-container">
-                            <!-- JS sẽ đổ danh sách câu sai vào đây -->
-                        </div>
-                        <button class="big-green-btn" onclick="startReview()" style="margin-top: 15px; padding: 10px; font-size: 1.2rem;">Ôn tập ngay bây giờ</button>
+                        <div id="error-ledger-list" class="error-list-container"></div>
+                        <button class="big-green-btn" onclick="startReview()" style="margin-top: 15px; padding: 15px; font-size: 1.2rem;">Ôn tập ngay bây giờ</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- MÀN HÌNH LÀM BÀI (Vocabulary, Grammar, Workout) -->
+        <!-- MÀN HÌNH LÀM BÀI -->
         <section id="workspace-view" class="view-section">
             
             <!-- Cấu hình bài tập -->
@@ -112,13 +107,11 @@
                         <option value="zh-zh">Chinese -> Chinese (Hỏi Trung, Gõ Pinyin ra Hán)</option>
                     </select>
                     <button class="btn primary" onclick="startTest()">Bắt đầu</button>
-                    <button class="btn warning" onclick="startReview()" id="review-btn" style="display:none;">Ôn tập câu sai</button>
                 </div>
+                <button class="btn-review-bottom" onclick="startReview()" id="review-btn" style="display:none; margin-top:20px; width:auto; display:inline-block;"><i class="fa-solid fa-arrows-rotate"></i> Ôn tập câu sai</button>
             </div>
 
-            <!-- Giao diện Làm bài & Kết quả -->
             <div id="testing-area" style="display: none;">
-                
                 <div class="test-header">
                     <h2 class="test-title" id="test-main-title">Học từ vựng</h2>
                     <div class="test-actions">
@@ -141,55 +134,60 @@
                         <span id="instruction-text" style="color: #6b7280; font-weight: bold; margin-left:10px;"></span>
                     </div>
                     
-                    <!-- Câu hỏi -->
                     <div class="main-question" id="question-display">Đang tải...</div>
                     
-                    <!-- Nút Gợi ý (Ẩn khi ở chế độ Workout) -->
                     <div class="hint-buttons" id="hint-buttons-group">
                         <button class="hint-btn" onclick="showPinyinHint()"><i class="fa-solid fa-lightbulb" style="color:#fbbf24;"></i> Bật mí Pinyin</button>
                         <button class="hint-btn" onclick="playAudioHint()"><i class="fa-solid fa-volume-high" style="color:#94a3b8;"></i> Nghe phát âm</button>
                     </div>
                     <div id="pinyin-hint-display" style="display:none; color:#10b981; font-size:1.2rem; font-weight:bold; margin-bottom:15px;"></div>
 
-                    <!-- Ô Nhập liệu -->
                     <input type="text" id="answer-input" class="tian-zi-ge" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
 
-                    <!-- Nút Xanh to chuẩn -->
+                    <!-- Nút Check (Bị ẩn đi khi hiện kết quả) -->
                     <button id="check-btn" class="big-green-btn" onclick="triggerEnter()">Kiểm tra Đáp án (Enter)</button>
 
-                    <!-- KHU VỰC KẾT QUẢ -->
-                    <div id="result-area" class="result-section" style="display: none;">
-                        <div class="status-banner" id="status-banner"></div>
+                    <!-- KHU VỰC KẾT QUẢ (PHỤC DỰNG THEO ẢNH 1) -->
+                    <div id="result-area" style="display: none; margin-top: 20px;">
                         
-                        <!-- Layout CHUẨN (Từ vựng, Ngữ pháp) -->
+                        <!-- Layout Standard (Từ vựng, Ngữ pháp) -->
                         <div id="standard-result-layout">
-                            <div class="user-echo">Bạn đã nhập: <strong id="user-input-echo"></strong></div>
-                            <div class="answer-box">
-                                <div id="correct-hanzi" class="massive-text"></div>
-                                <div id="correct-pinyin" class="large-text"></div>
-                                <div id="correct-meaning" class="normal-text"></div>
-                            </div>
-
-                            <!-- Khung vẽ bút thuận trực tiếp -->
-                            <div class="writer-box">
-                                <h4><i class="fa-solid fa-pen-fancy" style="color:#fbbf24;"></i> Hướng dẫn viết bút thuận:</h4>
+                            <!-- Khung đứt nét Ảnh 1 -->
+                            <div class="result-main-box">
+                                <div class="user-echo">Bạn đã nhập: <strong id="user-input-echo"></strong></div>
+                                <div id="correct-hanzi" class="massive-text">喝</div>
+                                <div id="correct-pinyin" class="large-text">hē</div>
+                                <button id="writer-btn" class="writer-cta-btn">✍️ Xem hướng dẫn viết nét trên Web</button>
                                 <div id="hanzi-writer-container"></div>
                             </div>
 
-                            <!-- Góc Lão Sư & Ví dụ -->
-                            <div class="academic-info">
-                                <div class="info-box border-blue" id="example-box">
-                                    <strong><i class="fa-solid fa-book-open"></i> Ví dụ thực tế:</strong>
-                                    <div id="usage-text" style="margin-top:10px; line-height:1.6;"></div>
+                            <!-- 3 Badges Ảnh 1 -->
+                            <div class="badge-row">
+                                <span class="info-badge">Hán Việt: <span id="hanviet-text">Hát</span></span>
+                                <span class="info-badge">Bộ thủ: <span id="radical-text">口 (Khẩu)</span></span>
+                                <span class="info-badge">Từ loại: <span id="pos-text">Động từ</span></span>
+                            </div>
+
+                            <!-- Khối Vàng Ảnh 1 -->
+                            <div class="info-box yellow-box">
+                                <div class="box-title"><i class="fa-solid fa-globe"></i> Mở rộng ý nghĩa & Ngữ dụng:</div>
+                                <div id="usage-text">Có bộ Khẩu liên quan đến miệng...</div>
+                            </div>
+
+                            <!-- Lưới 50:50 Ảnh 1 -->
+                            <div class="grid-2-cols">
+                                <div class="info-box blue-box">
+                                    <div class="box-title"><i class="fa-solid fa-book-open"></i> Câu ví dụ thực tế:</div>
+                                    <div id="example-text">你想喝茶吗？</div>
                                 </div>
-                                <div class="info-box bg-yellow" id="laosu-box">
-                                    <strong><i class="fa-solid fa-chalkboard-user"></i> Góc Lão Sư:</strong>
-                                    <div id="laosu-text" style="margin-top:10px; line-height:1.6;"></div>
+                                <div class="info-box green-box">
+                                    <div class="box-title"><i class="fa-solid fa-chalkboard-user"></i> Góc Lão Sư:</div>
+                                    <div id="laosu-text">Người Trung Quốc có văn hóa...</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Layout WORKOUT NGỮ CẢNH (Ma trận 3 tầng) -->
+                        <!-- Layout Workout Ngữ cảnh -->
                         <div id="workout-result-layout" style="display: none;" class="matrix-3-tier">
                             <div class="tier user-tier">
                                 <strong class="tier-label"><i class="fa-solid fa-user"></i> 1. Câu của bạn:</strong>
@@ -203,21 +201,25 @@
                                 <strong class="tier-label"><i class="fa-solid fa-fire"></i> 3. Khẩu ngữ Bản xứ (Thực chiến):</strong>
                                 <div class="tier-content" id="wo-native"></div>
                             </div>
-                            <div class="info-box bg-yellow" style="margin-top: 15px; text-align: left;">
-                                <strong><i class="fa-solid fa-chalkboard-user"></i> Giải thích Văn hóa / Góc Lão Sư:</strong>
-                                <div id="wo-explain" style="margin-top:10px; line-height:1.6;"></div>
+                            <div class="info-box green-box" style="margin-top: 15px;">
+                                <div class="box-title"><i class="fa-solid fa-chalkboard-user"></i> Giải thích Văn hóa / Góc Lão Sư:</div>
+                                <div id="wo-explain"></div>
                             </div>
                         </div>
+
+                        <!-- Các nút bottom Ảnh 1 -->
+                        <button id="next-btn-bottom" class="big-green-btn" onclick="nextQuestion()" style="margin-top: 20px;">Tiếp tục ➔ (Enter)</button>
+                        <button id="review-btn-bottom" class="btn-review-bottom" onclick="startReview()" style="display:none; margin-top: 15px;"><i class="fa-solid fa-arrows-rotate"></i> Ôn tập lại các câu sai (<span id="review-count-bottom">0</span>)</button>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Nút Âm thanh -->
+    <!-- Nút Loa/Pháo góc trái (Fix vòng tròn đẹp, hết bị vuông trắng) -->
     <div class="sfx-toggle" id="sfx-btn"><i class="fa-solid fa-party-horn"></i></div>
 
-    <!-- CHÚ VỊT (Thiết kế gốc Video 1: Đẹp, nhí nhảnh, KHÔNG MÂY MƯA) -->
+    <!-- CHÚ VỊT (Thiết kế y hệt Video 1: Đẹp, đơn giản, KHÔNG ĐÁM MÂY) -->
     <div id="effects-container"></div>
     <div class="mascot-duck" id="mascot">
         <div class="duck-head">
