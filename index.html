@@ -6,7 +6,6 @@
     <title>FIX HSK 3.0 PRO - Thực Chiến Chuyên Sâu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Nhúng thư viện Bút thuận Hanzi Writer -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body class="noselect">
@@ -14,7 +13,6 @@
         
         <!-- HEADER -->
         <header class="top-bar">
-            <!-- Menu Điều hướng -->
             <nav class="main-nav" id="main-navigation">
                 <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
                 <ul class="nav-menu">
@@ -101,7 +99,7 @@
             <div class="config-panel" id="config-panel">
                 <h2 id="module-title" class="config-title">Cấu hình bài tập</h2>
                 <div class="config-controls">
-                    <input type="number" id="question-limit" value="20" min="1" step="5">
+                    <input type="number" id="question-limit" value="20" min="1">
                     <select id="study-mode">
                         <option value="vi-zh">Vietnamese -> Chinese (Hỏi Việt, Gõ Trung)</option>
                         <option value="zh-vi">Chinese -> Vietnamese (Hỏi Trung, Gõ Việt)</option>
@@ -116,7 +114,6 @@
                 <div class="test-header">
                     <h2 class="test-title" id="test-main-title">Học từ vựng</h2>
                     <div class="test-actions">
-                        <!-- Sửa lỗi nút cấu hình bị out trang -->
                         <button class="action-btn" onclick="showConfig()"><i class="fa-solid fa-gear"></i> Cấu hình</button>
                         <button class="action-btn" onclick="startTest()"><i class="fa-solid fa-shuffle"></i> Trộn bài</button>
                     </div>
@@ -146,44 +143,39 @@
 
                     <input type="text" id="answer-input" class="tian-zi-ge" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
 
-                    <!-- Nút Check - LUÔN LÀ "Kiểm tra đáp án" -->
+                    <!-- Nút Kiểm tra Đáp án Cố định Text -->
                     <button id="check-btn" class="big-green-btn" onclick="triggerEnter()">Kiểm tra đáp án</button>
 
-                    <!-- KHU VỰC KẾT QUẢ (PHỤC DỰNG BỐ CỤC ẢNH 1) -->
+                    <!-- KHU VỰC KẾT QUẢ -->
                     <div id="result-area" style="display: none; margin-top: 20px;">
                         
                         <!-- Layout Standard (Từ vựng, Ngữ pháp) -->
                         <div id="standard-result-layout">
-                            <!-- Khung đứt nét Xanh lá (Ảnh 1) -->
                             <div class="result-main-box">
+                                <div class="status-banner" id="status-banner"></div>
                                 <div class="user-echo">Bạn đã nhập: <strong id="user-input-echo"></strong></div>
                                 
                                 <div class="hanzi-result-group">
                                     <div id="correct-hanzi" class="massive-text"></div>
-                                    <!-- Tiếng Việt bôi đậm (Dùng khi Hỏi Trung Gõ Việt) -->
                                     <div id="correct-vietnamese-highlight" class="vietnamese-highlight-text"></div>
                                     <div id="correct-pinyin" class="large-text"></div>
                                 </div>
                                 
-                                <button id="writer-btn" class="writer-cta-btn">✍️ Xem hướng dẫn viết nét trên Web</button>
-                                <!-- Vùng chứa đa chữ Hán -->
+                                <button id="writer-btn" class="writer-cta-btn">✍️ Xem hướng dẫn viết nét</button>
                                 <div id="hanzi-writer-container" class="writer-container-multi"></div>
                             </div>
 
-                            <!-- 3 Badges Ảnh 1 -->
                             <div class="badge-row">
                                 <span class="info-badge">Hán Việt: <span id="hanviet-text">Đang cập nhật</span></span>
                                 <span class="info-badge">Bộ thủ: <span id="radical-text">Đang cập nhật</span></span>
                                 <span class="info-badge">Từ loại: <span id="pos-text">Đang cập nhật</span></span>
                             </div>
 
-                            <!-- Khối Vàng Ảnh 1 -->
                             <div class="info-box yellow-box">
                                 <div class="box-title"><i class="fa-solid fa-globe"></i> Mở rộng ý nghĩa & Ngữ dụng:</div>
                                 <div id="usage-text"></div>
                             </div>
 
-                            <!-- Lưới 50:50 Ảnh 1 -->
                             <div class="grid-2-cols">
                                 <div class="info-box blue-box">
                                     <div class="box-title"><i class="fa-solid fa-book-open"></i> Câu ví dụ thực tế:</div>
@@ -198,6 +190,7 @@
 
                         <!-- Layout Workout Ngữ cảnh -->
                         <div id="workout-result-layout" style="display: none;" class="matrix-3-tier">
+                            <div class="status-banner" id="wo-status-banner"></div>
                             <div class="tier user-tier">
                                 <strong class="tier-label"><i class="fa-solid fa-user"></i> 1. Câu của bạn:</strong>
                                 <div class="tier-content" id="wo-user"></div>
@@ -216,15 +209,19 @@
                             </div>
                         </div>
 
+                        <!-- Nút Ôn tập sai hiển thị ở cuối -->
+                        <button id="review-btn-bottom" class="btn-review-bottom" onclick="startReview()" style="display:none; margin-top: 15px;"><i class="fa-solid fa-arrows-rotate"></i> Ôn tập lại các câu sai (<span id="review-count-bottom">0</span>)</button>
+
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
+    <!-- Nút Loa/Pháo góc trái -->
     <div class="sfx-toggle" id="sfx-btn"><i class="fa-solid fa-party-horn"></i></div>
 
-    <!-- CHÚ VỊT -->
+    <!-- CHÚ VỊT VIDEO 1 -->
     <div id="effects-container"></div>
     <div class="mascot-duck" id="mascot">
         <div class="duck-head">

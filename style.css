@@ -59,7 +59,6 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
 .card-icon { font-size: 3rem; margin-bottom: 15px; color: var(--primary-color); }
 
-/* Cấu hình bài tập */
 .config-panel { background: white; padding: 40px; border-radius: 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
 .config-title { font-size: 2rem; margin-bottom: 20px; color: #111827; }
 .config-controls { display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; }
@@ -118,34 +117,35 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .tian-zi-ge { width: 100%; max-width: 500px; padding: 20px; font-size: 1.8rem; text-align: center; border: 3px solid #94a3b8; border-radius: 15px; margin: 0 auto 30px auto; background-image: linear-gradient(to right, transparent 49%, #cbd5e1 50%, transparent 51%), linear-gradient(to bottom, transparent 49%, #cbd5e1 50%, transparent 51%); background-size: 80px 80px; outline: none; transition: 0.3s;}
 .tian-zi-ge:focus { border-color: var(--primary-color); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
 
-/* Nút Xanh To Cố định (Không đổi text) */
 .big-green-btn { width: 100%; max-width: 500px; background: #10b981; color: white; padding: 18px; font-size: 1.3rem; font-weight: bold; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); display: block; margin: 0 auto; transition: 0.2s;}
 .big-green-btn:hover { background: #059669; }
 
 /* =========================================================
-   CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHỤC DỰNG 100% ẢNH 1)
+   CHƯƠNG 6: KHU VỰC KẾT QUẢ (PHỤC DỰNG BỐ CỤC ẢNH 1)
 ========================================================= */
-.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative; margin-top: 30px;}
-.user-echo { color: #6b7280; font-size: 1.1rem; margin-bottom: 10px; }
-.wrong-text { color: #ef4444; border-bottom: 2px dashed #ef4444; }
-.correct-text { color: #10b981; border-bottom: 2px dashed #10b981; }
+.result-main-box { border: 2px dashed #10b981; border-radius: 15px; padding: 30px; text-align: center; background: white; margin-bottom: 20px; position: relative; margin-top: 20px;}
+.user-echo { color: #6b7280; font-size: 1.1rem; margin-bottom: 20px; }
+.wrong-text { color: #ef4444; font-weight: bold; }
+.correct-text { color: #10b981; font-weight: bold; }
+
+/* ĐÚNG / SAI Banner */
+.status-banner { display: inline-block; padding: 10px 40px; border-radius: 30px; font-weight: bold; font-size: 1.5rem; color: white; margin-bottom: 20px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.status-banner.wrong { background: #ef4444; } .status-banner.correct { background: #10b981; }
 
 .hanzi-result-group { margin: 10px 0 20px 0; }
 .massive-text { font-size: 6rem; font-weight: bold; color: #10b981; line-height: 1; margin-bottom: 10px;}
-.large-text { font-size: 2rem; color: #10b981; font-weight: bold; }
-.vietnamese-highlight-text { font-size: 2.2rem; color: #f59e0b; font-weight: bold; margin-bottom: 10px; display: none;} /* Ẩn mặc định, chỉ hiện khi Hỏi Trung */
+.large-text { font-size: 2rem; color: #10b981; font-weight: bold; margin-bottom: 15px;}
+.vietnamese-highlight-text { font-size: 2.2rem; color: #f59e0b; font-weight: bold; margin-top: 10px; background: #fffbeb; padding: 10px 20px; border-radius: 15px; display: inline-block;} 
 
-/* Nút Bút thuận & Container chữ đa nét */
-.writer-cta-btn { background: white; border: 2px solid #10b981; color: #10b981; padding: 10px 25px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
+.writer-cta-btn { background: white; border: 2px solid #10b981; color: #10b981; padding: 10px 25px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; margin-bottom: 15px;}
 .writer-cta-btn:hover { background: #ecfdf5; }
-.writer-container-multi { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;}
-.hanzi-char-box { width: 100px; height: 100px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
+.writer-container-multi { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap;}
+.hanzi-char-box { width: 90px; height: 90px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;}
 
 /* 3 Badges Hán Việt/Bộ thủ/Từ loại */
 .badge-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
 .info-badge { border: 1px solid #10b981; color: #10b981; padding: 8px 20px; border-radius: 20px; font-weight: bold; background: white; }
 
-/* Các hộp thông tin (Vàng, Xanh dương, Xanh lá) */
 .info-box { padding: 25px; border-radius: 12px; margin-bottom: 20px; text-align: left; line-height: 1.6; font-size: 1.1rem;}
 .box-title { font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.15rem;}
 
@@ -158,8 +158,8 @@ body { background: linear-gradient(135deg, var(--bg-color) 0%, #dcfce7 100%); co
 .green-box { background: #ecfdf5; border-left: 5px solid #10b981; color: #065f46; height: 100%; margin-bottom: 0;}
 .green-box .box-title { color: #059669; }
 
-/* Nút Ôn tập dưới cùng (Ảnh 1) */
-.btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1.1rem;}
+/* Nút Ôn tập dưới cùng */
+.btn-review-bottom { background: #fff1f2; color: #ef4444; border: 1px solid #fecaca; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1.1rem; width: 100%; max-width: 500px; display: block; margin: 0 auto;}
 .btn-review-bottom:hover { background: #fee2e2; }
 
 /* =========================================================
