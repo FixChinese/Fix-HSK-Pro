@@ -1,48 +1,163 @@
-{
-  "workout_metadata": {
-    "description": "Kho Kịch bản hội thoại, đoạn văn và thực chiến HSK 3.0",
-    "target": "Interactive reading and listening practice"
+[
+  {
+    "id": "wk_001",
+    "category": "workout",
+    "level": "Công sở",
+    "prompt_vn": "Bản báo cáo này sếp xem chưa? Sắp tới hạn chót rồi đấy.",
+    "textbook_cn": "经理看这个报告了吗？快到截止日期了。",
+    "textbook_py": "Jīnglǐ kàn zhège bàogào le ma? Kuài dào jiézhǐ rìqī le.",
+    "native_cn": "老板，这份报告您过目了吗？马上就 DDL 了。",
+    "native_py": "Lǎobǎn, zhè fèn bàogào nín guòmù le ma? Mǎshàng jiù DDL le.",
+    "goc_lao_su": "Phân tích tư duy: Người Việt hay dịch 'sếp' là 经理 (quản lý) và 'hạn chót' là 截止日期. Trong thực tế, gọi '老板' (lão bản) tạo sự gần gũi; dùng '过目' (quá mục - xem qua/duyệt) thể hiện sự tôn trọng cấp trên. Giới công sở Trung Quốc đặc biệt hay dùng từ mượn 'DDL' (Deadline) thay cho từ thuần Trung.",
+    "keywords": [
+      "老板",
+      "过目",
+      "报告",
+      "DDL"
+    ]
   },
-  "scenarios": [
-    {
-      "id": "scenario_001",
-      "level": "HSK 1-2",
-      "topic": "daily",
-      "title": "Làm quen và hỏi thăm sức khỏe",
-      "dialogue": [
-        {
-          "speaker": "A",
-          "cn": "你好！最近工作忙吗？",
-          "py": "Nǐ hǎo! Zuìjìn gōngzuò máng ma?",
-          "vn": "Xin chào! Dạo này công việc bận không?"
-        },
-        {
-          "speaker": "B",
-          "cn": "挺忙的，但是很高兴。",
-          "py": "Tǐng máng de, dànshì hěn gāoxìng.",
-          "vn": "Khá bận, nhưng rất vui."
-        }
-      ]
-    },
-    {
-      "id": "scenario_002",
-      "level": "HSK 3-4",
-      "topic": "work",
-      "title": "Thảo luận công việc văn phòng",
-      "dialogue": [
-        {
-          "speaker": "A",
-          "cn": "把这份文件发给经理，别忘了。",
-          "py": "Bǎ zhè fèn wénjiàn fā gěi jīnglǐ, bié wàngle.",
-          "vn": "Hãy gửi tập tài liệu này cho giám đốc, đừng quên nhé."
-        },
-        {
-          "speaker": "B",
-          "cn": "好的，我马上处理好。",
-          "py": "Hǎo de, wǒ mǎshàng chǔlǐ hǎo.",
-          "vn": "Vâng, tôi xử lý xong ngay đây."
-        }
-      ]
-    }
-  ]
-}
+  {
+    "id": "wk_002",
+    "category": "workout",
+    "level": "Đời sống",
+    "prompt_vn": "Món này mặn quá, đổi cho tôi đĩa khác được không?",
+    "textbook_cn": "这个菜太咸了，可以给我换一盘吗？",
+    "textbook_py": "Zhège cài tài xián le, kěyǐ gěi wǒ huàn yì pán ma?",
+    "native_cn": "师傅，这菜太咸了，能重做一份吗？",
+    "native_py": "Shīfu, zhè cài tài xián le, néng chóng zuò yí fèn ma?",
+    "goc_lao_su": "Người Việt có thói quen gọi 'phục vụ' (服务员) và yêu cầu 'đổi đĩa' (换一盘). Tuy nhiên ở quán ăn bản xứ, gọi '师傅' (Sư phụ/anh ơi/chú ơi) sẽ thân thiện hơn. Với đồ ăn bị hỏng vị, người ta dùng '重做' (chóng zuò - làm lại) thay vì 'đổi' (vì đổi đĩa thì thức ăn vẫn thế).",
+    "keywords": [
+      "师傅",
+      "太咸",
+      "重做"
+    ]
+  },
+  {
+    "id": "wk_003",
+    "category": "workout",
+    "level": "Giao tiếp xã hội",
+    "prompt_vn": "Cuối tuần này tôi bận rồi, để khi khác nhé.",
+    "textbook_cn": "这个周末我很忙，下次吧。",
+    "textbook_py": "Zhège zhōumò wǒ hěn máng, xià cì ba.",
+    "native_cn": "这周末有点事儿，改天再约吧。",
+    "native_py": "Zhè zhōumò yǒu diǎn shìr, gǎi tiān zài yuē ba.",
+    "goc_lao_su": "Nói '我很忙' (tôi rất bận) đôi khi hơi thô và tạo cảm giác xa cách. Người Trung Quốc chuộng lối nói giảm nói tránh: '有点事儿' (có chút việc). Thay vì '下次' (lần sau), cụm từ '改天再约' (đổi ngày khác hẹn lại nhé) là câu từ chối khéo kinh điển và lịch sự nhất.",
+    "keywords": [
+      "有点事儿",
+      "改天",
+      "再约"
+    ]
+  },
+  {
+    "id": "wk_004",
+    "category": "workout",
+    "level": "Mạng xã hội / Gen Z",
+    "prompt_vn": "Trò chơi này đỉnh thật sự, tôi chơi cả ngày không chán.",
+    "textbook_cn": "这个游戏非常好玩，我玩了一天也不觉得无聊。",
+    "textbook_py": "Zhège yóuxì fēicháng hǎowán, wǒ wán le yì tiān yě bù juéde wúliáo.",
+    "native_cn": "这游戏太绝了，我肝了一整天都不腻。",
+    "native_py": "Zhè yóuxì tài jué le, wǒ gān le yì zhěng tiān dōu bú nì.",
+    "goc_lao_su": "Tư duy khẩu ngữ mạng: '绝' (Tuyệt) dùng thay cho '好玩' để khen một thứ gì đó vô cùng đỉnh. Từ '肝' (Can - lá gan) được giới trẻ dùng như động từ chỉ việc 'cày cuốc' mệt mài (cày game, cày phim). '不腻' (không ngán) tự nhiên hơn rất nhiều so với '不觉得无聊'.",
+    "keywords": [
+      "太绝了",
+      "肝",
+      "不腻"
+    ]
+  },
+  {
+    "id": "wk_005",
+    "category": "workout",
+    "level": "Công sở",
+    "prompt_vn": "Vừa nãy tôi đang họp nên không nghe máy được. Bạn tìm tôi có việc gì không?",
+    "textbook_cn": "刚才我在开会，所以没接电话。你找我有什么事吗？",
+    "textbook_py": "Gāngcái wǒ zài kāihuì, suǒyǐ méi jiē diànhuà. Nǐ zhǎo wǒ yǒu shénme shì ma?",
+    "native_cn": "刚开会呢，没顾上接。找我啥事儿？",
+    "native_py": "Gāng kāihuì ne, méi gù shàng jiē. Zhǎo wǒ shá shìr?",
+    "goc_lao_su": "Câu Sách giáo khoa quá rườm rà. Trong văn nói, người ta thường rút gọn '刚才' thành '刚'. Cụm '没顾上接' (không kịp đoái hoài để nghe máy) thể hiện sự bận rộn rất chân thực. Ở phương Bắc Trung Quốc, '啥事儿' (việc gì) được dùng thay thế hoàn toàn cho '什么事'.",
+    "keywords": [
+      "刚",
+      "没顾上",
+      "啥事儿"
+    ]
+  },
+  {
+    "id": "wk_006",
+    "category": "workout",
+    "level": "Đời sống",
+    "prompt_vn": "Phục vụ, tính tiền! Chúng tôi chia ra trả nhé (Campuchia).",
+    "textbook_cn": "服务员，结账！我们每个人自己付钱。",
+    "textbook_py": "Fúwùyuán, jiézhàng! Wǒmen měi gè rén zìjǐ fù qián.",
+    "native_cn": "老板，买单！咱们 AA 吧。",
+    "native_py": "Lǎobǎn, mǎidān! Zánmen AA ba.",
+    "goc_lao_su": "Hiện nay ở Trung Quốc, '买单' (mǎi dān - mua đơn) phổ biến hơn '结账' trong các nhà hàng. Và để nói việc chia đều tiền (tiếng Việt hay gọi vui là Campuchia), khẩu ngữ Trung Quốc mượn từ tiếng Anh: 'AA制' hoặc nói ngắn gọn là 'AA 吧'.",
+    "keywords": [
+      "买单",
+      "咱们",
+      "AA"
+    ]
+  },
+  {
+    "id": "wk_007",
+    "category": "workout",
+    "level": "Giao tiếp xã hội",
+    "prompt_vn": "Đừng căng thẳng quá, cứ làm hết sức mình là được.",
+    "textbook_cn": "不要太紧张，尽你的最大努力就可以了。",
+    "textbook_py": "Bú yào tài jǐnzhāng, jìn nǐ de zuì dà nǔlì jiù kěyǐ le.",
+    "native_cn": "别太紧张，尽力而为就行。",
+    "native_py": "Bié tài jǐnzhāng, jìnlì ér wéi jiù xíng.",
+    "goc_lao_su": "Thay vì dùng cấu trúc cụm danh từ dài dòng '尽你的最大努力' (cố gắng hết mức lớn nhất của bạn), người bản xứ thích dùng thành ngữ 4 chữ '尽力而为' (Tận lực nhi vi - làm hết sức có thể) kết hợp với từ '就行' (là được rồi) để câu văn súc tích và có nhịp điệu hơn.",
+    "keywords": [
+      "别",
+      "尽力而为",
+      "就行"
+    ]
+  },
+  {
+    "id": "wk_008",
+    "category": "workout",
+    "level": "Đời sống",
+    "prompt_vn": "Xin lỗi tôi đến muộn, trên đường bị tắc đường kinh khủng.",
+    "textbook_cn": "对不起我来晚了，路上堵车堵得很厉害。",
+    "textbook_py": "Duìbuqǐ wǒ lái wǎn le, lùshang dǔchē dǔ de hěn lìhai.",
+    "native_cn": "不好意思迟到了，路上堵得水泄不通。",
+    "native_py": "Bù hǎoyìsi chídào le, lùshang dǔ de shuǐxièbùtōng.",
+    "goc_lao_su": "Trong giao tiếp thường ngày, đến muộn thường dùng '不好意思' thay cho '对不起' (quá nặng nề). Để miêu tả kẹt xe cực độ, người Trung Quốc chuộng dùng thành ngữ '水泄不通' (Thủy tiết bất thông - Nước chảy cũng không lọt) làm bổ ngữ trình độ cho chữ '堵' (tắc).",
+    "keywords": [
+      "不好意思",
+      "迟到",
+      "水泄不通"
+    ]
+  },
+  {
+    "id": "wk_009",
+    "category": "workout",
+    "level": "Mua sắm",
+    "prompt_vn": "Đắt quá, giảm giá một chút đi, tôi sẽ mua nhiều.",
+    "textbook_cn": "太贵了，便宜一点吧，我会买很多。",
+    "textbook_py": "Tài guì le, piányi yìdiǎn ba, wǒ huì mǎi hěn duō.",
+    "native_cn": "太贵了，给算便宜点儿呗，我都拿好几个了。",
+    "native_py": "Tài guì le, gěi suàn piányi diǎnr bei, wǒ dōu ná hǎo jǐ gè le.",
+    "goc_lao_su": "Từ '呗' (bei) đặt ở cuối câu dùng để nài nỉ, mặc cả rất tự nhiên. Cụm '算便宜点' nghĩa là 'tính rẻ đi một chút'. Người đi buôn hay mua sắm ở Trung Quốc thường dùng chữ '拿' (cầm/lấy) thay cho '买' (mua), tạo cảm giác sành sỏi, quen mặt.",
+    "keywords": [
+      "算便宜",
+      "呗",
+      "拿好几个"
+    ]
+  },
+  {
+    "id": "wk_010",
+    "category": "workout",
+    "level": "Giao tiếp xã hội",
+    "prompt_vn": "Không nói chuyện với bạn nữa, tôi phải đi làm việc rồi.",
+    "textbook_cn": "不跟你说话了，我要去工作了。",
+    "textbook_py": "Bù gēn nǐ shuōhuà le, wǒ yào qù gōngzuò le.",
+    "native_cn": "不跟你瞎扯了，我得干活儿去了。",
+    "native_py": "Bù gēn nǐ xiā chě le, wǒ děi gàn huór qù le.",
+    "goc_lao_su": "Sự khác biệt rõ nét của khẩu ngữ: '瞎扯' (xiā chě - nói nhảm/chém gió) thay cho '说话' tạo sự thân thiết giữa bạn bè. Dùng trợ động từ '得' (děi - phải) thay cho '要'. Và đặc biệt '干活儿' (gàn huór - cày cuốc, làm việc) nghe đời thường và tự nhiên hơn hẳn từ '工作' (công tác) cứng nhắc.",
+    "keywords": [
+      "瞎扯",
+      "得",
+      "干活儿"
+    ]
+  }
+]

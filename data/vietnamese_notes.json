@@ -1,22 +1,212 @@
-{
-  "notes_metadata": {
-    "description": "Kho Đa tầng nghĩa & Mẹo Góc Lão Sư bổ trợ cho hệ thống HSK 3.0",
-    "target": "Vietnamese learners"
+[
+  {
+    "id": "vn_note_001",
+    "category": "grammar_note",
+    "level": "Cơ bản",
+    "title_vn": "Vị trí của Trạng ngữ chỉ Thời gian và Địa điểm",
+    "structure_cn": "Chủ ngữ + (Thời gian) + (Tại Địa điểm) + Động từ + Tân ngữ",
+    "comparison_vi_zh": "Trong tiếng Việt, trạng ngữ chỉ thời gian và địa điểm rất linh hoạt, thường được đặt ở cuối câu (Ví dụ: Tôi học tiếng Trung ở trường vào buổi sáng). Ngược lại, tiếng Trung BẮT BUỘC đặt Thời gian và Địa điểm ở TRƯỚC động từ hành động.",
+    "goc_lao_su": "Đây là lỗi tư duy phổ biến nhất. Tư duy không gian - thời gian của người Trung Quốc là 'Bối cảnh xảy ra trước, Hành động xảy ra sau'. Bạn phải xác định thời gian (早上) và địa điểm (在学校) trước khi hành động học (学) diễn ra. Tuyệt đối không dịch word-by-word đưa địa điểm ra cuối câu.",
+    "examples": [
+      {
+        "cn": "我早上在学校学中文。",
+        "py": "Wǒ zǎoshang zài xuéxiào xué zhōngwén.",
+        "vn": "Tôi học tiếng Trung ở trường vào buổi sáng."
+      },
+      {
+        "cn": "我们明天在咖啡馆见面。",
+        "py": "Wǒmen míngtiān zài kāfēiguǎn jiànmiàn.",
+        "vn": "Ngày mai chúng ta gặp nhau ở quán cà phê."
+      }
+    ]
   },
-  "items": [
-    {
-      "id": "note_001",
-      "level": "HSK 1-2",
-      "keyword": "想",
-      "multilevel_meaning": "1. Trợ động từ: Muốn, dự định (想去北京). 2. Động từ biểu cảm: Nhớ nhung (我很想家). 3. Động từ tư duy: Suy nghĩ, cân nhắc (让我想一想).",
-      "lao_shi_tip": "Người Việt dùng một từ 'Nhớ' cho cả nhớ nhung và ghi nhớ, nhưng tiếng Trung tách bạch tuyệt đối: Nhớ nhung dùng '想', ghi nhớ bằng não bộ dùng '记住'."
-    },
-    {
-      "id": "note_002",
-      "level": "HSK 1-3",
-      "keyword": "好",
-      "multilevel_meaning": "1. Tính từ: Tốt, khỏe, ngon (天气很好). 2. Bổ ngữ kết quả (V + 好): Hoàn tất, xong xuôi (准备好). 3. Phó từ khẩu ngữ: Rất, quá (好冷).",
-      "lao_shi_tip": "Khi đứng sau động từ như 做好, 好 không dịch là 'tốt' mà chỉ trạng thái hoàn tất: 'làm xong rồi'."
-    }
-  ]
-}
+  {
+    "id": "vn_note_002",
+    "category": "grammar_note",
+    "level": "Cơ bản",
+    "title_vn": "Cấu trúc Định ngữ và Cụm danh từ với trợ từ 的 (de)",
+    "structure_cn": "Định ngữ (Thành phần phụ / Bổ nghĩa) + 的 + Trung tâm ngữ (Danh từ chính)",
+    "comparison_vi_zh": "Tiếng Việt sắp xếp theo trật tự: Danh từ chính + Tính từ/Sở hữu (Ví dụ: Cuốn sách của tôi, Cô gái xinh đẹp). Tiếng Trung đi ngược lại hoàn toàn: Thành phần phụ bổ nghĩa BẮT BUỘC phải đứng trước danh từ chính và nối bằng chữ 的.",
+    "goc_lao_su": "Tư duy ngôn ngữ của Trung Quốc là 'Đi từ cái bao quát, tính chất trước rồi mới chốt lại bằng sự vật cốt lõi cuối cùng'. Do đó, 'của tôi' (我的) hoặc 'xinh đẹp' (漂亮的) phải nói trước, danh từ cốt lõi 'sách' (书), 'cô gái' (女孩) phải đặt ở cuối cùng của cụm từ.",
+    "examples": [
+      {
+        "cn": "我买的苹果。",
+        "py": "Wǒ mǎi de píngguǒ.",
+        "vn": "Quả táo mà tôi mua."
+      },
+      {
+        "cn": "这是一本非常有用的书。",
+        "py": "Zhè shì yī běn fēicháng yǒuyòng de shū.",
+        "vn": "Đây là một cuốn sách vô cùng hữu ích."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_003",
+    "category": "grammar_note",
+    "level": "Cơ bản",
+    "title_vn": "Xử lý Hư từ, Trợ từ ngữ khí và Đại từ hô gọi cuối câu (nhé, nha, ạ, đi, hẵng)",
+    "structure_cn": "Câu khẳng định/Mệnh lệnh + 吧/呢/吗/啊 (Hoặc lược bỏ hoàn toàn các từ dư thừa)",
+    "comparison_vi_zh": "Tiếng Việt sử dụng rất nhiều từ đệm cuối câu để biểu thái hoặc xưng hô lễ phép (ví dụ: 'Đi ăn thôi nhé', 'Vâng ạ', 'Cảm ơn con'). Tiếng Trung không dịch 1-1 các từ này, hoặc thay bằng trợ từ ngữ khí chung, hoặc cắt bỏ hoàn toàn.",
+    "goc_lao_su": "Tiếng Trung KHÔNG CÓ khái niệm đặt đại từ nhân xưng ở cuối câu để chào/dạ. 'Vâng ạ' chỉ dịch là '好的' (Hǎo de) hoặc '是' (Shì), tuyệt đối không dịch là '好的啊' hay ghép đại từ vào để cố bù chữ 'ạ'. Các hư từ mang tính đề nghị (nhé, đi, thôi) thì gộp chung dùng chữ '吧' (ba). Sự bất đồng này yêu cầu người học phải lược bỏ thói quen dịch word-by-word.",
+    "examples": [
+      {
+        "cn": "我们去吃饭吧。",
+        "py": "Wǒmen qù chīfàn ba.",
+        "vn": "Chúng ta đi ăn cơm thôi nhé."
+      },
+      {
+        "cn": "好的，谢谢您。",
+        "py": "Hǎo de, xièxie nín.",
+        "vn": "Vâng ạ, cảm ơn ngài."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_004",
+    "category": "grammar_note",
+    "level": "Trung cấp",
+    "title_vn": "Cấu trúc giới từ (Làm gì CHO ai / VỚI ai)",
+    "structure_cn": "Chủ ngữ + Giới từ (给/对/跟/替/为) + Tân ngữ (Người tiếp nhận) + Động từ hành động",
+    "comparison_vi_zh": "Tiếng Việt nói hành động trước, đối tượng sau (Ví dụ: Tôi mua quà CHO bạn / Tôi nói chuyện VỚI cô ấy). Tiếng Trung đảo ngược: Xác định đối tượng tiếp nhận trước bằng giới từ, sau đó mới thực hiện hành động.",
+    "goc_lao_su": "Quy tắc thép của Hán ngữ: Giới từ + Tân ngữ phải tạo thành một 'Trạng ngữ' đứng TRƯỚC động từ. Bạn phải 'hướng tới người đó' (给 / 跟 / 对) trước, rồi mới 'mua' (买) hoặc 'nói' (说). Không được nói '买给' giống hệt tiếng Việt trừ một số cấu trúc bổ ngữ đặc thù.",
+    "examples": [
+      {
+        "cn": "我给你买了一个礼物。",
+        "py": "Wǒ gěi nǐ mǎi le yī gè lǐwù.",
+        "vn": "Tôi mua cho bạn một món quà."
+      },
+      {
+        "cn": "他正在跟客户谈生意。",
+        "py": "Tā zhèngzài gēn kèhù tán shēngyì.",
+        "vn": "Anh ấy đang bàn chuyện làm ăn với khách hàng."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_005",
+    "category": "grammar_note",
+    "level": "Trung cấp",
+    "title_vn": "Câu chữ 把 (bǎ) - Xử lý tân ngữ bị tác động",
+    "structure_cn": "Chủ ngữ + 把 + Tân ngữ + Động từ + Thành phần khác (Bổ ngữ/了/giới từ...)",
+    "comparison_vi_zh": "Tiếng Việt dùng cấu trúc S-V-O thuần túy (Ví dụ: Tôi ăn hết quả táo rồi). Tiếng Trung khi muốn nhấn mạnh việc một đối tượng bị tác động, di dời hoặc thay đổi trạng thái, bắt buộc phải dùng câu chữ 把 để đưa Tân ngữ lên trước Động từ.",
+    "goc_lao_su": "Đây là ngữ pháp cốt lõi của giao tiếp thực chiến HSK 3-4. Khi bạn muốn ra lệnh hoặc miêu tả việc xử lý một đồ vật cụ thể (đóng cửa, uống thuốc, làm xong bài tập), hãy dùng 把. Động từ trong câu chữ 把 tuyệt đối không được đứng trơ trọi, phải có 'Thành phần khác' (như 完, 掉, 在, 到...) đi kèm để biểu thị kết quả của hành động.",
+    "examples": [
+      {
+        "cn": "请把门关上。",
+        "py": "Qǐng bǎ mén guān shàng.",
+        "vn": "Xin hãy đóng cửa lại. (Đem cái cửa đóng lại)"
+      },
+      {
+        "cn": "我已经把昨天的作业做完了。",
+        "py": "Wǒ yǐjīng bǎ zuótiān de zuòyè zuò wán le.",
+        "vn": "Tôi đã làm xong bài tập hôm qua rồi."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_006",
+    "category": "grammar_note",
+    "level": "Cơ bản",
+    "title_vn": "Vị trí của Đại từ nghi vấn (Ai, Cái gì, Ở đâu, Khi nào)",
+    "structure_cn": "Câu khẳng định có cấu trúc thế nào, đại từ nghi vấn đặt đúng vào vị trí của từ cần hỏi đó.",
+    "comparison_vi_zh": "Tiếng Việt có thể đảo từ để hỏi lên đầu hoặc cuối câu linh hoạt (Ví dụ: Ai mua sách? / Mua sách là ai? / Bao giờ bạn đi? / Bạn đi bao giờ?). Tiếng Trung tuân thủ nghiêm ngặt trật tự cố định, từ để hỏi thay thế đúng vị trí của đáp án.",
+    "goc_lao_su": "Nguyên tắc 'Thế chỗ': Nếu câu trả lời là 'Chủ ngữ + Động từ + Tân ngữ', thì khi hỏi Chủ ngữ, chữ 谁 (Ai) đặt ở đầu; khi hỏi Tân ngữ, chữ 什么 (Cái gì) đặt ở cuối. Không được tùy tiện đảo từ nghi vấn lên đầu câu nếu nó là tân ngữ.",
+    "examples": [
+      {
+        "cn": "谁想喝咖啡？",
+        "py": "Shéi xiǎng hē kāfēi?",
+        "vn": "Ai muốn uống cà phê? (谁 thay trí chủ ngữ)"
+      },
+      {
+        "cn": "你在做什么？",
+        "py": "Nǐ zài zuò shénme?",
+        "vn": "Bạn đang làm gì? (什么 thay vị trí tân ngữ)"
+      }
+    ]
+  },
+  {
+    "id": "vn_note_007",
+    "category": "grammar_note",
+    "level": "Trung cấp",
+    "title_vn": "Động từ ly hợp (离合词) - Cạm bẫy của người Việt",
+    "structure_cn": "Tách đôi Động từ và Danh từ: Động + (Thành phần xen giữa: 了/过/Thời lượng) + Danh",
+    "comparison_vi_zh": "Tiếng Việt coi 'kết hôn', 'tức giận', 'ngủ', 'bơi lội' là một động từ nguyên khối, có thể mang theo tân ngữ (Ví dụ: Kết hôn với anh ấy). Tiếng Trung coi đây là cụm Động-Tân (Kết-Hôn, Sinh-Khí). Tuyệt đối không được mang thêm tân ngữ phía sau động từ ly hợp.",
+    "goc_lao_su": "Sai lầm kinh điển: '结婚他' (Kết hôn anh ấy) -> SAI HOÀN TOÀN. Phải dùng giới từ đưa tân ngữ lên trước: '跟他结婚' (Cùng anh ấy kết hôn). Nếu có thời gian, phải nhét vào giữa: '结了三年婚' (Kết đã 3 năm hôn - Kết hôn 3 năm).",
+    "examples": [
+      {
+        "cn": "我生他的气了。",
+        "py": "Wǒ shēng tā de qì le.",
+        "vn": "Tôi tức giận anh ấy rồi. (Sinh cái khí của anh ấy)"
+      },
+      {
+        "cn": "他们结过两次婚。",
+        "py": "Tāmen jié guò liǎng cì hūn.",
+        "vn": "Họ đã từng kết hôn hai lần."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_008",
+    "category": "grammar_note",
+    "level": "Trung cấp",
+    "title_vn": "Cấu trúc nhấn mạnh 是……的 (shì... de)",
+    "structure_cn": "Chủ ngữ + 是 + (Thời gian/Địa điểm/Phương thức/Người thực hiện) + Động từ + 的",
+    "comparison_vi_zh": "Tiếng Việt thường dùng các từ như 'đã', 'chính là', 'bằng cách' để nhấn mạnh quá khứ. Tiếng Trung dùng khung 是……的 để nhấn mạnh các chi tiết xoay quanh một hành động đã xảy ra (không nhấn mạnh bản thân hành động).",
+    "goc_lao_su": "Khi bạn và người nghe đều biết hành động 'đến Bắc Kinh' ĐÃ XẢY RA, nhưng bạn muốn nhấn mạnh là 'đến HÔM QUA' chứ không phải hôm nay, hoặc 'đến BẰNG MÁY BAY' chứ không phải tàu hỏa, hãy kẹp thành phần đó vào giữa 是 và 的.",
+    "examples": [
+      {
+        "cn": "我是昨天到北京的。",
+        "py": "Wǒ shì zuótiān dào Běijīng de.",
+        "vn": "Tôi đến Bắc Kinh vào ngày hôm qua. (Nhấn mạnh thời gian)"
+      },
+      {
+        "cn": "这份报告是经理写的。",
+        "py": "Zhè fèn bàogào shì jīnglǐ xiě de.",
+        "vn": "Bản báo cáo này là do giám đốc viết. (Nhấn mạnh người thực hiện)"
+      }
+    ]
+  },
+  {
+    "id": "vn_note_009",
+    "category": "grammar_note",
+    "level": "Cơ bản",
+    "title_vn": "Cách đếm và Lượng từ (Quy tắc số 2)",
+    "structure_cn": "Số từ + Lượng từ + Danh từ. Đặc biệt số 2 dùng 两 (liǎng) chứ không dùng 二 (èr).",
+    "comparison_vi_zh": "Tiếng Việt đôi khi có thể bỏ lượng từ (Ví dụ: Ba người, Hai chó). Tiếng Trung BẮT BUỘC phải có lượng từ kẹp giữa số đếm và danh từ. Hơn nữa, khi đếm số lượng từ 2, phải dùng 两 (liǎng).",
+    "goc_lao_su": "二 (èr) chỉ dùng để đọc số đếm học, số thứ tự, số điện thoại (1, 2, 3 / tầng 2). Còn khi đo lường số lượng cụ thể (2 cái, 2 người, 2 năm), bắt buộc phải dùng 两 (liǎng). Đừng bao giờ nói '二人' mà phải nói '两个人'.",
+    "examples": [
+      {
+        "cn": "我有两个中国朋友。",
+        "py": "Wǒ yǒu liǎng gè zhōngguó péngyou.",
+        "vn": "Tôi có hai người bạn Trung Quốc."
+      },
+      {
+        "cn": "这辆车需要两万块钱。",
+        "py": "Zhè liàng chē xūyào liǎng wàn kuài qián.",
+        "vn": "Chiếc xe này cần hai vạn tệ."
+      }
+    ]
+  },
+  {
+    "id": "vn_note_010",
+    "category": "grammar_note",
+    "level": "Cao cấp",
+    "title_vn": "Phân biệt từ 'Và' (和 / 与 / 跟 / 并 / 并且)",
+    "structure_cn": "和/与/跟 dùng để nối Danh từ/Đại từ. 并/并且 dùng để nối Động từ/Câu.",
+    "comparison_vi_zh": "Tiếng Việt dùng duy nhất một chữ 'và' cho mọi trường hợp (Tôi và bạn, Ăn và ngủ). Tiếng Trung phân chia rạch ròi: Nối danh từ dùng nhóm 和, nối động từ/câu dùng nhóm 并且.",
+    "goc_lao_su": "Rất nhiều người Việt mắc lỗi sai chí mạng khi nói '我去超市买东西和你做饭' (Tôi đi siêu thị mua đồ VÀ bạn nấu cơm) -> Dùng 和 nối 2 mệnh đề là SAI NGỮ PHÁP. 和 chỉ dùng nối danh từ ngang hàng. Để nối 2 hành động, phải dùng 并且 (hoặc có thể dùng dấu phẩy rồi viết tiếp mệnh đề).",
+    "examples": [
+      {
+        "cn": "我喜欢吃苹果和西瓜。",
+        "py": "Wǒ xǐhuan chī píngguǒ hé xīguā.",
+        "vn": "Tôi thích ăn táo và dưa hấu. (Nối danh từ)"
+      },
+      {
+        "cn": "他不仅聪明，并且很努力。",
+        "py": "Tā bùjǐn cōngming, bìngqiě hěn nǔlì.",
+        "vn": "Anh ấy không chỉ thông minh, và (mà còn) rất nỗ lực. (Nối tính từ/mệnh đề)"
+      }
+    ]
+  }
+]
