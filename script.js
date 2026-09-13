@@ -1,657 +1,720 @@
-/* ==========================================================================
-   BIẾN TOÀN CỤC & TRẠNG THÁI HỆ THỐNG
-   ========================================================================== */
-let currentData = [];
+let allData = [];
 let currentList = [];
 let currentIndex = 0;
 let currentCategory = 'word';
-let currentLevel = 1;
+let currentLevel = 'HSK 1';
 let currentBatchSize = 50;
+let hanziiWriters = []; 
 
-// Trạng thái hệ thống
-let isAudioEnabled = true;
-let isVi2Zh = false; // Mặc định: Trung -> Việt
-let hanziWriters = [];
+let mistakeList = [];
+let isReviewingMistakes = false;
 
-// Trạng thái bài Test (Đọc/Nghe Đa câu hỏi)
-let currentTestItem = null;
-let testUserAnswers = {}; // Lưu đáp án người dùng { q_id: 'A' }
+let currentUser = localStorage.getItem('hsk_current_user') || 'Fix Chinese';
 
-// Trạng thái Đồng hồ chiến thuật
-let chronoTimer = null;
-let chronoSeconds = 0;
-let isChronoRunning = false;
-let totalTimer = null;
-let totalSeconds = 0; // Chạy ngầm từ lúc mở web
+let currentWorkoutSet = [];
+let workoutConfig = { level: 'HSK 1', format: 'dialogue', topic: 'daily', mode: 'V2C', count: 10 };
+let workoutNotesData = null;
+let workoutContextData = null;
 
-/* ==========================================================================
-   KHỞI TẠO & ĐIỀU HƯỚNG GIAO DIỆN (UI/UX ROUTING)
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-    initMenu();
-    initAudioToggle();
-    initChronometer();
-    initStudyControls();
-    startTotalTimer(); // Bắt đầu tính giờ tổng ngay khi vào web
-});
+let effectTimeout = null;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-// Chuyển đổi View Single-Page
-function switchView(viewId) {
-    document.querySelectorAll('.view-section').forEach(view => {
-        view.classList.remove('active-view');
-    });
-    document.getElementById(viewId).classList.add('active-view');
-    window.scrollTo(0, 0);
+function playSound(type) {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    
+    if (type === 'correct') {
+        osc.type = 'sine'; osc.frequency.setValueAtTime(880, now);
+        gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.start(now); osc.stop(now + 0.35);
+    } else {
+        osc.type = 'triangle'; osc.frequency.setValueAtTime(140, now);
+        gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.start(now); osc.stop(now + 0.25);
+    }
 }
 
-// Hệ thống Menu Điều hướng
-function initMenu() {
-    const btnToggle = document.getElementById('btn-toggle-menu');
-    const navCard = document.getElementById('floating-nav-card');
-    const overlay = document.getElementById('menu-overlay-backdrop');
-    const closeBtn = document.getElementById('close-menu-btn');
-    const logoBtn = document.getElementById('logo-home-btn');
+function stripAllPunctuation(str) {
+    if (!str) return '';
+    return str.toString().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"'，。！？、“”‘’（）]/g, '').replace(/\s+/g, '').trim();
+}
 
+function evaluateAnswerQuality(userInput, targetHanzi, targetPinyin) {
+    const rawInput = (userInput || '').trim();
+    const cleanInput = stripAllPunctuation(rawInput);
+    const cleanTarget = stripAllPunctuation(targetHanzi);
+    const cleanPinyin = stripAllPunctuation(targetPinyin);
+
+    const isBaseCorrect = (cleanInput === cleanTarget || (cleanPinyin && cleanInput === cleanPinyin));
+    if (!isBaseCorrect) return { isCorrect: false, warning: null };
+
+    let warningMsg = null;
+    if (/[?？]/.test(targetHanzi) && !/[?？]/.test(rawInput)) warningMsg = "Bạn nên thêm dấu chấm hỏi <strong>？</strong> ở cuối câu.";
+    if (/[,，]/.test(targetHanzi) && !/[,，]/.test(rawInput) && !warningMsg) warningMsg = "Bạn nên thêm dấu phẩy <strong>，</strong> để ngắt nhịp câu chuẩn xác hơn.";
+
+    return { isCorrect: true, warning: warningMsg };
+}
+
+function shuffleArray(array) {
+    let arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+let lifetimeStats = JSON.parse(localStorage.getItem(`hsk_stats_${currentUser}`)) || { total: 0, correct: 0, wrong: 0 };
+let sessionStats = { total: 0, correct: 0, wrong: 0 };
+
+function saveLifetimeStats() { localStorage.setItem(`hsk_stats_${currentUser}`, JSON.stringify(lifetimeStats)); }
+
+function updateSessionStatsUI() {
+    const totalElem = document.getElementById('stat-total'); if (totalElem) totalElem.innerText = sessionStats.total;
+    const corElem = document.getElementById('stat-correct'); if (corElem) corElem.innerText = sessionStats.correct;
+    const wrgElem = document.getElementById('stat-wrong'); if (wrgElem) wrgElem.innerText = sessionStats.wrong;
+    
+    const accElem = document.getElementById('stat-accuracy');
+    const acc = sessionStats.total === 0 ? 0 : Math.round((sessionStats.correct / sessionStats.total) * 100);
+    if (accElem) accElem.innerText = `${acc}%`;
+
+    const btnReview = document.getElementById('btn-inline-review');
+    if (btnReview) {
+        if (mistakeList.length > 0) {
+            btnReview.classList.remove('d-none');
+            document.getElementById('inline-mistake-count').innerText = mistakeList.length;
+        } else {
+            btnReview.classList.add('d-none');
+        }
+    }
+}
+
+function renderUserStatsView() {
+    document.getElementById('user-total-learned').innerText = lifetimeStats.total;
+    document.getElementById('user-total-correct').innerText = lifetimeStats.correct;
+    document.getElementById('user-total-wrong').innerText = lifetimeStats.wrong;
+    const acc = lifetimeStats.total === 0 ? 0 : Math.round((lifetimeStats.correct / lifetimeStats.total) * 100);
+    document.getElementById('user-total-acc').innerText = `${acc}%`;
+}
+
+// ----------------- KHỞI TẠO HỆ THỐNG DỮ LIỆU CHÍNH -----------------
+async function loadAllSystemData() {
+    try {
+        const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        let fetchedData = [];
+
+        for (let lvl of levels) {
+            try {
+                const res = await fetch(`data/hsk${lvl}.json`);
+                if (res.ok) {
+                    const jsonArr = await res.json();
+                    fetchedData = fetchedData.concat(jsonArr);
+                }
+            } catch (e) {
+                console.warn(`Không thể tải tệp data/hsk${lvl}.json`, e);
+            }
+        }
+
+        allData = fetchedData;
+
+        try {
+            const resNotes = await fetch('data/vietnamese_notes.json');
+            if (resNotes.ok) workoutNotesData = await resNotes.json();
+        } catch (e) { console.warn('Không tải vietnamese_notes.json', e); }
+
+        try {
+            const resWorkout = await fetch('data/context_workout.json');
+            if (resWorkout.ok) workoutContextData = await resWorkout.json();
+        } catch (e) { console.warn('Không tải context_workout.json', e); }
+
+        initSmartMenu(); 
+        initUserManagement(); 
+        initWorkoutModule(); 
+        initModalEvents();
+    } catch (err) {
+        console.error("Lỗi khởi tạo hệ thống dữ liệu:", err);
+    }
+}
+
+loadAllSystemData();
+
+// ----------------- ĐIỀU KHIỂN GIAO DIỆN VÀ MENU -----------------
+function initSmartMenu() {
+    const floatingMenu = document.getElementById('floating-nav-card');
+    const toggleBtn = document.getElementById('btn-toggle-menu');
+    const closeBtn = document.getElementById('btn-close-floating-menu');
+    const backdrop = document.getElementById('menu-overlay-backdrop');
+
+    // Hàm chung điều khiển Menu (chuẩn hóa loại bỏ class xung đột d-none)
     const openMenu = () => {
-        navCard.classList.add('active');
-        overlay.classList.add('active');
+        if (window.innerWidth <= 768) {
+            floatingMenu.classList.add('mobile-active');
+            if (backdrop) backdrop.classList.add('active');
+            document.body.classList.add('menu-open-mobile');
+        } else {
+            floatingMenu.classList.remove('d-none');
+        }
     };
 
     const closeMenu = () => {
-        navCard.classList.remove('active');
-        overlay.classList.remove('active');
+        if (window.innerWidth <= 768) {
+            floatingMenu.classList.remove('mobile-active');
+            if (backdrop) backdrop.classList.remove('active');
+            document.body.classList.remove('menu-open-mobile');
+        } else {
+            floatingMenu.classList.add('d-none');
+        }
     };
 
-    btnToggle.addEventListener('click', openMenu);
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-    logoBtn.addEventListener('click', () => switchView('view-home'));
-
-    // Menu Accordion Độc quyền (Mở thẻ này, đóng thẻ kia)
-    const navItems = document.querySelectorAll('.nav-item.has-submenu');
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            // Ngăn chặn click vào submenu làm đóng/mở
-            if(e.target.classList.contains('sub-item')) return;
-            
-            const isOpen = this.classList.contains('open');
-            navItems.forEach(nav => nav.classList.remove('open')); // Đóng tất cả
-            if (!isOpen) this.classList.add('open'); // Mở thẻ hiện tại
-        });
-    });
-
-    // Bắt sự kiện Click vào các mục Menu chính
-    document.querySelectorAll('[data-target]').forEach(item => {
-        item.addEventListener('click', function() {
-            const target = this.getAttribute('data-target');
-            if(target === 'view-workout') {
-                loadModule('workout', 'workout');
+    // Sự kiện nút Hamburger
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (window.innerWidth <= 768) {
+                if (floatingMenu.classList.contains('mobile-active')) closeMenu(); else openMenu();
             } else {
-                switchView(target);
+                floatingMenu.classList.toggle('d-none');
             }
-            setTimeout(closeMenu, 200); // Đóng trễ 200ms tối ưu UX
         });
-    });
-
-    // Bắt sự kiện Click vào các Menu con (HSK Level)
-    document.querySelectorAll('.sub-item').forEach(subItem => {
-        subItem.addEventListener('click', function() {
-            const level = this.getAttribute('data-level');
-            const type = this.getAttribute('data-type');
-            loadModule(level, type);
-            setTimeout(closeMenu, 200); // Đóng trễ 200ms
-        });
-    });
-}
-
-// Nút tắt/bật âm thanh
-function initAudioToggle() {
-    const audioBtn = document.getElementById('audio-toggle-btn');
-    audioBtn.addEventListener('click', () => {
-        isAudioEnabled = !isAudioEnabled;
-        if (isAudioEnabled) {
-            audioBtn.classList.remove('sound-off');
-            audioBtn.innerHTML = '<span class="icon-sound">🔊</span>';
-            playSound('correct'); // Test sound
-        } else {
-            audioBtn.classList.add('sound-off');
-            audioBtn.innerHTML = '<span class="icon-sound">🔇</span>';
-        }
-    });
-}
-
-/* ==========================================================================
-   TẢI DỮ LIỆU THÔNG MINH (LAZY FETCHING) & VÁ LỖI BATCH SIZE
-   ========================================================================== */
-async function loadModule(level, type) {
-    currentLevel = level;
-    currentCategory = type;
-    
-    // Đổi Tiêu đề
-    const titleElem = document.getElementById('study-title');
-    if(titleElem) {
-        if(type === 'word') titleElem.innerText = `Từ Vựng HSK ${level}`;
-        else if(type === 'grammar') titleElem.innerText = `Ngữ Pháp HSK ${level}`;
-        else if(type === 'reading') titleElem.innerText = `Đọc Hiểu HSK ${level}`;
-        else if(type === 'listening') titleElem.innerText = `Nghe Hiểu HSK ${level}`;
-        else if(type === 'workout') titleElem.innerText = `Workout Ngữ Cảnh`;
     }
 
-    // Lazy Fetching: Xác định file cần tải
-    let fileName = `data/hsk${level}.json`;
-    if(type === 'workout') fileName = `data/context_workout.json`;
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
 
-    try {
-        const response = await fetch(fileName);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const rawData = await response.json();
-        
-        // Lọc dữ liệu theo category
-        currentData = rawData.filter(item => item.category === type);
-        
-        // Bắt đầu xử lý nạp bài
-        if(type === 'reading' || type === 'listening') {
-            switchView('view-test');
-            loadTestMultiQuestions();
-        } else {
-            switchView('view-study');
+    // Desktop hover (mở rộng tự động)
+    const menuWrapper = document.getElementById('menu-wrapper');
+    let hoverTimeout = null;
+    if (menuWrapper && window.innerWidth > 768) {
+        menuWrapper.addEventListener('mouseenter', () => { clearTimeout(hoverTimeout); floatingMenu.classList.remove('d-none'); });
+        menuWrapper.addEventListener('mouseleave', () => { hoverTimeout = setTimeout(() => floatingMenu.classList.add('d-none'), 1500); });
+    }
+
+    // Sự kiện Accordion Menu Con trên thiết bị di động
+    document.querySelectorAll('.nav-card-item.has-sub').forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.stopPropagation();
+                item.classList.toggle('mobile-expanded');
+            }
+        });
+    });
+
+    // Định tuyến (Routing) bài học
+    document.querySelectorAll('.sub-flyout-panel a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); e.stopPropagation();
+            currentCategory = link.getAttribute('data-cat');
+            currentLevel = link.getAttribute('data-level');
+            isReviewingMistakes = false;
+            showView('view-study');
+            document.getElementById('view-title').innerText = `${currentCategory === 'word' ? 'Học từ vựng' : 'Học ngữ pháp & câu văn'} ${currentLevel}`;
             filterAndLoadData();
-        }
-
-    } catch (error) {
-        console.error('Lỗi tải dữ liệu:', error);
-        showToast(`Không tìm thấy dữ liệu cho tệp ${fileName}. Vui lòng tạo tệp này trong thư mục data/`);
-    }
-}
-
-// Hàm nạp bài (Vá lỗi lặp từ và cắt mảng)
-function filterAndLoadData() {
-    // Trộn ngẫu nhiên mảng
-    let shuffled = [...currentData].sort(() => Math.random() - 0.5);
-    
-    // THUẬT TOÁN BẮT BUỘC: Cắt mảng chuẩn xác, không dùng while
-    let limit = (currentBatchSize === 'ALL') ? shuffled.length : Math.min(currentBatchSize, shuffled.length);
-    currentList = shuffled.slice(0, limit);
-    
-    // Cảnh báo nếu dữ liệu ít hơn lựa chọn
-    if (currentList.length < currentBatchSize && currentBatchSize !== 'ALL') {
-        showToast(`Lưu ý: Chỉ tìm thấy ${currentList.length} câu trong CSDL cấp độ này.`);
-    }
-
-    if (currentList.length === 0) {
-        document.getElementById('main-prompt-text').innerText = "Chưa có dữ liệu cho phần này.";
-        return;
-    }
-
-    currentIndex = 0;
-    // Reset Live Stats
-    document.getElementById('stat-total').innerText = currentList.length;
-    document.getElementById('stat-correct').innerText = "0";
-    document.getElementById('stat-wrong').innerText = "0";
-    
-    renderStudyCard();
-}
-
-/* ==========================================================================
-   MODULE 1 & 2: TỪ VỰNG, NGỮ PHÁP & WORKOUT (CHẤM ĐIỂM 1 CHẠM)
-   ========================================================================== */
-function initStudyControls() {
-    // Toggle Ngôn ngữ (Trung->Việt / Việt->Trung)
-    const langToggle = document.getElementById('lang-toggle-btn');
-    if(langToggle) {
-        langToggle.addEventListener('change', (e) => {
-            isVi2Zh = e.target.checked;
-            renderStudyCard();
+            closeMenu();
         });
-    }
-
-    // Nút Trộn bài
-    const btnShuffle = document.getElementById('btn-shuffle');
-    if(btnShuffle) btnShuffle.addEventListener('click', filterAndLoadData);
-
-    // Ô nhập liệu - Lắng nghe phím Enter
-    const inputField = document.getElementById('user-answer-input');
-    if(inputField) {
-        inputField.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('btn-submit-answer').click();
-            }
-        });
-    }
-
-    // Nút Kiểm tra và Tiếp tục
-    document.getElementById('btn-submit-answer').addEventListener('click', submitAnswer);
-    document.getElementById('btn-next-question').addEventListener('click', () => {
-        currentIndex++;
-        if (currentIndex < currentList.length) {
-            renderStudyCard();
-        } else {
-            showToast("🎉 Bạn đã hoàn thành phiên học!");
-            filterAndLoadData(); // Quay vòng lại
-        }
     });
 
-    // Nút Xem nét vẽ chữ Hán
-    document.getElementById('btn-draw-hanzi').addEventListener('click', animateHanzi);
-}
-
-function renderStudyCard() {
-    const item = currentList[currentIndex];
-    if (!item) return;
-
-    // Reset UI
-    const inputField = document.getElementById('user-answer-input');
-    inputField.value = '';
-    inputField.disabled = false;
-    inputField.focus();
-
-    document.getElementById('compact-result-panel').classList.add('hidden');
-    document.getElementById('scroll-for-more-area').classList.add('hidden');
-    document.getElementById('btn-submit-answer').classList.remove('hidden');
-    document.getElementById('btn-next-question').classList.add('hidden');
-
-    // Hiển thị đề bài theo ngôn ngữ
-    const promptText = document.getElementById('main-prompt-text');
-    if (currentCategory === 'workout') {
-        promptText.innerText = item.prompt_vn || item.meaning_vn;
-        inputField.placeholder = "Nhập đáp án Tiếng Trung...";
-    } else {
-        if (isVi2Zh) {
-            promptText.innerText = (item.meaning_vn_array && item.meaning_vn_array.length > 0) ? item.meaning_vn_array[0] : (item.meaning_vn || "");
-            inputField.placeholder = "Nhập chữ Hán hoặc Pinyin...";
-        } else {
-            promptText.innerText = item.hanzi;
-            inputField.placeholder = "Nhập nghĩa Tiếng Việt...";
-        }
-    }
-}
-
-// Thuật toán làm sạch chuỗi
-function sanitizeString(str) {
-    if (!str) return "";
-    return str.toString().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"'，。！？、“”‘’（）\s]/g, '');
-}
-
-// Logic Chấm điểm Đa nghĩa
-function evaluateAnswerQuality(userInput, item) {
-    const cleanInput = sanitizeString(userInput);
-    
-    // Nếu là luyện Việt -> Trung hoặc Workout
-    if (isVi2Zh || currentCategory === 'workout') {
-        const targetHanzi = sanitizeString(item.hanzi || item.textbook_cn || "");
-        const targetPinyin = sanitizeString(item.pinyin || item.textbook_py || "");
-        const nativeHanzi = sanitizeString(item.native_cn || "");
-        
-        return (cleanInput === targetHanzi || cleanInput === targetPinyin || (nativeHanzi && cleanInput === nativeHanzi));
-    } 
-    // Nếu là luyện Trung -> Việt
-    else {
-        if (item.meaning_vn_array && Array.isArray(item.meaning_vn_array)) {
-            return item.meaning_vn_array.some(meaning => sanitizeString(meaning) === cleanInput);
-        } else {
-            const targetVn = sanitizeString(item.meaning_vn || "");
-            return cleanInput === targetVn;
-        }
-    }
-}
-
-function submitAnswer() {
-    const item = currentList[currentIndex];
-    const inputField = document.getElementById('user-answer-input');
-    const userInput = inputField.value.trim();
-    
-    if (userInput === '') return; // Yêu cầu nhập
-
-    inputField.disabled = true; // Khóa input
-
-    const isCorrect = evaluateAnswerQuality(userInput, item);
-    triggerDuckReaction(isCorrect);
-    playSound(isCorrect ? 'correct' : 'wrong');
-
-    // Cập nhật thống kê
-    if (isCorrect) {
-        const correctEl = document.getElementById('stat-correct');
-        correctEl.innerText = parseInt(correctEl.innerText) + 1;
-    } else {
-        const wrongEl = document.getElementById('stat-wrong');
-        wrongEl.innerText = parseInt(wrongEl.innerText) + 1;
-    }
-
-    // Hiển thị Panel Kết quả Compact
-    document.getElementById('user-typed-display').innerText = userInput;
-    
-    const badge = document.getElementById('result-status-badge');
-    if(isCorrect) {
-        badge.className = 'result-badge is-correct';
-        badge.innerHTML = '✅ CHÍNH XÁC';
-    } else {
-        badge.className = 'result-badge is-wrong';
-        badge.innerHTML = '❌ CHƯA CHÍNH XÁC';
-    }
-
-    if(currentCategory === 'workout') {
-        document.getElementById('hanzi-mega-display').innerText = item.textbook_cn || item.native_cn || item.hanzi;
-        document.getElementById('pinyin-mega-display').innerText = item.textbook_py || item.native_py || item.pinyin;
-    } else {
-        document.getElementById('hanzi-mega-display').innerText = item.hanzi;
-        document.getElementById('pinyin-mega-display').innerText = item.pinyin;
-    }
-
-    document.getElementById('compact-result-panel').classList.remove('hidden');
-    
-    // Khởi tạo bảng vẽ chữ nhưng ẩn đi
-    document.getElementById('hanzi-drawing-board').innerHTML = '';
-    document.getElementById('hanzi-drawing-board').classList.add('hidden');
-    
-    // Nạp dữ liệu vào không gian mở rộng (Scroll for more)
-    let hanvietHtml = `<strong>Hán Việt:</strong> ${item.han_viet || 'N/A'}<br><strong>Bộ thủ:</strong> ${item.radical || 'N/A'}`;
-    document.getElementById('hanviet-radical-display').innerHTML = hanvietHtml;
-    
-    let nativeHtml = currentCategory === 'workout' ? `<strong>Bản xứ hay nói:</strong> ${item.native_cn || 'N/A'}` : (item.native_usage || item.expansion || 'Không có ghi chú');
-    document.getElementById('native-usage-display').innerHTML = nativeHtml;
-    
-    document.getElementById('laosu-display').innerHTML = item.goc_lao_su || 'Hãy chú ý ngữ cảnh sử dụng.';
-
-    document.getElementById('scroll-for-more-area').classList.remove('hidden');
-
-    // Chuyển nút
-    document.getElementById('btn-submit-answer').classList.add('hidden');
-    const nextBtn = document.getElementById('btn-next-question');
-    nextBtn.classList.remove('hidden');
-    nextBtn.focus();
-
-    // CUỘN TRUNG TÂM (Tối ưu UI 1 chạm)
-    document.getElementById('compact-result-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-// Khởi tạo Web Audio Synthesizer đơn giản để không cần file mp3
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playSound(type) {
-    if (!isAudioEnabled) return;
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    
-    const now = audioCtx.currentTime;
-    if (type === 'correct') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, now);
-        osc.frequency.exponentialRampToValueAtTime(1200, now + 0.1);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-        osc.start(now); osc.stop(now + 0.3);
-    } else {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(150, now);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-        osc.start(now); osc.stop(now + 0.3);
-    }
-}
-
-// Điều khiển Mascot & Pháo Giấy
-function triggerDuckReaction(isCorrect) {
-    const duckSvg = document.getElementById('duck-svg');
-    const confetti = document.getElementById('confetti-container');
-    const splash = document.getElementById('water-splash-container');
-    
-    duckSvg.className = ''; 
-    void duckSvg.offsetWidth; // Force reflow
-    
-    if (isCorrect) {
-        duckSvg.className = 'duck-happy';
-        confetti.classList.remove('hidden');
-        splash.classList.add('hidden');
-    } else {
-        duckSvg.className = 'duck-sad';
-        splash.classList.remove('hidden');
-        confetti.classList.add('hidden');
-    }
-
-    // Trả về trạng thái Idle sau 1.5s
-    setTimeout(() => {
-        duckSvg.className = 'duck-idle';
-        confetti.classList.add('hidden');
-        splash.classList.add('hidden');
-    }, 1500);
-}
-
-// Vẽ Hanzi
-function animateHanzi() {
-    const item = currentList[currentIndex];
-    const targetHanzi = (currentCategory === 'workout') ? (item.textbook_cn || item.native_cn || item.hanzi) : item.hanzi;
-    if(!targetHanzi) return;
-
-    const board = document.getElementById('hanzi-drawing-board');
-    board.innerHTML = '';
-    board.classList.remove('hidden');
-    hanziWriters = [];
-
-    // Chỉ vẽ tối đa 5 ký tự đầu để tránh vỡ giao diện
-    const maxChars = Math.min(targetHanzi.length, 5);
-    for(let i=0; i<maxChars; i++) {
-        const char = targetHanzi.charAt(i);
-        // Bỏ qua dấu câu
-        if (/[，。！？、?.,!]/.test(char)) continue;
-
-        const charDiv = document.createElement('div');
-        charDiv.id = `hanzi-target-${i}`;
-        charDiv.className = 'hanzi-char-box';
-        board.appendChild(charDiv);
-
-        let writer = HanziWriter.create(`hanzi-target-${i}`, char, {
-            width: 70, height: 70, padding: 5, strokeColor: '#15803d', 
-            radicalColor: '#16a34a', delayBetweenStrokes: 50
+    const bindLink = (id, viewName) => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('click', () => { 
+            if(viewName === 'view-stats') renderUserStatsView();
+            if(viewName === 'view-daily') {
+                document.getElementById('daily-setup-panel').classList.remove('d-none');
+                document.getElementById('daily-quiz-panel').classList.add('d-none');
+            }
+            showView(viewName); 
+            closeMenu(); 
         });
-        hanziWriters.push(writer);
-    }
-
-    // Chạy animation liên tiếp
-    const animateSeq = async () => {
-        for (let writer of hanziWriters) {
-            await writer.animateCharacter();
-        }
     };
-    animateSeq();
+
+    bindLink('brand-logo-btn', 'view-home');
+    bindLink('card-home', 'view-home');
+    bindLink('card-workout', 'view-daily');
+    bindLink('card-stats', 'view-stats');
 }
 
-/* ==========================================================================
-   MODULE 3 & 4: ĐỌC HIỂU & NGHE HIỂU (MULTI-QUESTIONS)
-   ========================================================================== */
-function loadTestMultiQuestions() {
-    // Trộn mảng bài test và lấy bài đầu tiên
-    let shuffled = [...currentData].sort(() => Math.random() - 0.5);
-    currentTestItem = shuffled[0];
-    testUserAnswers = {}; // Xóa đáp án cũ
+function initUserManagement() {
+    const nameInput = document.getElementById('current-username');
+    const userDisplay = document.getElementById('top-user-display');
+    const statsDisplay = document.getElementById('stats-username-display');
 
-    if(!currentTestItem) {
-        document.getElementById('test-passage').innerText = "Chưa có dữ liệu bài thi.";
+    if (nameInput) {
+        nameInput.value = currentUser;
+        nameInput.addEventListener('change', (e) => {
+            const val = e.target.value.trim();
+            if (val) {
+                currentUser = val;
+                localStorage.setItem('hsk_current_user', currentUser);
+                if (userDisplay) userDisplay.innerText = currentUser;
+                if (statsDisplay) statsDisplay.innerText = currentUser;
+                lifetimeStats = JSON.parse(localStorage.getItem(`hsk_stats_${currentUser}`)) || { total: 0, correct: 0, wrong: 0 };
+                updateSessionStatsUI();
+            }
+        });
+    }
+    if (userDisplay) userDisplay.innerText = currentUser;
+    if (statsDisplay) statsDisplay.innerText = currentUser;
+
+    const resetBtn = document.getElementById('btn-reset-user-stats');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (confirm(`Bạn có chắc chắn muốn làm mới toàn bộ thống kê của tài khoản "${currentUser}" không?`)) {
+                lifetimeStats = { total: 0, correct: 0, wrong: 0 };
+                saveLifetimeStats();
+                renderUserStatsView();
+                alert("Đã đặt lại thống kê thành công!");
+            }
+        });
+    }
+}
+
+function showView(viewId) {
+    document.querySelectorAll('.app-view').forEach(v => v.classList.add('d-none'));
+    const target = document.getElementById(viewId);
+    if (target) target.classList.remove('d-none');
+}
+
+window.goToSection = function(type) {
+    if (type === 'vocab') { currentCategory = 'word'; currentLevel = 'HSK 1'; showView('view-study'); document.getElementById('view-title').innerText = 'Học từ vựng HSK 1'; filterAndLoadData(); } 
+    else if (type === 'grammar') { currentCategory = 'sentence'; currentLevel = 'HSK 1'; showView('view-study'); document.getElementById('view-title').innerText = 'Học ngữ pháp & câu văn HSK 1'; filterAndLoadData(); } 
+    else if (type === 'workout') { showView('view-daily'); document.getElementById('daily-setup-panel').classList.remove('d-none'); document.getElementById('daily-quiz-panel').classList.add('d-none'); }
+}
+
+function initWorkoutModule() {
+    const startBtn = document.getElementById('btn-start-daily');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            workoutConfig.level = document.getElementById('daily-level').value;
+            workoutConfig.format = document.getElementById('daily-format').value;
+            workoutConfig.topic = document.getElementById('daily-topic').value;
+            workoutConfig.mode = document.getElementById('daily-mode').value;
+            workoutConfig.count = parseInt(document.getElementById('daily-count').value);
+            generateWorkoutSet();
+        });
+    }
+    const reconfBtn = document.getElementById('btn-workout-reconfigure');
+    if (reconfBtn) {
+        reconfBtn.addEventListener('click', () => {
+            document.getElementById('daily-setup-panel').classList.remove('d-none');
+            document.getElementById('daily-quiz-panel').classList.add('d-none');
+        });
+    }
+}
+
+function generateWorkoutSet() {
+    let pool = allData.filter(i => i.category === 'sentence');
+    if (pool.length === 0) pool = allData;
+    let topicPool = pool.filter(i => i.topic === workoutConfig.topic);
+    if (topicPool.length > 0) pool = topicPool;
+
+    if (workoutConfig.level !== 'ALL') {
+        const targetRank = workoutConfig.level.includes('Cao cấp') ? 7 : parseInt(workoutConfig.level.match(/\d+/)[0]);
+        let rankPool = pool.filter(i => {
+            const r = i.level.includes('Cao cấp') ? 7 : parseInt(i.level.match(/\d+/)[0]);
+            return r <= targetRank;
+        });
+        if (rankPool.length > 0) pool = rankPool;
+    }
+
+    pool = shuffleArray(pool);
+    // Xử lý không lặp vô hạn
+    if (workoutConfig.count > pool.length) currentWorkoutSet = pool;
+    else currentWorkoutSet = pool.slice(0, workoutConfig.count);
+
+    const listContainer = document.getElementById('workout-items-list');
+    if (!listContainer) return;
+
+    let html = '';
+    currentWorkoutSet.forEach((item, idx) => {
+        const promptText = (workoutConfig.mode === 'V2C') ? item.meaning_vn : item.hanzi;
+        const placeholderText = (workoutConfig.mode === 'V2C') ? 'Nhập Hán tự hoặc câu tiếng Trung tương ứng...' : 'Nhập nghĩa tiếng Việt hoặc dịch nghĩa...';
+        
+        html += `
+            <div class="workout-item-card" data-index="${idx}" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:12px;">
+                <div class="wi-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span class="wi-num" style="font-size:11.5px; font-weight:800; color:#15803d; background:#dcfce7; padding:3px 8px; border-radius:6px;">Câu ${idx + 1} (${item.level})</span>
+                    <span class="wi-topic" style="font-size:12px; font-weight:700; color:#64748b;">Chủ đề: ${item.topic}</span>
+                </div>
+                <div class="wi-prompt" style="font-size:15px; font-weight:800; color:#0f172a; margin-bottom:10px; line-height:1.4;"><strong>Yêu cầu:</strong> ${promptText}</div>
+                <div class="wi-input-row">
+                    <input type="text" class="workout-user-input form-control" style="width:100%; padding:10px 12px; border:2px solid #cbd5e1; border-radius:8px; font-size:15px; color:#14532d; font-weight:600;" placeholder="${placeholderText}" autocomplete="off">
+                </div>
+                <div class="wi-feedback d-none" style="margin-top:10px; padding:12px; border-radius:8px; font-size:14px; line-height:1.4;"></div>
+            </div>
+        `;
+    });
+    listContainer.innerHTML = html;
+    document.getElementById('daily-setup-panel').classList.add('d-none');
+    document.getElementById('daily-quiz-panel').classList.remove('d-none');
+
+    const submitAllBtn = document.getElementById('btn-workout-submit-all');
+    if (submitAllBtn) submitAllBtn.onclick = () => document.getElementById('workout-decision-modal').classList.remove('d-none');
+}
+
+// ----------------- QUẢN LÝ FLASHCARD & BÀI HỌC -----------------
+window.filterAndLoadData = function() {
+    if (isReviewingMistakes) return;
+    sessionStats = { total: 0, correct: 0, wrong: 0 };
+    mistakeList = [];
+    updateSessionStatsUI();
+
+    let filtered = allData.filter(item => item.category === currentCategory && item.level === currentLevel);
+    filtered = shuffleArray(filtered);
+
+    // XỬ LÝ TRIỆT ĐỂ LỖI LẶP TỪ: Chỉ lấy mảng slice thực tế, không sinh vòng lặp while.
+    if (currentBatchSize !== 'ALL' && filtered.length > 0) {
+        currentList = filtered.slice(0, Math.min(currentBatchSize, filtered.length));
+    } else { 
+        currentList = filtered; 
+    }
+    
+    currentIndex = 0;
+    loadStudyCard();
+}
+
+function loadStudyCard() {
+    const container = document.getElementById('flashcard-container');
+    if (!container) return;
+
+    const counter = document.getElementById('study-progress-counter');
+    if (counter) counter.innerText = `Tiến độ: ${currentList.length === 0 ? 0 : (currentIndex + 1)} / ${currentList.length}`;
+    updateSessionStatsUI();
+
+    if(currentList.length === 0 || currentIndex >= currentList.length) {
+        container.innerHTML = `
+            <div class="end-session-box">
+                <div style="font-size: 45px; margin-bottom: 8px;">🎉</div>
+                <h3 style="color: #15803d; font-size: 20px; font-weight: 900; margin-bottom: 12px;">Bạn đã hoàn thành xuất sắc bài học này!</h3>
+                <p style="color: #64748b; margin-bottom: 20px; font-size: 14px;">Hãy chọn bước tiếp theo để duy trì nhịp độ học tập nhé.</p>
+                <div class="end-actions" style="display:flex; gap:10px; justify-content:center;">
+                    <button onclick="filterAndLoadData()" class="btn" style="width: auto; padding: 10px 18px; font-size:14px;">🔄 Học lại bộ mới</button>
+                    <button onclick="document.getElementById('session-config-modal').classList.remove('d-none')" class="btn-secondary" style="width: auto; padding: 10px 18px; font-size:14px;">⚙️ Đổi số lượng</button>
+                </div>
+            </div>
+        `;
+        const btnCheck = document.getElementById('btn-check');
+        const btnNext = document.getElementById('btn-next');
+        if (btnCheck) btnCheck.classList.add('d-none');
+        if (btnNext) btnNext.classList.add('d-none');
+        const fill = document.getElementById('progress-fill');
+        if (fill) fill.style.width = `100%`;
         return;
     }
 
-    // Hiển thị Đoạn văn hoặc Audio
-    if(currentCategory === 'listening' && currentTestItem.audio_file && currentTestItem.audio_file !== "null") {
-        document.getElementById('test-passage').classList.add('hidden');
-        const audioBox = document.getElementById('test-audio-player');
-        audioBox.classList.remove('hidden');
-        audioBox.querySelector('audio').src = currentTestItem.audio_file;
-    } else {
-        document.getElementById('test-audio-player').classList.add('hidden');
-        const passageBox = document.getElementById('test-passage');
-        passageBox.classList.remove('hidden');
-        passageBox.innerText = currentTestItem.passage_cn || currentTestItem.content_cn || "Lỗi hiển thị văn bản.";
-    }
+    const item = currentList[currentIndex];
+    let promptHtml = (currentCategory === 'word') ? `<p class="meaning-text">${item.meaning_vn}</p>` : `<p class="grammar-prompt">${item.meaning_vn}</p>`;
 
-    // Render danh sách câu hỏi
-    const qContainer = document.getElementById('test-questions-container');
-    qContainer.innerHTML = '';
-    
-    if (currentTestItem.questions && Array.isArray(currentTestItem.questions)) {
-        currentTestItem.questions.forEach((q, index) => {
-            let html = `
-                <div class="q-item" id="q-block-${q.q_id}">
-                    <div class="q-title">Câu ${index + 1}: ${q.question_cn}</div>
-                    <div class="options-grid">
-            `;
-            q.options.forEach(opt => {
-                const optLetter = opt.charAt(0); // Lấy A, B, C, D
-                html += `<button class="opt-btn" onclick="selectTestOption('${q.q_id}', '${optLetter}')" id="btn-${q.q_id}-${optLetter}">${opt}</button>`;
-            });
-            html += `
-                    </div>
-                    <div class="goc-lao-su-box hidden" id="goc-laosu-${q.q_id}" style="margin-top:15px;">
-                        <h4>👨‍🏫 Góc Lão Sư</h4>
-                        <p>${q.goc_lao_su || 'Không có giải thích.'}</p>
-                    </div>
-                </div>
-            `;
-            qContainer.innerHTML += html;
+    container.innerHTML = `
+        <div class="card-front">
+            <div class="card-top-info">
+                <span id="level-badge" class="level-badge">${item.level}</span>
+                <div class="question-header">${currentCategory === 'word' ? 'TỪ VỰNG - GÕ HÁN TỰ / PINYIN:' : 'NGỮ PHÁP - DỊCH HOẶC GÕ CÂU:'}</div>
+            </div>
+            ${promptHtml}
+            <div class="tools-wrapper">
+                <button id="btn-hint" class="btn-tool">💡 Bật mí Pinyin</button>
+                <button id="btn-audio" class="btn-tool">🔊 Nghe phát âm</button>
+                <span id="hint-display" class="hint-text d-none">(${item.pinyin})</span>
+            </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="${currentCategory === 'word' ? 'Nhập Hán tự hoặc Pinyin...' : 'Nhập Hán tự...'}" autocomplete="off">
+            </div>
+            <div id="answer-reveal-box" class="d-none"></div>
+            <div id="explanation-box" class="d-none"></div>
+        </div>
+    `;
+
+    const btnHint = document.getElementById('btn-hint');
+    if (btnHint) btnHint.onclick = () => { const hd = document.getElementById('hint-display'); if(hd) hd.classList.remove('d-none'); };
+
+    const btnAudio = document.getElementById('btn-audio');
+    if (btnAudio) btnAudio.onclick = () => { window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.hanzi)); };
+
+    const userInput = document.getElementById('user-input');
+    if (userInput) {
+        userInput.focus();
+        userInput.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') {
+                e.preventDefault();
+                const checkBtn = document.getElementById('btn-check');
+                const nextBtn = document.getElementById('btn-next');
+                if(checkBtn && !checkBtn.classList.contains('d-none')) checkBtn.click();
+                else if(nextBtn && !nextBtn.classList.contains('d-none')) nextBtn.click();
+            }
         });
     }
 
-    // Nút Nộp Bài
-    const btnSubmit = document.getElementById('btn-submit-test');
-    btnSubmit.disabled = true;
-    btnSubmit.innerText = "Nộp bài hoàn chỉnh";
-    btnSubmit.onclick = submitMultiQuestionsTest;
+    const checkBtn = document.getElementById('btn-check');
+    const nextBtn = document.getElementById('btn-next');
+    if (checkBtn) checkBtn.classList.remove('d-none');
+    if (nextBtn) nextBtn.classList.add('d-none');
+    
+    const fill = document.getElementById('progress-fill');
+    if (fill) fill.style.width = `${((currentIndex) / currentList.length) * 100}%`;
 }
 
-// Bắt sự kiện chọn đáp án (A, B, C, D)
-window.selectTestOption = function(q_id, option) {
-    testUserAnswers[q_id] = option;
-    
-    // Cập nhật UI (xóa active cũ, thêm active mới)
-    const block = document.getElementById(`q-block-${q_id}`);
-    block.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('selected'));
-    document.getElementById(`btn-${q_id}-${option}`).classList.add('selected');
+const checkBtnElem = document.getElementById('btn-check');
+if (checkBtnElem) {
+    checkBtnElem.addEventListener('click', () => {
+        const item = currentList[currentIndex];
+        const inputElem = document.getElementById('user-input');
+        if(!inputElem) return;
+        
+        const userVal = inputElem.value.trim();
+        inputElem.disabled = true; 
+        
+        sessionStats.total++; lifetimeStats.total++;
+        const result = evaluateAnswerQuality(userVal, item.hanzi, item.pinyin);
 
-    // Kiểm tra xem đã chọn đủ chưa để bật nút Nộp Bài
-    const totalQuestions = currentTestItem.questions.length;
-    const answeredCount = Object.keys(testUserAnswers).length;
-    
-    if(answeredCount === totalQuestions) {
-        document.getElementById('btn-submit-test').disabled = false;
+        triggerDuckReaction(result.isCorrect);
+
+        if(result.isCorrect) {
+            sessionStats.correct++; lifetimeStats.correct++; playSound('correct');
+        } else {
+            sessionStats.wrong++; lifetimeStats.wrong++; playSound('wrong');
+            if (!mistakeList.some(m => m.id === item.id)) mistakeList.push(item);
+        }
+
+        saveLifetimeStats(); updateSessionStatsUI();
+        
+        const revealBox = document.getElementById('answer-reveal-box');
+        const expBox = document.getElementById('explanation-box');
+        let warningHtml = result.warning ? `<div style="margin-top: 6px; padding: 8px 12px; background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; color: #854d0e; font-size: 13px; text-align: left;">💡 <strong>Góc Lão Sư:</strong> ${result.warning}</div>` : '';
+
+        // TỐI ƯU GIAO DIỆN COMPACT CHO MOBILE (HIỂN THỊ KẾT QUẢ ĐÚNG/SAI LÊN ĐẦU TRONG 1 BOX)
+        const statusClass = result.isCorrect ? 'correct' : 'incorrect';
+        const statusIcon = result.isCorrect ? '✅' : '❌';
+        const statusText = result.isCorrect ? 'Chính xác!' : 'Chưa chính xác';
+
+        if (currentCategory === 'word') {
+            let drawAreaHtml = '';
+            if(item.hanzi && item.hanzi.length <= 4) {
+                let charDivs = '';
+                for(let i=0; i<item.hanzi.length; i++) {
+                    charDivs += `<div id="char-target-${i}" class="hanzi-char-box"></div>`;
+                }
+                drawAreaHtml = `
+                    <div class="reveal-right">
+                        <div id="draw-cover" class="draw-cover-layer">
+                            <span style="font-size:20px; margin-bottom:2px;">✍️</span>
+                            <h4>Xem bút thuận</h4>
+                        </div>
+                        <div id="hanzi-drawing-board">${charDivs}</div>
+                    </div>
+                `;
+            }
+
+            if (revealBox) {
+                revealBox.innerHTML = `
+                    <div class="compact-result-header">
+                        <div class="status-badge ${statusClass}">${statusIcon} ${statusText}</div>
+                        <div class="user-input-record">Bạn đã nhập: <strong>${userVal || '[Bỏ trống]'}</strong></div>
+                    </div>
+                    <div class="dual-pane-reveal">
+                        <div class="reveal-left">
+                            <div class="hanzi-large">${item.hanzi}</div>
+                            <div class="pinyin-sub">${item.pinyin}</div>
+                            ${warningHtml}
+                        </div>
+                        ${drawAreaHtml}
+                    </div>
+                `;
+                revealBox.classList.remove('d-none');
+            }
+
+            let formattedExpansion = item.expansion ? item.expansion.replace(/\n/g, '<br>• ') : '';
+            if(formattedExpansion && !formattedExpansion.startsWith('•')) formattedExpansion = '• ' + formattedExpansion;
+
+            if (expBox) {
+                expBox.innerHTML = `
+                    <div class="academic-info">
+                        <span class="info-badge">Hán Việt: <strong>${item.han_viet || 'N/A'}</strong></span>
+                        <span class="info-badge">Bộ thủ: <strong>${item.radical || 'N/A'}</strong></span>
+                        <span class="info-badge">Từ loại: <strong>${item.word_type || 'N/A'}</strong></span>
+                    </div>
+                    <div class="expansion-box">
+                        <strong style="color: #b45309;">🌐 Đa tầng Nghĩa & Ngữ dụng:</strong>
+                        <div style="margin-top: 8px;">${formattedExpansion}</div>
+                    </div>
+                    <div class="explanation-grid">
+                        <div class="example-box">
+                            <strong style="color: #1d4ed8;">📖 Ví dụ thực tế:</strong>
+                            <div style="margin-top: 6px;">${(item.examples && item.examples.length) ? item.examples.map(ex => `<strong>${ex.cn}</strong> (${ex.py})<br><em>${ex.vn}</em>`).join('<br><br>') : 'Chưa có ví dụ.'}</div>
+                        </div>
+                        <div class="teacher-corner">
+                            <strong style="color: #047857;">👨‍🏫 Góc Lão Sư:</strong>
+                            <p style="margin-top: 6px;">${item.goc_lao_su || 'Chú ý trật tự từ.'}</p>
+                        </div>
+                    </div>
+                `;
+                expBox.classList.remove('d-none');
+            }
+
+            if(item.hanzi && item.hanzi.length <= 4) {
+                const cover = document.getElementById('draw-cover');
+                if (cover) {
+                    cover.addEventListener('click', () => {
+                        cover.style.display = 'none';
+                        hanziiWriters = [];
+                        for(let i=0; i<item.hanzi.length; i++) {
+                            let char = item.hanzi.charAt(i);
+                            let writer = HanziWriter.create(`char-target-${i}`, char, {
+                                width: 65, height: 65, padding: 4, strokeColor: '#15803d', delayBetweenStrokes: 100, showOutline: true
+                            });
+                            hanziiWriters.push(writer);
+                        }
+                        const animateSequence = async () => { for(let writer of hanziiWriters) { await writer.animateCharacter(); } };
+                        animateSequence();
+                    });
+                }
+            }
+        } else {
+            if (revealBox) {
+                revealBox.innerHTML = `
+                    <div class="grammar-reveal-box">
+                        <div class="compact-result-header" style="border-bottom:1px solid #93c5fd; margin-bottom:12px;">
+                            <div class="status-badge ${statusClass}">${statusIcon} ${statusText}</div>
+                            <div class="user-input-record">Bạn đã dịch: <strong>${userVal || '[Bỏ trống]'}</strong></div>
+                        </div>
+                        <div class="g-sentence-large">${item.hanzi}</div>
+                        <div class="g-pinyin">${item.pinyin}</div>
+                        ${warningHtml}
+                    </div>
+                `;
+                revealBox.classList.remove('d-none');
+            }
+
+            if (expBox) {
+                expBox.innerHTML = `
+                    <div class="grammar-analysis-box">
+                        <h4>🧠 Tư duy Ngôn ngữ & Mẹo Phản xạ:</h4>
+                        <p>${item.goc_lao_su}</p>
+                    </div>
+                `;
+                expBox.classList.remove('d-none');
+            }
+        }
+
+        const btnCheckRef = document.getElementById('btn-check');
+        const btnNextRef = document.getElementById('btn-next');
+        if (btnCheckRef) btnCheckRef.classList.add('d-none');
+        if (btnNextRef) {
+            btnNextRef.classList.remove('d-none');
+            btnNextRef.focus();
+        }
+        const fill = document.getElementById('progress-fill');
+        if (fill) fill.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
+
+        // Tự động cuộn nhẹ màn hình xuống để hộp kết quả nằm ngay trong tầm mắt trên di động
+        revealBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+}
+
+const nextBtnElem = document.getElementById('btn-next');
+if (nextBtnElem) {
+    nextBtnElem.addEventListener('click', () => { currentIndex++; loadStudyCard(); });
+}
+
+const inlineReviewBtn = document.getElementById('btn-inline-review');
+if (inlineReviewBtn) {
+    inlineReviewBtn.addEventListener('click', () => {
+        if (mistakeList.length === 0) { alert("Tuyệt vời! Bạn chưa có câu nào làm sai trong phiên này."); return; }
+        isReviewingMistakes = true; currentList = shuffleArray([...mistakeList]); currentIndex = 0; loadStudyCard();
+    });
+}
+
+const refreshBtn = document.getElementById('btn-refresh');
+if (refreshBtn) refreshBtn.addEventListener('click', () => { filterAndLoadData(); });
+
+function initModalEvents() {
+    const configBtn = document.getElementById('btn-config-session');
+    if (configBtn) configBtn.addEventListener('click', () => document.getElementById('session-config-modal').classList.remove('d-none'));
+
+    document.querySelectorAll('.batch-btn').forEach(b => {
+        b.addEventListener('click', (e) => {
+            currentBatchSize = e.target.getAttribute('data-batch') === 'ALL' ? 'ALL' : parseInt(e.target.getAttribute('data-batch'));
+            const modal = document.getElementById('session-config-modal');
+            if (modal) modal.classList.add('d-none'); 
+            filterAndLoadData();
+        });
+    });
+
+    const shuffleBtn = document.getElementById('btn-shuffle');
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', () => { 
+            if (currentList.length > 0) { 
+                currentList = shuffleArray(currentList); 
+                currentIndex = 0; 
+                loadStudyCard(); 
+            } 
+        });
+    }
+
+    const btnGrade = document.getElementById('btn-decide-grade');
+    if (btnGrade) {
+        btnGrade.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
+            const cards = document.querySelectorAll('.workout-item-card');
+            cards.forEach((card, idx) => {
+                const input = card.querySelector('.workout-user-input');
+                const feedback = card.querySelector('.wi-feedback');
+                const targetItem = currentWorkoutSet[idx];
+                if (input && feedback && targetItem) {
+                    const val = input.value.trim();
+                    const evalRes = evaluateAnswerQuality(val, targetItem.hanzi, targetItem.pinyin);
+                    feedback.classList.remove('d-none');
+                    if (evalRes.isCorrect) {
+                        feedback.style.background = '#dcfce7';
+                        feedback.style.color = '#14532d';
+                        feedback.style.border = '1px solid #86efac';
+                        feedback.innerHTML = `<span style="color: #16a34a; font-weight: bold;">✅ Chính xác!</span> Đáp án mẫu: <strong>${targetItem.hanzi}</strong> (${targetItem.pinyin}) - <em>${targetItem.meaning_vn}</em>`;
+                    } else {
+                        feedback.style.background = '#fee2e2';
+                        feedback.style.color = '#991b1b';
+                        feedback.style.border = '1px solid #fca5a5';
+                        feedback.innerHTML = `<span style="color: #dc2626; font-weight: bold;">❌ Chưa chính xác.</span> Đáp án chuẩn: <strong>${targetItem.hanzi}</strong> (${targetItem.pinyin})<br>💡 <em>${targetItem.goc_lao_su || ''}</em>`;
+                    }
+                }
+            });
+        });
+    }
+
+    const btnContinue = document.getElementById('btn-decide-continue');
+    if (btnContinue) {
+        btnContinue.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
+            generateWorkoutSet();
+        });
+    }
+
+    const btnReview = document.getElementById('btn-decide-review');
+    if (btnReview) {
+        btnReview.addEventListener('click', () => {
+            document.getElementById('workout-decision-modal').classList.add('d-none');
+        });
     }
 }
 
-function submitMultiQuestionsTest() {
-    let allCorrect = true;
-
-    currentTestItem.questions.forEach(q => {
-        const userOpt = testUserAnswers[q.q_id];
-        const correctOpt = q.correct_answer || q.correct;
-        
-        const block = document.getElementById(`q-block-${q.q_id}`);
-        const userBtn = document.getElementById(`btn-${q.q_id}-${userOpt}`);
-        const correctBtn = document.getElementById(`btn-${q.q_id}-${correctOpt}`);
-
-        // Chấm điểm & Hiển thị
-        if (userOpt === correctOpt) {
-            userBtn.style.background = '#dcfce7';
-            userBtn.style.borderColor = '#16a34a';
-            userBtn.style.color = '#15803d';
-        } else {
-            allCorrect = false;
-            userBtn.style.background = '#fee2e2';
-            userBtn.style.borderColor = '#dc2626';
-            userBtn.style.color = '#991b1b';
-            // Khoanh đáp án đúng
-            if (correctBtn) {
-                correctBtn.style.border = '2px dashed #16a34a';
-                correctBtn.style.background = '#dcfce7';
-            }
-        }
-
-        // Hiện Góc Lão Sư
-        document.getElementById(`goc-laosu-${q.q_id}`).classList.remove('hidden');
-        
-        // Khóa các nút chọn
-        block.querySelectorAll('.opt-btn').forEach(btn => btn.disabled = true);
-    });
-
-    triggerDuckReaction(allCorrect);
-    playSound(allCorrect ? 'correct' : 'wrong');
-
-    // Đổi nút nộp bài thành nút chuyển bài mới
-    const btnSubmit = document.getElementById('btn-submit-test');
-    btnSubmit.innerText = "Chuyển sang Đề thi tiếp theo ➔";
-    btnSubmit.onclick = loadTestMultiQuestions;
-}
-
-/* ==========================================================================
-   ĐỒNG HỒ CHIẾN THUẬT (CHRONOMETER)
-   ========================================================================== */
-function initChronometer() {
-    const chronoBox = document.getElementById('study-chronometer');
-    chronoBox.addEventListener('click', () => {
-        if (!isChronoRunning) {
-            // Bấm lần 1: Bắt đầu chạy
-            isChronoRunning = true;
-            chronoBox.classList.add('running');
-            chronoTimer = setInterval(() => {
-                chronoSeconds++;
-                document.getElementById('chrono-display').innerText = formatTime(chronoSeconds);
-            }, 1000);
-        } else {
-            // Bấm lần 2: Hỏi kết thúc
-            const confirmStop = confirm(`Bạn muốn kết thúc tính giờ?\nThời gian phiên học: ${formatTime(chronoSeconds)}\nTổng thời gian mở web: ${formatTime(totalSeconds)}`);
-            if (confirmStop) {
-                clearInterval(chronoTimer);
-                isChronoRunning = false;
-                chronoBox.classList.remove('running');
-                chronoSeconds = 0; // Reset
-                document.getElementById('chrono-display').innerText = "00:00:00";
-            }
-        }
-    });
-}
-
-function startTotalTimer() {
-    totalTimer = setInterval(() => {
-        totalSeconds++;
-    }, 1000);
-}
-
-function formatTime(totalSec) {
-    let hours = Math.floor(totalSec / 3600);
-    let minutes = Math.floor((totalSec - (hours * 3600)) / 60);
-    let seconds = totalSec - (hours * 3600) - (minutes * 60);
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
-
-/* ==========================================================================
-   TOAST NOTIFICATION (THÔNG BÁO GÓC MÀN HÌNH)
-   ========================================================================== */
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.innerText = message;
-    toast.style.position = 'fixed';
-    toast.style.bottom = '80px';
-    toast.style.left = '50%';
-    toast.style.transform = 'translateX(-50%)';
-    toast.style.background = '#1e293b';
-    toast.style.color = '#fff';
-    toast.style.padding = '12px 24px';
-    toast.style.borderRadius = '30px';
-    toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
-    toast.style.zIndex = '10000';
-    toast.style.fontSize = '14px';
-    toast.style.fontWeight = 'bold';
-    toast.style.opacity = '0';
-    toast.style.transition = 'opacity 0.3s ease';
-
-    document.body.appendChild(toast);
-    
-    // Fade in
-    setTimeout(() => { toast.style.opacity = '1'; }, 10);
-    
-    // Fade out & remove sau 3s
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
+function triggerDuckReaction(isCorrect) {
+    const duckContainer = document.getElementById('duck-container');
+    const hearts = document.getElementById('hearts-burst'), splash = document.getElementById('water-splash');
+    if (!duckContainer) return;
+    if (effectTimeout) clearTimeout(effectTimeout);
+    duckContainer.className = ''; void duckContainer.offsetWidth; 
+    if (isCorrect) { 
+        duckContainer.className = "duck-happy"; 
+        if (hearts) hearts.classList.remove('d-none'); 
+        if (splash) splash.classList.add('d-none'); 
+    } else { 
+        duckContainer.className = "duck-sad"; 
+        if (splash) splash.classList.remove('d-none'); 
+        if (hearts) hearts.classList.add('d-none'); 
+    }
+    effectTimeout = setTimeout(() => { 
+        if (hearts) hearts.classList.add('d-none'); 
+        if (splash) splash.classList.add('d-none'); 
+        duckContainer.className = "duck-idle"; 
+    }, 1500);
 }
