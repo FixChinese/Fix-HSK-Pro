@@ -12,10 +12,6 @@ let isTimerRunning = false;
 let stats = { correct: 0, wrong: 0 };
 let currentModuleType = '';
 
-/* =========================================================
-   SIÊU THUẬT TOÁN QUÉT DỮ LIỆU JSON (AUTO MAPPER)
-   Không phân biệt viết hoa/viết thường/dấu tiếng Việt
-========================================================= */
 const KEYS_VN = ['vietnamese', 'meaning', 'translation', 'vn', 'nghia', 'ynghia', 'tiengviet', 'nghiatiengviet'];
 const KEYS_HZ = ['hanzi', 'word', 'chinese', 'tu', 'tuvung', 'chuhan', 'hantu'];
 const KEYS_PY = ['pinyin', 'phienam', 'pa'];
@@ -26,14 +22,13 @@ const KEYS_EX = ['example', 'vidu', 'cauvidu'];
 const KEYS_LAOSU = ['goc_lao_su', 'note', 'explain', 'goclaosu', 'giaithich', 'ghichu'];
 
 function getSafeValue(obj, possibleKeys, fallback = "") {
-    if (!obj) return fallback === 'ERR_MAIN_FIELD' ? "Dữ liệu trống" : fallback;
+    if (!obj) return fallback;
     
-    // Nếu JSON của ngài Khánh bị xuất ra dạng Mảng [Từ, Pinyin, Nghĩa...]
     if (Array.isArray(obj)) {
-        if (possibleKeys === KEYS_HZ) return obj[0] !== undefined ? obj[0] : (fallback === 'ERR_MAIN_FIELD' ? "Lỗi: Mảng thiếu Cột 1" : fallback);
+        if (possibleKeys === KEYS_HZ) return obj[0] !== undefined ? obj[0] : fallback;
         if (possibleKeys === KEYS_PY) return obj[1] !== undefined ? obj[1] : fallback;
-        if (possibleKeys === KEYS_VN) return obj[2] !== undefined ? obj[2] : (fallback === 'ERR_MAIN_FIELD' ? "Lỗi: Mảng thiếu Cột 3" : fallback);
-        return fallback === 'ERR_MAIN_FIELD' ? "Dữ liệu trống" : fallback;
+        if (possibleKeys === KEYS_VN) return obj[2] !== undefined ? obj[2] : fallback;
+        return fallback;
     }
 
     if (typeof obj !== 'object') return possibleKeys === KEYS_HZ ? obj : fallback;
@@ -47,15 +42,9 @@ function getSafeValue(obj, possibleKeys, fallback = "") {
         }
     }
     
-    // DEBUG MODE: Hiển thị thẳng tên các Cột đang có trong file JSON ra màn hình để bắt bệnh!
-    if (fallback === 'ERR_MAIN_FIELD') {
-        return `[LỖI TÊN CỘT] File JSON đang dùng các cột: [ ${keysObj.join(" | ")} ] -> Hãy sửa lại hoặc chụp ảnh này!`;
-    }
-    
     return fallback;
 }
 
-/* RÚT MENU KHI CLICK */
 document.querySelectorAll('.nav-menu li').forEach(li => {
     li.addEventListener('click', () => {
         let parentMenu = li.closest('.nav-menu');
@@ -109,7 +98,6 @@ async function loadModule(moduleType, level) {
     document.getElementById('hsk-badge-display').innerText = badgeText;
 
     try {
-        // ÉP DUYỆT TRÌNH XÓA CACHE ĐỂ LẤY FILE JSON MỚI NHẤT
         let timestamp = new Date().getTime();
         let url = (moduleType === 'workout') 
             ? `data/context_workout.json?t=${timestamp}` 
@@ -129,7 +117,7 @@ async function loadModule(moduleType, level) {
         checkErrorLedgerStatus(); 
     } catch (error) {
         let errorMsgLevel = level === '7_9' ? '7_9' : level;
-        alert(`Không tải được dữ liệu. Bạn hãy F5 tải lại trang web hoặc kiểm tra xem file data/hsk${errorMsgLevel}.json đã lên Github chưa nhé.`);
+        alert(`Lỗi hệ thống không tìm thấy file data/hsk${errorMsgLevel}.json trên máy chủ. Đề nghị kiểm tra lại tệp tin.`);
         currentData = [];
     }
 }
@@ -138,7 +126,7 @@ function renderStatsDashboard() {
     let listContainer = document.getElementById('error-ledger-list');
     listContainer.innerHTML = '';
     if (errorLedger.length === 0) {
-        listContainer.innerHTML = '<p style="color:#10b981; font-weight:bold;">Tuyệt vời! Không có lỗ hổng nào cần ôn tập.</p>';
+        listContainer.innerHTML = '<p style="color:#10b981; font-weight:bold;">Hệ thống không ghi nhận lỗ hổng kiến thức hiện tại.</p>';
     } else {
         errorLedger.forEach(item => {
             let div = document.createElement('div');
@@ -169,7 +157,7 @@ function checkErrorLedgerStatus() {
 }
 
 function startTest() {
-    if (currentData.length === 0) { alert("Chưa có dữ liệu."); return; }
+    if (currentData.length === 0) { alert("Thiếu dữ liệu tệp tin JSON."); return; }
     isReviewMode = false;
     let limitInput = parseInt(document.getElementById('question-limit').value);
     let limit = isNaN(limitInput) || limitInput < 1 ? 20 : limitInput;
@@ -209,7 +197,7 @@ function updateStatsUI() {
 function loadQuestion() {
     if (currentIndex >= currentSessionData.length) {
         stopTimer();
-        alert(`Hoàn thành bài tập!\nĐúng: ${stats.correct}\nSai: ${stats.wrong}\nThời gian: ${document.getElementById('time-display').innerText}`);
+        alert(`Báo cáo kết quả:\nSố câu đúng: ${stats.correct}\nSố câu sai: ${stats.wrong}\nThời gian: ${document.getElementById('time-display').innerText}`);
         document.getElementById('testing-area').style.display = 'none';
         document.getElementById('config-panel').style.display = 'block';
         checkErrorLedgerStatus(); return;
@@ -224,12 +212,11 @@ function loadQuestion() {
     let hintGroup = document.getElementById('hint-buttons-group');
     let instructionText = document.getElementById('instruction-text');
     
-    // GỌI HÀM QUÉT DỮ LIỆU ĐỂ CHẮC CHẮN 100% HIỂN THỊ
-    let vnFallbackText = getSafeValue(currentQuestion, KEYS_VN, 'ERR_MAIN_FIELD');
-    let hzFallbackText = getSafeValue(currentQuestion, KEYS_HZ, 'ERR_MAIN_FIELD');
+    let vnFallbackText = getSafeValue(currentQuestion, KEYS_VN, 'Dữ liệu Tiếng Việt Trống');
+    let hzFallbackText = getSafeValue(currentQuestion, KEYS_HZ, 'Dữ liệu Tiếng Trung Trống');
 
     if (currentModuleType === 'workout') {
-        displayElem.innerText = getSafeValue(currentQuestion, ['situation', 'tinhhuong', 'ngucanh', 'vietnamese', 'ynghia'], 'ERR_MAIN_FIELD');
+        displayElem.innerText = getSafeValue(currentQuestion, ['situation', 'tinhhuong', 'ngucanh', 'vietnamese', 'ynghia'], vnFallbackText);
         hintGroup.style.display = 'none'; 
         instructionText.innerText = "(Gõ tiếng Trung)";
     } else {
@@ -258,13 +245,13 @@ function loadQuestion() {
 
 function showPinyinHint() {
     let hintBox = document.getElementById('pinyin-hint-display');
-    let py = getSafeValue(currentQuestion, KEYS_PY, 'Không có dữ liệu Pinyin');
+    let py = getSafeValue(currentQuestion, KEYS_PY, 'Dữ liệu trống');
     hintBox.innerText = `Pinyin: ${py}`;
     hintBox.style.display = 'block';
 }
 function playAudioHint() {
     let hz = getSafeValue(currentQuestion, KEYS_HZ, '');
-    if(hz && hz !== "Đang cập nhật") {
+    if(hz && hz !== "Dữ liệu Tiếng Trung Trống") {
         let msg = new SpeechSynthesisUtterance(hz);
         msg.lang = 'zh-CN'; window.speechSynthesis.speak(msg);
     }
@@ -312,7 +299,7 @@ function showResult(isCorrect, rawInput) {
     resultArea.style.display = 'block';
     
     let echo = document.getElementById('user-input-echo');
-    echo.innerText = rawInput || "(Không nhập đáp án)";
+    echo.innerText = rawInput || "(Kết quả rỗng)";
     echo.className = isCorrect ? 'correct-text' : 'wrong-text';
 
     let statusBanner = document.getElementById('status-banner');
@@ -335,44 +322,44 @@ function showResult(isCorrect, rawInput) {
         woStatus.className = isCorrect ? 'status-banner correct' : 'status-banner wrong';
         woStatus.innerHTML = isCorrect ? '<i class="fa-solid fa-check"></i> ĐÚNG' : '<i class="fa-solid fa-xmark"></i> SAI';
 
-        document.getElementById('wo-user').innerText = rawInput || "(Để trống)";
-        document.getElementById('wo-sgk').innerText = getSafeValue(currentQuestion, ['text_sgk', 'hanzi', 'tuvung', 'chinese'], 'Đang cập nhật');
-        document.getElementById('wo-native').innerText = getSafeValue(currentQuestion, ['text_native', 'khaungu', 'native'], 'Đang cập nhật');
-        document.getElementById('wo-explain').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, 'Giao tiếp bản xứ.');
+        document.getElementById('wo-user').innerText = rawInput || "(Trống)";
+        document.getElementById('wo-sgk').innerText = getSafeValue(currentQuestion, ['text_sgk', 'hanzi', 'tuvung', 'chinese'], 'Dữ liệu trống');
+        document.getElementById('wo-native').innerText = getSafeValue(currentQuestion, ['text_native', 'khaungu', 'native'], 'Dữ liệu trống');
+        document.getElementById('wo-explain').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, 'Không có giải thích.');
     } else {
         document.getElementById('standard-result-layout').style.display = 'block';
         document.getElementById('workout-result-layout').style.display = 'none';
         
-        let hanziChar = getSafeValue(currentQuestion, KEYS_HZ, "Đang tải");
+        let hanziChar = getSafeValue(currentQuestion, KEYS_HZ, "Dữ liệu trống");
         document.getElementById('correct-hanzi').innerText = hanziChar;
-        document.getElementById('correct-pinyin').innerText = getSafeValue(currentQuestion, KEYS_PY, "Đang tải");
+        document.getElementById('correct-pinyin').innerText = getSafeValue(currentQuestion, KEYS_PY, "Dữ liệu trống");
         
         let mode = document.getElementById('study-mode').value;
         let vietHighlight = document.getElementById('correct-vietnamese-highlight');
         if (mode === 'zh-vi') {
             vietHighlight.style.display = 'inline-block';
-            vietHighlight.innerText = getSafeValue(currentQuestion, KEYS_VN, "Đang tải...");
+            vietHighlight.innerText = getSafeValue(currentQuestion, KEYS_VN, "Dữ liệu trống");
         } else {
             vietHighlight.style.display = 'none';
         }
         
-        document.getElementById('hanviet-text').innerText = getSafeValue(currentQuestion, KEYS_HV, "Đang cập nhật");
-        document.getElementById('radical-text').innerText = getSafeValue(currentQuestion, KEYS_RADICAL, "Đang cập nhật");
-        document.getElementById('pos-text').innerText = getSafeValue(currentQuestion, KEYS_POS, "Đang cập nhật");
+        document.getElementById('hanviet-text').innerText = getSafeValue(currentQuestion, KEYS_HV, "Dữ liệu trống");
+        document.getElementById('radical-text').innerText = getSafeValue(currentQuestion, KEYS_RADICAL, "Dữ liệu trống");
+        document.getElementById('pos-text').innerText = getSafeValue(currentQuestion, KEYS_POS, "Dữ liệu trống");
         
-        document.getElementById('usage-text').innerHTML = getSafeValue(currentQuestion, KEYS_VN, "Đang cập nhật");
-        document.getElementById('example-text').innerHTML = getSafeValue(currentQuestion, KEYS_EX, "Đang cập nhật");
-        document.getElementById('laosu-text').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, "Đang cập nhật");
+        document.getElementById('usage-text').innerHTML = getSafeValue(currentQuestion, KEYS_VN, "Dữ liệu trống");
+        document.getElementById('example-text').innerHTML = getSafeValue(currentQuestion, KEYS_EX, "Dữ liệu trống");
+        document.getElementById('laosu-text').innerHTML = getSafeValue(currentQuestion, KEYS_LAOSU, "Dữ liệu trống");
 
         document.getElementById('hanzi-writer-container').innerHTML = '';
         document.getElementById('writer-btn').onclick = function() {
             let container = document.getElementById('hanzi-writer-container');
             container.innerHTML = '';
             if(typeof HanziWriter === 'undefined') {
-                container.innerHTML = "<p style='color:red;'>Lỗi mạng: Không tải được thư viện vẽ chữ.</p>";
+                container.innerHTML = "<p style='color:red;'>Lỗi thư viện.</p>";
                 return;
             }
-            if(hanziChar && hanziChar.length > 0 && hanziChar !== "Đang tải") {
+            if(hanziChar && hanziChar.length > 0 && hanziChar !== "Dữ liệu trống") {
                 for(let i=0; i<hanziChar.length; i++) {
                     let char = hanziChar.charAt(i);
                     if(/[\u4e00-\u9fa5]/.test(char)) {
@@ -422,7 +409,7 @@ function startTimer() {
 }
 function stopTimer() { clearInterval(timerInterval); isTimerRunning = false; }
 document.getElementById('timer-btn').addEventListener('click', () => {
-    if (confirm('Reset thời gian?')) { stopTimer(); secondsElapsed = 0; document.getElementById('time-display').innerHTML = formatTime(0); if (document.getElementById('testing-area').style.display === 'block') startTimer(); }
+    if (confirm('Làm mới hệ thống đếm giờ?')) { stopTimer(); secondsElapsed = 0; document.getElementById('time-display').innerHTML = formatTime(0); if (document.getElementById('testing-area').style.display === 'block') startTimer(); }
 });
 document.getElementById('sfx-btn').addEventListener('click', function() {
     sfxEnabled = !sfxEnabled; let icon = this.querySelector('i');

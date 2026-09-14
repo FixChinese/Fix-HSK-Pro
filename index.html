@@ -6,15 +6,12 @@
     <title>FIX HSK 3.0 PRO - Thực Chiến Chuyên Sâu</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Nhúng thư viện Bút thuận Hanzi Writer -->
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
 </head>
 <body class="noselect">
     <div id="app-container">
         
-        <!-- HEADER -->
         <header class="top-bar">
-            <!-- Menu Điều hướng -->
             <nav class="main-nav" id="main-navigation">
                 <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
                 <ul class="nav-menu">
@@ -23,7 +20,7 @@
                             <li onclick="loadModule('vocab', 1)">HSK 1</li><li onclick="loadModule('vocab', 2)">HSK 2</li>
                             <li onclick="loadModule('vocab', 3)">HSK 3</li><li onclick="loadModule('vocab', 4)">HSK 4</li>
                             <li onclick="loadModule('vocab', 5)">HSK 5</li><li onclick="loadModule('vocab', 6)">HSK 6</li>
-                            <li onclick="loadModule('vocab', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('vocab', '7_9')">HSK 7</li><li onclick="loadModule('vocab', '7_9')">HSK 8</li><li onclick="loadModule('vocab', '7_9')">HSK 9</li>
                         </ul>
                     </li>
                     <li class="nav-item">Ngữ pháp & Câu văn <i class="fa-solid fa-chevron-right arrow"></i>
@@ -31,7 +28,7 @@
                             <li onclick="loadModule('grammar', 1)">HSK 1</li><li onclick="loadModule('grammar', 2)">HSK 2</li>
                             <li onclick="loadModule('grammar', 3)">HSK 3</li><li onclick="loadModule('grammar', 4)">HSK 4</li>
                             <li onclick="loadModule('grammar', 5)">HSK 5</li><li onclick="loadModule('grammar', 6)">HSK 6</li>
-                            <li onclick="loadModule('grammar', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('grammar', '7_9')">HSK 7</li><li onclick="loadModule('grammar', '7_9')">HSK 8</li><li onclick="loadModule('grammar', '7_9')">HSK 9</li>
                         </ul>
                     </li>
                     <li class="nav-item">Đọc hiểu <i class="fa-solid fa-chevron-right arrow"></i>
@@ -39,7 +36,7 @@
                             <li onclick="loadModule('reading', 1)">HSK 1</li><li onclick="loadModule('reading', 2)">HSK 2</li>
                             <li onclick="loadModule('reading', 3)">HSK 3</li><li onclick="loadModule('reading', 4)">HSK 4</li>
                             <li onclick="loadModule('reading', 5)">HSK 5</li><li onclick="loadModule('reading', 6)">HSK 6</li>
-                            <li onclick="loadModule('reading', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('reading', '7_9')">HSK 7</li><li onclick="loadModule('reading', '7_9')">HSK 8</li><li onclick="loadModule('reading', '7_9')">HSK 9</li>
                         </ul>
                     </li>
                     <li class="nav-item">Nghe hiểu <i class="fa-solid fa-chevron-right arrow"></i>
@@ -47,7 +44,7 @@
                             <li onclick="loadModule('listening', 1)">HSK 1</li><li onclick="loadModule('listening', 2)">HSK 2</li>
                             <li onclick="loadModule('listening', 3)">HSK 3</li><li onclick="loadModule('listening', 4)">HSK 4</li>
                             <li onclick="loadModule('listening', 5)">HSK 5</li><li onclick="loadModule('listening', 6)">HSK 6</li>
-                            <li onclick="loadModule('listening', '7_9')">HSK 7-9</li>
+                            <li onclick="loadModule('listening', '7_9')">HSK 7</li><li onclick="loadModule('listening', '7_9')">HSK 8</li><li onclick="loadModule('listening', '7_9')">HSK 9</li>
                         </ul>
                     </li>
                     <li class="nav-item" onclick="loadModule('workout', null)">Workout Ngữ cảnh</li>
@@ -64,7 +61,6 @@
             </div>
         </header>
 
-        <!-- MÀN HÌNH CHÍNH -->
         <main id="home-view" class="view-section active">
             <div class="grid-menu">
                 <div class="card hover-fireflies" onclick="loadModule('vocab', 1)"><div class="card-icon"><i class="fa-solid fa-book-open"></i></div><h3>Từ vựng</h3></div>
@@ -76,7 +72,6 @@
             </div>
         </main>
 
-        <!-- MÀN HÌNH THỐNG KÊ CÁ NHÂN -->
         <section id="stats-view" class="view-section" style="display: none;">
             <div class="stats-dashboard">
                 <h2 class="dashboard-title"><i class="fa-solid fa-chart-radar"></i> Biểu đồ Năng lực & Hồ sơ Lỗ hổng</h2>
@@ -94,10 +89,7 @@
             </div>
         </section>
 
-        <!-- MÀN HÌNH LÀM BÀI -->
         <section id="workspace-view" class="view-section">
-            
-            <!-- Cấu hình bài tập -->
             <div class="config-panel" id="config-panel">
                 <h2 id="module-title" class="config-title">Cấu hình bài tập</h2>
                 <div class="config-controls">
@@ -128,7 +120,6 @@
                     <span class="stat-badge bg-blue">Tỷ lệ: <strong id="stat-ratio">0%</strong></span>
                 </div>
 
-                <!-- Thẻ Bài Tập -->
                 <div class="question-card">
                     <div class="card-top">
                         <span class="hsk-badge" id="hsk-badge-display">HSK</span>
@@ -145,13 +136,10 @@
 
                     <input type="text" id="answer-input" class="tian-zi-ge" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
 
-                    <!-- Nút Kiểm tra Đáp án Cố định -->
                     <button id="check-btn" class="big-green-btn" onclick="triggerEnter()">Kiểm tra đáp án</button>
 
-                    <!-- KHU VỰC KẾT QUẢ CHUẨN MỰC -->
                     <div id="result-area" style="display: none; margin-top: 20px;">
                         
-                        <!-- Layout Standard -->
                         <div id="standard-result-layout">
                             <div class="result-main-box">
                                 <div class="status-banner" id="status-banner"></div>
@@ -193,7 +181,6 @@
                             </div>
                         </div>
 
-                        <!-- Layout Workout Ngữ cảnh -->
                         <div id="workout-result-layout" style="display: none;" class="matrix-3-tier">
                             <div class="status-banner" id="wo-status-banner"></div>
                             <div class="tier user-tier">
@@ -214,7 +201,6 @@
                             </div>
                         </div>
 
-                        <!-- Nút Ôn tập sai hiển thị ở cuối -->
                         <button id="review-btn-bottom" class="btn-review-bottom" onclick="startReview()" style="display:none; margin-top: 15px;"><i class="fa-solid fa-arrows-rotate"></i> Ôn tập lại các câu sai (<span id="review-count-bottom">0</span>)</button>
 
                     </div>
@@ -223,10 +209,8 @@
         </section>
     </div>
 
-    <!-- Nút Loa/Pháo góc trái -->
     <div class="sfx-toggle" id="sfx-btn"><i class="fa-solid fa-party-horn"></i></div>
 
-    <!-- CHÚ VỊT -->
     <div id="effects-container"></div>
     <div class="mascot-duck" id="mascot">
         <div class="duck-head">
